@@ -1,0 +1,51 @@
+{
+  "name": "mywebapp",
+  "version": "1.0.0",
+  "description": "my web app by react",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --inline --content-base . --history-api-fallback ",
+    "build": "webpack --config webpack-production.config.js --progress --colors"
+  },
+  "author": "TralafalgarV",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "babel": "^6.5.2",
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "body-parser": "^1.15.2",
+    "connect-mongo": "^1.3.2",
+    "cookie-parser": "^1.4.3",
+    "css-loader": "^0.25.0",
+    "express-session": "^1.14.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "guid": "0.0.12",
+    "html-webpack-plugin": "^2.22.0",
+    "md5": "^2.2.1",
+    "mongoose": "^4.6.3",
+    "open-browser-webpack-plugin": "0.0.2",
+    "react": "^15.3.2",
+    "react-cropper": "^0.9.4",
+    "react-dom": "^15.3.2",
+    "react-redux": "^5.0.2",
+    "react-router": "^2.8.1",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.8.1",
+    "redux-thunk": "^2.2.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-merge": "^4.1.0"
+  },
+  "dependencies": {
+    "babel-plugin-transform-object-assign": "^6.8.0",
+    "eslint": "^4.5.0",
+    "formidable": "^1.0.17",
+    "nodemon": "^1.11.0"
+  }
+}

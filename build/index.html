@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Web App</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <canvas id="canvas"></canvas>
+<script type="text/javascript" src="bundle.js"></script></body>
+<script>
+    //先获取canvas的上下文环境并设置一些共用的属性
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+
+    canvas.width = document.documentElement.clientWidth;
+    canvas.height = document.documentElement.clientHeight;
+
+    context.fillStyle = "rgba(0, 0, 0, 0.08)";
+    context.strokeStyle = "rgba(0, 0, 0, 0.25)";
+    context.lineWidth = 0.5;
+
+    // 存放所有圆的数组，这里用balls
+    var balls = [];
+
+    //接下来绘制圆，那么绘制圆需要圆的圆心坐标，半径，水平方向的速度，垂直方向的速度，并且这些信息要满足一定的条件，通过一个函数来创建：
+    function createBall() {
+        // x坐标
+        var _x = Math.random() * canvas.width;
+        // y坐标
+        var _y = Math.random() * canvas.height;
+        // 半径 [0.01, 15.01]
+        var _r = Math.random() * 15 + 0.01;
+        // 水平速度 [±0.0, ±0.5]
+        var _vx = Math.random() * 0.5 * Math.pow(-1, Math.floor(Math.random() * 2 + 1));
+        // 垂直速度 [±0.0, ±0.5]
+        var _vy = Math.random() * 0.5 * Math.pow(-1, Math.floor(Math.random() * 2 + 1));
+        // 把每一个圆的信息存放到数组中
+        balls.push({
+            x: _x,
+            y: _y,
+            r: _r,
+            vx: _vx,
+            vy: _vy
+        });
+    }
+    
+    // 圆的数量
+    var num = 20;
+    for (var i = 0; i < num; i++) {
+        createBall();
+    }
+
+    function render() {
+        //逐帧绘制之前先清画布
+        context.clearRect(0,0,canvas.width, canvas.height);
+        //绘制每一帧的圆和线，创建一个render函数，然后在函数内先绘制所有的圆出来：
+        for (var k = 0; k < num; k++) {
+            context.save();
+            context.beginPath();
+            context.arc(balls[k].x, balls[k].y, balls[k].r, 0, Math.PI * 2);
+            context.fill();
+            context.restore();
+        }
+
+        //遍历每两个圆的圆心之间的距离是否小于某个临界值（比如500），满足则将这两个圆的圆心连接起来：
+        for (var i = 0; i < num; i++) {
+            for (var j = i + 1; j < num; j++) {
+                if (distance(balls[i], balls[j]) < 500) {
+                    context.beginPath();
+                    context.moveTo(balls[i].x, balls[i].y);
+                    context.lineTo(balls[j].x, balls[j].y);
+                    context.stroke();
+                }
+            }
+        }
+
+        //distance 函数就是计算两点之间的距离：
+        function distance(point1, point2) {
+            return Math.sqrt(Math.pow((point1.x - point2.x), 2) + Math.pow((point1.y - point2.y), 2));
+        }
+        //判断圆是否超出了边界值，若满足条件则从对边再次进来：
+        for (var k = 0; k < num; k++) {
+            balls[k].x += balls[k].vx;
+            balls[k].y += balls[k].vy;
+
+            if (balls[k].x - balls[k].r > canvas.width) {
+                balls[k].x = 0 - balls[k].r;
+            }
+            if (balls[k].x + balls[k].r < 0) {
+                balls[k].x = canvas.width + balls[k].r;
+            }
+            if (balls[k].y - balls[k].r > canvas.height) {
+                balls[k].y = 0 - balls[k].r;
+            }
+            if (balls[k].y + balls[k].r < 0) {
+                balls[k].y = canvas.height + balls[k].r;
+            }
+
+            //只要圆超出就移除并重新生成一个圆即可：
+            if (balls[k].x - balls[k].r > canvas.width ||
+                balls[k].x + balls[k].r < 0 ||
+                balls[k].y - balls[k].r > canvas.height ||
+                balls[k].y + balls[k].r < 0) {
+                balls.splice(k, 1);
+                createBall();
+            }
+        }
+    }
+
+    (function loop() {
+        render();
+        requestAnimationFrame(loop);
+    })();
+</script>
+
+</html>
