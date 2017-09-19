@@ -1,7 +1,6 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {Link} from 'react-router'
-import RouteConfig from '../Config/route-config'
 
 // 延迟800毫秒，用于加载数据
  const create = () => {

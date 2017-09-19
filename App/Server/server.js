@@ -14,21 +14,11 @@ app.use(express.static(__dirname))
 
 var mongoose = require('mongoose')
 
+var article = require('./routes/article')
+
 //dev-API
 global.API = 'http://localhost:4545'
 
-let data = [
-    {
-        title: "暴走大事件",
-        author: "王尼玛",
-        content: "啦啦啦啦啦啦啦",
-    },
-    {
-        title: "阅后即瞎",                
-        author: "阿炳二人组",
-        content: "缘 妙不可言",
-    }
-]
 /**
  * 中间件（middleware）就是处理http请求的函数，
  * 它的最大特点就是，一个中间件处理完成，再传递给下一个中间件
@@ -61,11 +51,7 @@ app.all('*', function(req, res, next) {
 
 app.use(bodyParser.json())
 
-app.get('/article/fetchList',function (req,res,next) {
-    console.log(req.originalUrl)
-    res.send(JSON.stringify(data))
-    next()
-})
+app.use('/article', article)
 
 app.listen('4545',function () {
     console.log('listen 4545 port')
