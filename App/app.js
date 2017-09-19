@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {render} from 'react-dom'
 import {
     Router,
@@ -8,7 +8,7 @@ import {
     IndexRoute,
     Redirect,
     browserHistory
-} from 'react-router';
+} from 'react-router'
 import {IndexList, Create, Music, Game} from './Config/route-config'
 
 console.log(IndexList,Create)
@@ -34,4 +34,4 @@ const rootRoute = {
 }
 
 let root = document.getElementById('app')
-render(<Router routes={rootRoute} history={hashHistory}/>, root)
+render(<Router routes={rootRoute} history={hashHistory} />, root)

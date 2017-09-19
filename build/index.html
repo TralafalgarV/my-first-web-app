@@ -6,12 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My Web App</title>
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.css">
+    <style>
+        * {
+            /* height: 100%; */
+            margin: 0px;
+            border: 0px;
+            box-sizing: border-box;
+        }
+        body {
+            /*font-family: 'Cutive', serif;*/
+            font-family: "SF Pro SC","SF Pro Display","SF Pro Icons","PingFang SC","Helvetica Neue","Helvetica","Arial";
+            font-size: 17px;
+            line-height: 1.52947;
+            font-weight: 400;
+            /*background: url(../images/siteBackground.jpg) center/cover;*/
+            margin: 0;
+            padding: 0;
+            color: #333;
+            /*text-shadow: 0 0px, 1px 1px #ffffff;*/            
+        }        
+        #canvas {
+            position: absolute;
+            top: 0px;
+            z-index: 0px;
+        }
+    </style>
 </head>
 
 <body>
     <div id="app"></div>
-    <canvas id="canvas"></canvas>
-<script type="text/javascript" src="bundle.js"></script></body>
+    <canvas id="canvas" style="position:absolute"></canvas>
+</body>
 <script>
     //先获取canvas的上下文环境并设置一些共用的属性
     var canvas = document.getElementById("canvas");

@@ -3,6 +3,7 @@
 import React from 'react'
 import {render} from 'react-dom'
 import '../../static/css/indexlist.css'
+import {ArticleModel} from '../../Model/dataModel'
 
 let Styles = {
     indexList:{
@@ -50,19 +51,13 @@ class IndexList extends React.Component {
 
     // 获取数据
     fetchData() {
-        let data = [
-            {
-                title: "暴走大事件",
-                author: "王尼玛",
-                content: "啦啦啦啦啦啦啦",
-            },
-            {
-                title: "阅后即瞎",                
-                author: "阿炳二人组",
-                content: "缘 妙不可言",
-            }
-        ]
-        this.setState({list : data})
+
+        ArticleModel.fetchList("", (data) => {
+            console.log("Server数据：", data)
+            this.setState({list : data})      
+        }, (err) => {
+            console.log(err)
+        })        
     }
     //限制字数
     wordControl(word){
@@ -77,7 +72,7 @@ class IndexList extends React.Component {
         let list = this.state.list
 
         return list.map(function(item, index) {
-            let date = new Date()
+            let date = new Date()              
             return (
                 <li className="" style={Styles.indexList} key={index}>
                     <div className="list">

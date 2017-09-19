@@ -1,4 +1,5 @@
 # 记录
+2017.9.17--
 页面的粒子线条效果
 * 利用 canvas 进行绘制
 * 圆圈的 x、y坐标，水平和垂直方向速度，需要随机生成
@@ -7,5 +8,10 @@
 * 利用requestAnimationFrame和clearRect，进行逐帧绘制
 
 React-Router
-* this.props.children 与 Link 需要配合使用
+* 使用 Link 路由Component之后，需要在render函数中加载 this.props.children 
+
+2017.9.19--node server
+* 使用node.js完成基本服务器中间件的搭建，client到server的链路已调通
+* 【待】session登录检测中间件待完成
+* 【待】数据暂时通过，server读写文件进行存储，后面引入MongoDB
  
