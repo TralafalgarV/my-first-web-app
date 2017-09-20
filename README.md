@@ -14,4 +14,7 @@ React-Router
 * 使用node.js完成基本服务器中间件的搭建，client到server的链路已调通
 * 【待】session登录检测中间件待完成
 * 【待】数据暂时通过，server读写文件进行存储，后面引入MongoDB
+
+2017.9.20--Create页面
+* input的value值，如果设置成与state挂钩，那么直接在页面元素中是无法输入的；因为指定了value是受控组件，需要配合onChange事件，来重新渲染组件
  

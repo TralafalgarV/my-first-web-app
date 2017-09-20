@@ -11,20 +11,22 @@ const API = 'http://localhost:4545/'
  */
 
 function _request(_method, _api, _params, _onSuccess, _onError) {
-    console.log(_api)
-    console.log(typeof _onSuccess)
+    console.log("_request: " + _api)
+    if (_method == 'POST') {
+        console.log("_params: ", _params)
+    }
     let _options = {
         method: _method,
         mode: "cors",
         header: {
             'Content-Type': 'application/json'
         },
-        body: (_method.toLowerCase() === 'get')
+        body: (_method.toLowerCase() == 'get')
             ? null
             : JSON.stringify(_params)
     }
 
-    if (_method.toLowerCase() === 'get') {
+    if (_method.toLowerCase() == 'get') {
         _api += Tools._getSearchFromObject(_params)
     }
 
@@ -83,7 +85,10 @@ let Tools = {
 let ArticleModel = {
     fetchList:(_params, _success, _error)=>{
         _request('GET', `${API}article/fetchList`, _params, _success, _error)
-    },    
+    },
+    publish:(_params, _success, _error)=>{
+        _request('POST', `${API}article/publish`, _params, _success, _error)
+    }        
 }
 
 export {ArticleModel}

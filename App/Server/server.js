@@ -41,6 +41,7 @@ global.API = 'http://localhost:4545'
  * 后面的中间件将得不到被执行的机会
  */
 app.all('*', function(req, res, next) {
+    console.log(req.originalUrl)
     res.header("Access-Control-Allow-Origin", "*")
     //
     res.header("Access-Control-Allow-Headers", "content-type")
@@ -52,6 +53,7 @@ app.all('*', function(req, res, next) {
 app.use(bodyParser.json())
 
 app.use('/article', article)
+
 
 app.listen('4545',function () {
     console.log('listen 4545 port')
