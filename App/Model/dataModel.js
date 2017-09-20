@@ -18,7 +18,7 @@ function _request(_method, _api, _params, _onSuccess, _onError) {
     let _options = {
         method: _method,
         mode: "cors",
-        header: {
+        headers: {                                // headers 后面有s啊！！！
             'Content-Type': 'application/json'
         },
         body: (_method.toLowerCase() == 'get')
