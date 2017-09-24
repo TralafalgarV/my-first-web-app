@@ -83,7 +83,7 @@ class IndexList extends React.Component {
                             </div>
                             <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
                                 <div style={{display:'inline-block', fontSize:'18px', fontWeight:600, marginRight:'0.3rem'}}>{item.author}</div>
-                                <div style={{display:'inline-block', fontSize:'14px'}}><span className="icon icon-clock"></span>{date.toDateString()}</div>
+                                <div style={{display:'inline-block', fontSize:'14px'}}><span className="icon icon-clock"></span>{item.createTime}</div>
                             </div>
                         </div>
                         <div className=""><p style={Styles.pStyle}>{_this.wordControl(item.content)}</p></div>

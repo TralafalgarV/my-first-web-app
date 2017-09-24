@@ -11,7 +11,8 @@ var MongoStore = require('connect-mongo')(session);
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 app.use(express.static(__dirname))
-
+//导入文件
+require('./db')
 var mongoose = require('mongoose')
 
 var article = require('./routes/article')
@@ -42,7 +43,6 @@ global.API = 'http://localhost:4545'
  */
 app.all('*', function(req, res, next) {
     console.log(req.originalUrl)
-    console.log(req.body)
     res.header("Access-Control-Allow-Origin", "*")
     //
     res.header("Access-Control-Allow-Headers", "content-type")

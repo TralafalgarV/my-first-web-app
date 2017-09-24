@@ -34,6 +34,9 @@ class Create extends React.Component {
     handlePublish(e) {
         let title = this.state.title
         let content = this.state.content
+        let info = []
+        let now = new Date()
+        let createTime = now.toDateString()
 
         if('' == title) {
             alert("标题不能为空")
@@ -43,14 +46,19 @@ class Create extends React.Component {
             alert("内容不能为空")
             return
         }
-        let info = {
+        
+        info.push({
             title: title,
             content: content,
             signedIn: this.state.signedIn,
-        }
+            author: 'wangwei',
+            createTime: createTime,
+            article_id: createTime
+        }) 
+
         // 将数据更新到数据库
         ArticleModel.publish(info, () => {
-            // location.hash = '/indexlist'
+            location.hash = '/indexlist'
         }, (err) => {
             alert(err)
         })

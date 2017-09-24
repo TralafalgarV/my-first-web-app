@@ -11,9 +11,9 @@ const API = 'http://localhost:4545/'
  */
 
 function _request(_method, _api, _params, _onSuccess, _onError) {
-    console.log("_request: " + _api)
+    console.log("[Model] _request: " + _api)
     if (_method == 'POST') {
-        console.log("_params: ", _params)
+        console.log("[Model]  _params: ", _params)
     }
     let _options = {
         method: _method,
@@ -36,7 +36,7 @@ function _request(_method, _api, _params, _onSuccess, _onError) {
     .then((data) => {
         _onSuccess(data)
     }).catch((err) => {
-        console.log(err)
+        console.log("[Model] _onSuccess missed: " ,err)
         if (err.state === 401) {
             alert("登陆过期，清重新登录")
             location.hash = "login"
