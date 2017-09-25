@@ -9,7 +9,7 @@ import {
     Redirect,
     browserHistory
 } from 'react-router'
-import {IndexList, Create, Music, Game} from './Config/route-config'
+import {IndexList, Create, Music, Game, ArticleDetail} from './Config/route-config'
 
 const rootRoute = {
     component: require('./Components/main').default,
@@ -27,6 +27,7 @@ const rootRoute = {
             Create,
             Music,
             Game,
+            ArticleDetail
         ]
     }]
 }
