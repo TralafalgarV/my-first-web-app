@@ -53,7 +53,7 @@ class IndexList extends React.Component {
     fetchData() {
 
         ArticleModel.fetchList("", (data) => {
-            console.log("Server数据：", data)
+            console.log("[Index] fetch from Server：", data)
             this.setState({list : data})      
         }, (err) => {
             console.log(err)

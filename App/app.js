@@ -11,8 +11,6 @@ import {
 } from 'react-router'
 import {IndexList, Create, Music, Game} from './Config/route-config'
 
-console.log(IndexList,Create)
-
 const rootRoute = {
     component: require('./Components/main').default,
     childRoutes: [{

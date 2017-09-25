@@ -19,6 +19,8 @@ router.get('/fetchList', function (req, res) {
                 title: item.title,
                 content: item.content,
                 createTime: item.createTime,
+                author: item.author,
+                article_id: item.createTime                
             })
         })
         res.send(articleList) // 数据类型为 object
@@ -35,7 +37,7 @@ router.get('/fetchList', function (req, res) {
 router.post('/publish', function (req, res) {
     let data = req.body
 
-    console.log(data)
+    console.log('[article] publish',data)
 
     if (data.article_id) {
         Model('Article').update({_id: data.article_id}, {$set: {title: data.title, content: data.content}}, function(err, result) {
