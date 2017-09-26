@@ -10,6 +10,8 @@ import {Link} from 'react-router'
     }, 800)
  }
 
+// Link组件用于取代<a>元素，生成一个链接，允许用户点击后跳转到另一个路由
+// activeClassName 属性是 Link 被点击时，显示的样式
 let nav = () => {
     console.log("main.js: nav loading")
     return (
@@ -30,6 +32,15 @@ let nav = () => {
     )
 }
 
+//  上面代码中，App组件的this.props.children属性就是子组件
+/**
+App
+ +--- IndexList 优先加载页面
+ +--- IndexList
+ +--- Create
+ +--- Game
+ +--- ArticleDetail
+ */
 class App extends React.Component {
     render() {
         console.log("main.js: App render " + location.hash)

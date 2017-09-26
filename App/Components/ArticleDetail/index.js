@@ -1,6 +1,11 @@
 //文章详细列表
-
-import React from 'react'
+/*
+ * 1. prop 传入 article_id
+ * 2. fetchArticle 得到文章详细信息
+ * 3. 之所以不放在 index 组件里面。是因为预防 index 过大，让 articleDetail 可以按需加载
+ * 4. 在 index 页面绑定点击事件，点击文章后，改变 location 跳转到对应页面
+ */
+import React, { Component } from 'react'
 import {ArticleModel} from '../../Model/dataModel'
 
 let Style = {
@@ -10,12 +15,12 @@ let Style = {
     zIndex: "2002"
 }
 
-class ArticleDetail extends React.Component{
+class ArticleDetail extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-
+            
         }
     }
 
@@ -28,4 +33,5 @@ class ArticleDetail extends React.Component{
     }
 }
 
+// 做按需加载必须使用这个方式到处,不能使用 export
 module.exports = ArticleDetail

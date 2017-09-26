@@ -2,6 +2,16 @@
 
 import React from 'react'
 import {render} from 'react-dom'
+import {
+    Router,
+    Route,
+    hashHistory,
+    Link,
+    IndexRoute,
+    Redirect,
+    browserHistory
+} from 'react-router'
+import ArticleDetail from '../ArticleDetail'
 import '../../static/css/indexlist.css'
 import {ArticleModel} from '../../Model/dataModel'
 
@@ -51,7 +61,6 @@ class IndexList extends React.Component {
 
     // 获取数据
     fetchData() {
-
         ArticleModel.fetchList("", (data) => {
             console.log("[Index] fetch from Server：", data)
             this.setState({list : data})      
@@ -66,6 +75,11 @@ class IndexList extends React.Component {
         }
         return word
     }
+    // 点击文章，并传入article_id
+    articleClick(item) {
+        location.hash = "/indexList/2"
+        // browserHistory.push("#/indexList/2")
+    }
     // 列表
     indexList() {
         let _this = this        
@@ -75,11 +89,12 @@ class IndexList extends React.Component {
             let date = new Date()              
             return (
                 <li className="" style={Styles.indexList} key={index}>
-                    <div className="list">
+                    <div className="list" onClick={() => {
+                        _this.articleClick(item)}}>
                         <div className=""><h4 style={Styles.h4Style}>{item.title}</h4></div>
                         <div className="">
                             <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
-                                <img src="" style={{marginRight:'0.3rem', height:'1.2rem', display:'inline-block'}}  alt=""/>
+                                <img src="" style={{marginRight:'0.3rem', height:'1.2rem', display:'inline-block'}}  alt="???"/>
                             </div>
                             <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
                                 <div style={{display:'inline-block', fontSize:'18px', fontWeight:600, marginRight:'0.3rem'}}>{item.author}</div>
