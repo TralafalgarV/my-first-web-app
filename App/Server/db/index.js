@@ -6,7 +6,7 @@ mongoose.connect(config.url)
 
 console.log("[db] start to connect db...")
 
-//文章model
+//文章model 这里规定的内容，就是数据库实际存储内容，其他地方无法随意添加
 mongoose.model('Article', new mongoose.Schema({
     // id: {type: String, isRequired: true},
     title: {type: String, isRequired: true},

@@ -75,9 +75,10 @@ class IndexList extends React.Component {
         }
         return word
     }
-    // 点击文章，并传入article_id
+    // 点击文章，并传入createTime
     articleClick(item) {
-        location.hash = "/indexList/2"
+        console.log(item)
+        location.hash = `/indexList/${item.createTime}`
         // browserHistory.push("#/indexList/2")
     }
     // 列表

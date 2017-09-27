@@ -36,7 +36,6 @@ class Create extends React.Component {
         let content = this.state.content
         let info = []
         let now = new Date()
-        let createTime = now.toDateString()
 
         if('' == title) {
             alert("标题不能为空")
@@ -52,8 +51,7 @@ class Create extends React.Component {
             content: content,
             signedIn: this.state.signedIn,
             author: 'wangwei',
-            createTime: createTime,
-            article_id: createTime
+            createTime: now.toUTCString(),
         }) 
 
         // 将数据更新到数据库

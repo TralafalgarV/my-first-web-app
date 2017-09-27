@@ -88,7 +88,10 @@ let ArticleModel = {
     },
     publish:(_params, _success, _error)=>{
         _request('POST', `${API}article/publish`, _params, _success, _error)
-    }        
+    },
+    fetchArticle: (_id, _success, _error) => {
+        _request('GET', `${API}article/fetchArticle/${_id}`, null, _success, _error)
+    },          
 }
 
 export {ArticleModel}
