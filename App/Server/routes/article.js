@@ -12,7 +12,8 @@ router.get('/fetchArticle/:id', function(req, res) {
     }
 
     Model('Article').find({"createTime": req.params.id}).exec(function(err, collection) {
-        var articleList = []
+        console.log("fetchArticle: ", collection)
+        res.send(JSON.stringify(collection[0]))
     })
 })
 

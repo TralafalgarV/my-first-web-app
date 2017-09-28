@@ -1,6 +1,7 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {Link} from 'react-router'
+import '../static/CSS/articleDetail.css'
 
 // 延迟800毫秒，用于加载数据
  const create = () => {
@@ -26,7 +27,7 @@ let nav = () => {
                 <span className="tab-label">Music</span>
             </Link>
             <Link className="tab-item" activeClassName="active" to="game">
-                <span className="tab-label">Game</span>
+                              
             </Link>                        
         </nav>
     )

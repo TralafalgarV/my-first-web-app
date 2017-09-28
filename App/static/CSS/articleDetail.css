@@ -1,0 +1,77 @@
+/*顶级菜单视觉样式*/
+.multi-drop-menu {
+}
+.multi-drop-menu:hover {
+    color: #fff;
+    background-color: #ccc;
+}
+.multi-drop-menu:active {
+    background-color: #fff;
+    color: #ccc;
+}
+
+/*顶级菜单添加功能样式*/
+.multi-drop-menu * {
+    margin: 0;
+    padding: 0;
+}
+/*强制ul包围li*/
+.multi-drop-menu ul {
+    /*水平排列菜单样式*/
+    float: left;
+}
+.multi-drop-menu li {
+    /*水平排列菜单样式*/
+    float: left;    
+    /*去掉默认项目符号*/
+    list-style-type: none;
+    /*为子菜单提供定位上下文*/
+    position: relative;
+}
+.multi-drop-menu a {
+    /*让链表填充列表项*/
+    display: block;
+    /*给每个链接添加一个右边框*/
+    border-right-style: solid;
+    /*背景只出现在内边距区域后面*/
+    background-clip: padding-box;
+    /*去掉链接的下划线*/
+    text-decoration: none;
+}
+.multi-drop-menu li:last-child a {
+    border-right-style: none
+}
+.multi-drop-menu ul {
+    display: block;
+    width: 9em;
+    position: absolute;
+    left: 0;
+    top: 100%;
+}
+
+.multi-drop-menu li a {
+    border-right-style: none;
+    border-top-style: solid;
+}
+
+.multi-drop-menu li {
+    float: none;
+}
+
+.multi-drop-menu li ul {
+    display: block;
+}
+
+.multi-drop-menu:hover > ul {
+    display: block;
+}
+
+.multi-drop-menu li:hover > ul {
+    display: block;
+} 
+
+.multi-drop-menu li ul {
+    position: relative;
+    left: 100%;
+    top: 0;
+}

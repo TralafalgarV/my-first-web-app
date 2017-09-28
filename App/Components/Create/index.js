@@ -76,8 +76,8 @@ class Create extends React.Component {
                 <header className="bar bar-nav" style={{position: "relative"}}>
                     <h1 className="title">{this.state.pageTitle}</h1>
                 </header>
-                <div className="content"  style={{zIndex: "2001"}}>
-                    <div className="list-block">
+                <div className="content"  style={{position: "relative", top: "0"}}>
+                    <div className="list-block" style={{margin: "0"}}>
                         <ul>
                             <li>
                                 <div className="item-content">
