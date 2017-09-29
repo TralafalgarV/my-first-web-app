@@ -74,7 +74,7 @@ html {
 }
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
-  font-family: "SF Pro SC","SF Pro Display","SF Pro Icons","PingFang SC","Helvetica Neue","Helvetica","Arial";
+  font-family: "SF Pro Text","Myriad Set Pro","SF Pro Icons","Apple Legacy Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -261,7 +261,7 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
-  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-family: "SF Pro Text","Myriad Set Pro","SF Pro Icons","Apple Legacy Icons","Helvetica Neue","Helvetica","Arial",sans-serif;
   font-size: 0.85rem;
   line-height: 1.5;
   color: #3d4145;

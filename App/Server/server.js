@@ -16,6 +16,7 @@ require('./db')
 var mongoose = require('mongoose')
 
 var article = require('./routes/article')
+var user = require('./routes/user')
 
 //dev-API
 global.API = 'http://localhost:4545'

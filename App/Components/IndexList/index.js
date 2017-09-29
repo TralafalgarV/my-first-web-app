@@ -29,12 +29,12 @@ let Styles = {
         listStyleType:"none"
     },
     h4Style:{
-        margin:"0.3rem 0",
+        margin:"0.1rem 0",
         color:'#259',
-        fontSize:'30px'
+        fontSize:'25px',
     },
     pStyle:{
-        margin:"0.3rem 0",
+        margin:"0.2rem 0",
         fontSize:"20px"
     },
     listBlock:{
@@ -85,7 +85,7 @@ class IndexList extends React.Component {
     indexList() {
         let _this = this        
         let list = this.state.list
-
+        
         return list.map(function(item, index) {
             let date = new Date()              
             return (
@@ -95,11 +95,11 @@ class IndexList extends React.Component {
                         <div className=""><h4 style={Styles.h4Style}>{item.title}</h4></div>
                         <div className="">
                             <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
-                                <img src="" style={{marginRight:'0.3rem', height:'1.2rem', display:'inline-block'}}  alt="???"/>
+                                <img src="" style={{marginRight:'0.3rem', height:'1rem', display:'inline-block'}}  alt="???"/>
                             </div>
                             <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
-                                <div style={{display:'inline-block', fontSize:'18px', fontWeight:600, marginRight:'0.3rem'}}>{item.author}</div>
-                                <div style={{display:'inline-block', fontSize:'14px'}}><span className="icon icon-clock"></span>{item.createTime}</div>
+                                <div style={{display:'inline-block', fontSize:'13px', fontWeight:600, marginRight:'0.3rem'}}>{item.author}</div>
+                                <div style={{display:'inline-block', fontSize:'10px'}}><span className="icon icon-clock"></span>{item.createTime}</div>
                             </div>
                         </div>
                         <div className=""><p style={Styles.pStyle}>{_this.wordControl(item.content)}</p></div>

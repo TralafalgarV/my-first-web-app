@@ -7,12 +7,12 @@ class Create extends React.Component {
     constructor(props) {
         super(props)
         // 检查是否已经登录
-        var signedIn = true
-        if (!signedIn) {
-            location.hash = '/signin'
+        var login = true
+        if (!login) {
+            location.hash = '/login'
         }
         this.state = {
-            signedIn: signedIn,
+            login: login,
             title: '',
             content: '',
             author: '',
@@ -49,7 +49,7 @@ class Create extends React.Component {
         info.push({
             title: title,
             content: content,
-            signedIn: this.state.signedIn,
+            login: this.state.login,
             author: 'wangwei',
             createTime: now.toUTCString(),
         }) 

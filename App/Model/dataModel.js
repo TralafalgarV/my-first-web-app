@@ -1,5 +1,5 @@
 const API = 'http://localhost:4545/'
-
+const USER_LOGIN = 'userLogin';
 /**
  * fetch请求数据Model
  * @param _method
@@ -92,6 +92,21 @@ let ArticleModel = {
     fetchArticle: (_id, _success, _error) => {
         _request('GET', `${API}article/fetchArticle/${_id}`, null, _success, _error)
     },          
+}
+
+let UserModel = {
+    storeLogin: (login) => {
+        localStorage.setItem(USER_LOGIN, login);
+    },
+    fetchToken: () => {
+        return localStorage.getItem(USER_LOGIN);
+    },   
+    register: (_params, _success, _error) => {
+        _request('POST', `${API}user/register`, _params, _success, _error)
+    },
+    login: (_params, _success, _error) => {
+        _request('POST', `${API}user/login`, _params, _success, _error)
+    },     
 }
 
 export {ArticleModel}

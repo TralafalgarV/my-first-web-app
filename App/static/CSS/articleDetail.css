@@ -1,11 +1,21 @@
 /*顶级菜单视觉样式*/
 .multi-drop-menu {
+    /* float: left; */
+    position: relative;
 }
-.multi-drop-menu:hover {
+.multi-drop-menu ul {
+}
+.multi-drop-menu li {
+    padding: 3px;
+    border-radius: 3px;
+    list-style-type: none;
+    position: relative;
+}
+.multi-drop-menu span:hover, .multi-drop-menu li:hover {
     color: #fff;
     background-color: #ccc;
 }
-.multi-drop-menu:active {
+.multi-drop-menu span:active, .multi-drop-menu li:active {
     background-color: #fff;
     color: #ccc;
 }
@@ -15,63 +25,57 @@
     margin: 0;
     padding: 0;
 }
-/*强制ul包围li*/
-.multi-drop-menu ul {
-    /*水平排列菜单样式*/
-    float: left;
+
+/*二级菜单样式*/
+.multi-drop-menu li a {
+    border-top-style: solid;
 }
-.multi-drop-menu li {
-    /*水平排列菜单样式*/
-    float: left;    
-    /*去掉默认项目符号*/
-    list-style-type: none;
-    /*为子菜单提供定位上下文*/
-    position: relative;
-}
-.multi-drop-menu a {
-    /*让链表填充列表项*/
-    display: block;
-    /*给每个链接添加一个右边框*/
-    border-right-style: solid;
-    /*背景只出现在内边距区域后面*/
-    background-clip: padding-box;
-    /*去掉链接的下划线*/
-    text-decoration: none;
-}
-.multi-drop-menu li:last-child a {
-    border-right-style: none
-}
-.multi-drop-menu ul {
-    display: block;
-    width: 9em;
+/*二级菜单功能样式*/
+.multi-drop-menu > ul {
+    display: none;
     position: absolute;
-    left: 0;
+    left: 20%;
     top: 100%;
 }
 
-.multi-drop-menu li a {
-    border-right-style: none;
-    border-top-style: solid;
-}
-
-.multi-drop-menu li {
-    float: none;
-}
-
-.multi-drop-menu li ul {
-    display: block;
-}
-
+/*下拉菜单相应鼠标事件*/
 .multi-drop-menu:hover > ul {
     display: block;
+}
+
+.multi-drop-menu li > ul {
+    display: none;
+    width: 100%;
+    position: absolute;
+    left: 100%;
+    top: 0;
 }
 
 .multi-drop-menu li:hover > ul {
     display: block;
 } 
 
-.multi-drop-menu li ul {
-    position: relative;
-    left: 100%;
-    top: 0;
+/**************************** ArticleDetail样式 **************************/
+.ad {
 }
+.ad-title {
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.ad-article {
+    padding: 3px;
+    margin: 3px;
+    border-radius: 3px;
+    border: .5px solid grey;
+}
+
+.ad-author {
+    font-size: .6rem;
+    text-align: center;
+    
+}
+
+
+

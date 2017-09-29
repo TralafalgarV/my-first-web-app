@@ -59,27 +59,12 @@ class ArticleDetail extends Component {
 
     render() {
         return(
-            <div>
-                <span className="multi-drop-menu">Game
-                    <ul>
-                        <li><a href="#">二级菜单：1</a></li>
-                        <li><a href="#">二级菜单：2</a></li>
-                        <li><a href="#">二级菜单：3</a></li>
-                        <li><a href="#">二级菜单：4</a>
-                            <ul>
-                                <li><a href="#">三级菜单：1</a></li>
-                                <li><a href="#">三级菜单：2</a></li>
-                                <li><a href="#">三级菜单：3</a></li>
-                                <li><a href="#">三级菜单：4</a></li>
-                            </ul>                            
-                        </li>
-                    </ul>                        
-                </span>                 
-                {/* <header className="title">{this.state.title}</header>
+            <div className="ad">            
+                <header className="ad-title">{this.state.title}</header>
                 <section>
-                    <div className="">{this.state.author}</div>
-                    <article className="card-header">{this.state.content}</article>
-                </section> */}
+                    <div className="ad-author">{this.state.author}</div>
+                    <article className="ad-article">{this.state.content}</article>
+                </section>
             </div>
         )
     }

@@ -27,7 +27,21 @@ let nav = () => {
                 <span className="tab-label">Music</span>
             </Link>
             <Link className="tab-item" activeClassName="active" to="game">
-                              
+                <div className="multi-drop-menu"><span>Game</span>
+                    <ul>
+                        <li><a href="#">二级菜单：1</a></li>
+                        <li><a href="#">二级菜单：2</a></li>
+                        <li><a href="#">二级菜单：3</a></li>
+                        <li><a href="#">二级菜单：4</a>
+                            <ul>
+                                <li><a href="#">三级菜单：1</a></li>
+                                <li><a href="#">三级菜单：2</a></li>
+                                <li><a href="#">三级菜单：3</a></li>
+                                <li><a href="#">三级菜单：4</a></li>
+                            </ul>                            
+                        </li>
+                    </ul>                        
+                </div>                                
             </Link>                        
         </nav>
     )
