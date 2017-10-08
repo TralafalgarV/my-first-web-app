@@ -6,7 +6,7 @@
  * 4. 在 index 页面绑定点击事件，点击文章后，改变 location 跳转到对应页面
  */
 import React, { Component } from 'react'
-import {ArticleModel} from '../../Model/dataModel'
+import {ArticleModel, UserModel} from '../../Model/dataModel'
 import '../../static/CSS/articleDetail.css'
 
 let Style = {
@@ -33,7 +33,7 @@ class ArticleDetail extends Component {
     }
 
     // 从路由中获取文章唯一标识
-    getArticleDetail() {
+    getArticleId() {
         let index1 = location.hash.indexOf("?")
         let index2 = location.hash.lastIndexOf("/")
         
@@ -44,7 +44,7 @@ class ArticleDetail extends Component {
 
     // 获取数据
     fetchData() {
-        ArticleModel.fetchArticle(this.getArticleDetail(), (article) => {
+        ArticleModel.fetchArticle(this.getArticleId(), (article) => {
             console.log("fetchArticle: ", article)
             this.setState({
                 title: article.title,
@@ -57,6 +57,23 @@ class ArticleDetail extends Component {
         })
     }
 
+    articleComments() {
+        let _this = this
+        let comments = this.state.comments
+        console.log("Article Comments:", comments.length)
+        return comments.map(function(item, index) {
+            return (
+                <li className="row" key={index}>
+                    <section className="ad-comments">
+                        <div className="ad-comments-user">{}</div>
+                        <div className="ad-comments-text">{item.comments.content}</div>
+                        <div className="ad-comments-time">{item.comments.createTime}</div>
+                    </section>
+                </li>
+            )
+        })
+    }
+
     render() {
         return(
             <div className="ad">            
@@ -64,6 +81,13 @@ class ArticleDetail extends Component {
                 <section>
                     <div className="ad-author">{this.state.author}</div>
                     <article className="ad-article">{this.state.content}</article>
+                </section>
+                <section>
+                    <div className="ad-comments">
+                        <ul>
+                            {this.articleComments()}
+                        </ul>
+                    </div>
                 </section>
             </div>
         )

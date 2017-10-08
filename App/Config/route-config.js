@@ -55,10 +55,20 @@ const ArticleDetail = {
     }
 }
 
+const Login = {
+    path:'login',
+    getComponent(nextState,cb){
+        require.ensure([],(require)=>{
+            return cb(null,require('../Components/Login'))  // 注意路径大小写
+        },'login')
+    }
+}
+
 module.exports = {
     IndexList: IndexList,
     Create: Create,
     Music: Music,
     Game: Game,
-    ArticleDetail: ArticleDetail
+    ArticleDetail: ArticleDetail,
+    Login: Login,
 }

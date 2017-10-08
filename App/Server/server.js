@@ -54,7 +54,9 @@ app.all('*', function(req, res, next) {
 
 app.use(bodyParser.json())
 
+/*加载article和user中间件*/
 app.use('/article', article)
+app.use('/user', user)
 
 app.listen('4545',function () {
     console.log('listen 4545 port')

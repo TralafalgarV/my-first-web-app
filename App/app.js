@@ -9,7 +9,7 @@ import {
     Redirect,
     browserHistory
 } from 'react-router'
-import {IndexList, Create, Music, Game, ArticleDetail} from './Config/route-config'
+import {IndexList, Create, Music, Game, ArticleDetail, Login} from './Config/route-config'
 
 // Route组件定义了URL路径与组件的对应关系。你可以同时使用多个Route组件
 // rootRoute 定义了 组件结构
@@ -38,7 +38,8 @@ const rootRoute = {
             Create,
             Music,
             Game,
-            ArticleDetail
+            ArticleDetail,
+            Login
         ]
     }]
 }

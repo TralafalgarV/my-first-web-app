@@ -1,15 +1,15 @@
 // 发表文章
 
 import React from 'react'
-import {ArticleModel} from '../../Model/dataModel'
+import {ArticleModel, UserModel} from '../../Model/dataModel'
 
 class Create extends React.Component {
     constructor(props) {
         super(props)
         // 检查是否已经登录
-        var login = true
+        var login = UserModel.fetchLogin()
         if (!login) {
-            location.hash = '/login'
+          location.hash = "/login";
         }
         this.state = {
             login: login,

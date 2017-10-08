@@ -13,7 +13,7 @@ const USER_LOGIN = 'userLogin';
 function _request(_method, _api, _params, _onSuccess, _onError) {
     console.log("[Model] _request: " + _api)
     if (_method == 'POST') {
-        console.log("[Model]  _params: ", _params)
+        console.log("[Model] _params: ", _params)
     }
     let _options = {
         method: _method,
@@ -95,12 +95,12 @@ let ArticleModel = {
 }
 
 let UserModel = {
+    fetchLogin:()=>{
+        return localStorage.getItem(USER_LOGIN)
+    },    
     storeLogin: (login) => {
-        localStorage.setItem(USER_LOGIN, login);
-    },
-    fetchToken: () => {
-        return localStorage.getItem(USER_LOGIN);
-    },   
+        localStorage.setItem(USER_LOGIN, login)
+    }, 
     register: (_params, _success, _error) => {
         _request('POST', `${API}user/register`, _params, _success, _error)
     },
@@ -109,4 +109,4 @@ let UserModel = {
     },     
 }
 
-export {ArticleModel}
+export {ArticleModel, UserModel}
