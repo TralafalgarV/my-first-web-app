@@ -85,8 +85,11 @@ class Login extends React.Component {
         // console.log(userInfo);
         UserModel.register(userInfo, (data) => {
             if(data.id == '1'){
-                alert("注册成功")
-                UserModel.storeLogin(data.content)
+                console.log("注册成功", data)
+                UserModel.storeLogin(JSON.stringify({
+                    content: data.content,
+                    username: data.username
+                }))
                 location.hash = "/indexList";
             }else if(data.id == '2') {
                 alert(data.content)

@@ -16,6 +16,7 @@ mongoose.model('Article', new mongoose.Schema({
     user: {type: ObjectId, ref: 'User'},
     comments:[{//评论的一个数组
         user: {type: ObjectId, ref: 'User'},//评论人
+        author: {type: String, isRequired: true},
         content: {type: String},//评论的内容
         createTime: {type: String, isRequired: true}//评论的时间
     }],    

@@ -1,5 +1,5 @@
 const API = 'http://localhost:4545/'
-const USER_LOGIN = 'userLogin';
+const USER_LOGIN = 'userLogin'
 /**
  * fetch请求数据Model
  * @param _method

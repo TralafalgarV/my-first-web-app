@@ -10,13 +10,13 @@ class Create extends React.Component {
         var login = UserModel.fetchLogin()
         if (!login) {
             // 跳转到登录界面
-            location.hash = "/login";
+            location.hash = "/login"
         }
         this.state = {
             login: login,
             title: '',
             content: '',
-            author: JSON.parse(login).username,
+            author: 'unknown',
             pageTitle: '发表文章'
         }
     }
@@ -49,12 +49,14 @@ class Create extends React.Component {
             return
         }
         
+        // 获取作者信息
+        let userInfo = UserModel.fetchLogin()
         // 更新文章列表
         info.push({
             title: title,
             content: content,
             login: this.state.login,
-            author: this.state.author,  //作者需要根据登录信息来判断
+            author: JSON.parse(userInfo).username,  //作者需要根据登录信息来判断
             createTime: now.toUTCString(),
         }) 
 

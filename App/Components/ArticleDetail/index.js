@@ -67,15 +67,15 @@ class ArticleDetail extends Component {
         return comments.map(function(item, index) {
             return (
                 <li className="row" key={index}>
-                    <div className="col-15" style={{padding:'0.3rem 0'}}>
+                    <div className="col-5" style={{padding:'0.3rem 0'}}>
                         <img className="commentAvatar" src="" alt="无"/>
                     </div>
-                    <div className="col-85 commentList">
+                    <div className="col-90 commentList">
                         <div>
                             <div style={{fontWeight:'bold', fontSize:'15px', display: "inline-block"}}>{item.author}</div>
-                            <div style={{fontSize:'12px', display: "inline-block"}}><span className="icon icon-clock"></span>{item.createTime}</div>
+                            <div style={{fontSize:'13px', display: "inline-block"}}><span className="icon icon-clock">{item.createTime}</span></div>
                         </div>
-                        <p className="col-85" style={{margin:'0.2rem 0', fontSize:'14px'}}>{item.content}</p>
+                        <p className="col-85" style={{margin:'0.2rem 0', fontSize:'18px'}}>{item.content}</p>
                     </div>
                 </li>                
             )

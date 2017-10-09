@@ -19,7 +19,7 @@ user.post('/register',function (req,res) {
                         if (err) {
                             res.send('注册失败')
                         } else {
-                            var data = {id: 1,type:2, content: doc._id}
+                            var data = {id: 1,type:2, content: doc._id, username: doc.username}
                             res.send(data);
                         }
                     })
