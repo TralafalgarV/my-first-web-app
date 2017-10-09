@@ -1,4 +1,4 @@
-// 发表文章
+// 发表文章组件
 
 import React from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
@@ -9,13 +9,14 @@ class Create extends React.Component {
         // 检查是否已经登录
         var login = UserModel.fetchLogin()
         if (!login) {
-          location.hash = "/login";
+            // 跳转到登录界面
+            location.hash = "/login";
         }
         this.state = {
             login: login,
             title: '',
             content: '',
-            author: '',
+            author: JSON.parse(login).username,
             pageTitle: '发表文章'
         }
     }
@@ -37,25 +38,29 @@ class Create extends React.Component {
         let info = []
         let now = new Date()
 
+        // 内容检测
         if('' == title) {
             alert("标题不能为空")
             return
         }
-        if ('' == content) {
+
+        if('' == content) {
             alert("内容不能为空")
             return
         }
         
+        // 更新文章列表
         info.push({
             title: title,
             content: content,
             login: this.state.login,
-            author: 'wangwei',
+            author: this.state.author,  //作者需要根据登录信息来判断
             createTime: now.toUTCString(),
         }) 
 
         // 将数据更新到数据库
         ArticleModel.publish(info, () => {
+            // 路由跳转
             location.hash = '/indexlist'
         }, (err) => {
             alert(err)
@@ -68,8 +73,10 @@ class Create extends React.Component {
             title: '',
             content: ''
         })
+        // 路由跳转
         location.hash = '/indexlist'
     }
+    
     render() {
         return (
             <div>

@@ -13,7 +13,7 @@ const USER_LOGIN = 'userLogin';
 function _request(_method, _api, _params, _onSuccess, _onError) {
     console.log("[Model] _request: " + _api)
     if (_method == 'POST') {
-        console.log("[Model] _params: ", _params)
+        console.log("[Model] post _params: ", _params)
     }
     let _options = {
         method: _method,
@@ -81,21 +81,23 @@ let Tools = {
     }
 }
 
-
 let ArticleModel = {
-    fetchList:(_params, _success, _error)=>{
+    fetchList:(_params, _success, _error) => {
         _request('GET', `${API}article/fetchList`, _params, _success, _error)
     },
-    publish:(_params, _success, _error)=>{
+    publish:(_params, _success, _error) => {
         _request('POST', `${API}article/publish`, _params, _success, _error)
     },
     fetchArticle: (_id, _success, _error) => {
         _request('GET', `${API}article/fetchArticle/${_id}`, null, _success, _error)
-    },          
+    },
+    comment: (_params, _success, _error) => {
+        _request('POST', `${API}article/comment`, _params, _success, _error)
+    },      
 }
 
 let UserModel = {
-    fetchLogin:()=>{
+    fetchLogin:() => {
         return localStorage.getItem(USER_LOGIN)
     },    
     storeLogin: (login) => {

@@ -2,8 +2,8 @@
 /*
  * 1. prop 传入 createTime 作为文章唯一标示
  * 2. fetchArticle 得到文章详细信息
- * 3. 之所以不放在 index 组件里面。是因为预防 index 过大，让 articleDetail 可以按需加载
- * 4. 在 index 页面绑定点击事件，点击文章后，改变 location 跳转到对应页面
+ * 3. 之所以不放在 indexList 组件里面。是因为预防 index 过大，让 articleDetail 可以按需加载
+ * 4. 在 indexList 页面绑定点击事件，点击文章后，改变 location 跳转到对应页面
  */
 import React, { Component } from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
@@ -28,11 +28,12 @@ class ArticleDetail extends Component {
         }
     }
 
+    // 组件渲染完成之后，进行数据获取
     componentDidMount() {
         this.fetchData()
     }
 
-    // 从路由中获取文章唯一标识
+    // 从路由中获取文章 Id
     getArticleId() {
         let index1 = location.hash.indexOf("?")
         let index2 = location.hash.lastIndexOf("/")
@@ -45,32 +46,64 @@ class ArticleDetail extends Component {
     // 获取数据
     fetchData() {
         ArticleModel.fetchArticle(this.getArticleId(), (article) => {
-            console.log("fetchArticle: ", article)
+            console.log("[ArticleDetail] fetchArticle: ", article)
             this.setState({
                 title: article.title,
                 author: article.author,
                 content: article.content,
                 comments: article.comments,
+                _id: article._id,
             })
         }, (err) => {
             console.log("[ERROR] fetchArticle: ", err)
         })
     }
 
+    // 显示文章评论
     articleComments() {
         let _this = this
         let comments = this.state.comments
-        console.log("Article Comments:", comments.length)
+        console.log("[ArticleDetail] Article Comments:", comments.length)
         return comments.map(function(item, index) {
             return (
                 <li className="row" key={index}>
-                    <section className="ad-comments">
-                        <div className="ad-comments-user">{}</div>
-                        <div className="ad-comments-text">{item.comments.content}</div>
-                        <div className="ad-comments-time">{item.comments.createTime}</div>
-                    </section>
-                </li>
+                    <div className="col-15" style={{padding:'0.3rem 0'}}>
+                        <img className="commentAvatar" src="" alt="无"/>
+                    </div>
+                    <div className="col-85 commentList">
+                        <div>
+                            <div style={{fontWeight:'bold', fontSize:'15px', display: "inline-block"}}>{item.author}</div>
+                            <div style={{fontSize:'12px', display: "inline-block"}}><span className="icon icon-clock"></span>{item.createTime}</div>
+                        </div>
+                        <p className="col-85" style={{margin:'0.2rem 0', fontSize:'14px'}}>{item.content}</p>
+                    </div>
+                </li>                
             )
+        })
+    }
+
+    // 提交评论
+    handleComment() {
+        if (this.comment.value == '') {
+            alert("评论不能为空")
+        }
+        // let userInfo = UserModel.fetchLogin()
+        // console.log(JSON.parse(userInfo).content) 
+        // 更新评论
+        let params = {
+            _id: this.state._id,
+            comments: {
+                author: JSON.parse(UserModel.fetchLogin()).username,
+                content: this.comment.value,
+                createTime: new Date()
+            },
+        }
+
+        ArticleModel.comment(params, (data) => {
+            this.comment.value = ''
+            this.componentDidMount();
+        }, (err) => {
+            console.log(err)
         })
     }
 
@@ -89,6 +122,12 @@ class ArticleDetail extends Component {
                         </ul>
                     </div>
                 </section>
+                <div className="comment row no-gutter" style={{margin:'none',zIndex:'2002'}}>
+                    <input type="text" style={{border:'none'}} ref={(e) => {
+                        this.comment = e
+                    }} className="col-75 commentInput" placeholder="说点什么吧" onChange={this.checkLogin}/>
+                    <a onClick={()=>{this.handleComment()}} className="button col-25 button-fill button-big">评论</a>
+                </div>
             </div>
         )
     }

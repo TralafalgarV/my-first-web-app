@@ -126,11 +126,14 @@ class Login extends React.Component {
         console.log("userInfo", userInfo);
         UserModel.login(userInfo, (data) => {
             console.log("[Login] userLogin return data: ", data)
-            UserModel.storeLogin(data.content)
             // 判断是否登录成功
             if(data.id == '1'){
                 console.log("登录成功")
-                UserModel.storeLogin(data.content)
+                // 记录server返回数据，username用于create页面
+                UserModel.storeLogin(JSON.stringify({
+                    content: data.content,
+                    username: data.username
+                }))
                 location.hash = "/create"
             } else if(data.id == '0') {
                 alert("登录失败")

@@ -37,7 +37,7 @@ user.post('/login', function(req, res) {
             res.send({id: 0, type: 1, content: err});
         } else {
             if (doc) {
-                res.send({id: 1, type: 1, content: doc._id})
+                res.send({id: 1, type: 1, content: doc._id, username: doc.username})
             } else {
                 res.send({id: 0, type: 1, content: '用户不存在'})
             }

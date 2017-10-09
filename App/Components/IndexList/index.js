@@ -1,4 +1,4 @@
-// 文章列表
+// 文章列表组件
 
 import React from 'react'
 import {render} from 'react-dom'
