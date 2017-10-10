@@ -67,10 +67,10 @@ class ArticleDetail extends Component {
         return comments.map(function(item, index) {
             return (
                 <li className="row" key={index}>
-                    <div className="col-5" style={{padding:'0.3rem 0'}}>
-                        <img className="commentAvatar" src="" alt="无"/>
+                    <div className="col-15" style={{padding:'0.3rem 0', width:"1.5rem"}}>
+                        <img className="comment-avatar" src="" alt="无"/>
                     </div>
-                    <div className="col-90 commentList">
+                    <div className="col-85 comment-list">
                         <div>
                             <div style={{fontWeight:'bold', fontSize:'15px', display: "inline-block"}}>{item.author}</div>
                             <div style={{fontSize:'13px', display: "inline-block"}}><span className="icon icon-clock">{item.createTime}</span></div>
@@ -88,12 +88,19 @@ class ArticleDetail extends Component {
             alert("评论不能为空")
         }
         // let userInfo = UserModel.fetchLogin()
-        // console.log(JSON.parse(userInfo).content) 
+        // console.log(JSON.parse(userInfo).content)
+
+        // 获取登录信息
+        let userinfo = UserModel.fetchLogin()
+        if (!userinfo) {
+            console.log("评论前请先登录")
+            location.hash = "/login"
+        }
         // 更新评论
         let params = {
             _id: this.state._id,
             comments: {
-                author: JSON.parse(UserModel.fetchLogin()).username,
+                author: JSON.parse(userinfo).username,
                 content: this.comment.value,
                 createTime: new Date()
             },
@@ -101,7 +108,7 @@ class ArticleDetail extends Component {
 
         ArticleModel.comment(params, (data) => {
             this.comment.value = ''
-            this.componentDidMount();
+            this.componentDidMount()
         }, (err) => {
             console.log(err)
         })
@@ -125,7 +132,7 @@ class ArticleDetail extends Component {
                 <div className="comment row no-gutter" style={{margin:'none',zIndex:'2002'}}>
                     <input type="text" style={{border:'none'}} ref={(e) => {
                         this.comment = e
-                    }} className="col-75 commentInput" placeholder="说点什么吧" onChange={this.checkLogin}/>
+                    }} className="col-75 comment-input" placeholder="说点什么吧" onChange={this.checkLogin}/>
                     <a onClick={()=>{this.handleComment()}} className="button col-25 button-fill button-big">评论</a>
                 </div>
             </div>

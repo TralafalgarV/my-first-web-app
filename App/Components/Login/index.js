@@ -29,6 +29,12 @@ class Login extends React.Component {
         }
     }
 
+    componentDidMount(){
+        console.log('[Login] componentDidMount: clear localStorage')
+        // 一旦login组件被渲染，则删除本地登录信息
+        localStorage.clear()
+    }
+
     changeLoginFlag(e){
         e.stopPropagation();
         this.setState({

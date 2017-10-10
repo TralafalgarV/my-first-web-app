@@ -84,6 +84,12 @@
     /* border-bottom: .5px solid grey; */
     list-style-type: none;
 }
+.ad {
+    
+}
+.ad-comments {
+    position: relative;
+}
 .ad-comments-info {
     position: relative;
 }
@@ -108,21 +114,21 @@
 }
 .comment a{
 }
-.commentInput{
+.comment-input{
     padding: 0 0.5rem;
     height: 100%;
 }
-.commentAvatar{
+.comment-avatar{
     height: 2rem;
     width: 2rem;
 }
-.commentList{
+.comment-list{
     border-bottom: 1px solid #beddf5;
     padding: 0.2rem 0;
 }
 
-.commentList > div > div {
-    margin-right: 14px;
+.comment-list > div > div {
+    margin-right: .5rem;
 }
 
 
