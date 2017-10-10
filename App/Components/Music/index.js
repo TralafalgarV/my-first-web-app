@@ -2,7 +2,7 @@
 
 import React from 'react'
 import {render} from 'react-dom'
-import '../../static/css/indexlist.css'
+import '../../static/CSS/music.css'
 
 class Music extends React.Component {
     constructor(props) {
@@ -14,9 +14,22 @@ class Music extends React.Component {
     }
     render() {
         return (
-            <div>
-                Music
-            </div>
+            <main>
+                <ul>
+                    <li>
+                        <a href=""><div>a</div></a>
+                    </li>
+                    <li>
+                        <a href=""><div>b</div></a>
+                    </li>
+                    <li>
+                        <a href=""><div>c</div></a>
+                    </li>
+                    <li>
+                        <a href=""><div>d</div></a>
+                    </li>                                                            
+                </ul>
+            </main>
         )
     }
 }

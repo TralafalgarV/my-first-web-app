@@ -1,0 +1,30 @@
+main {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+main > ul {
+    list-style-type: none;
+}
+
+li {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+li > a > div {
+    text-align: center;
+}
+
+li:nth-child(1) {
+    transform: skewX(-75deg);
+    transform-origin:  bottom;
+    transition: 1s ease-in-out;
+}
+
+li:nth-child(1):hover {
+    transform: skewX(75deg);    
+}

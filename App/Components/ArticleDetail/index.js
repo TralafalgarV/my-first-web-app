@@ -35,12 +35,9 @@ class ArticleDetail extends Component {
 
     // 从路由中获取文章 Id
     getArticleId() {
-        let index1 = location.hash.indexOf("?")
-        let index2 = location.hash.lastIndexOf("/")
-        
-        let createTime = location.hash.substring(index2 + 1, index1)
-        console.log(createTime)
-        return createTime
+        let articleId = this.props.params.id  // 通过Link标签带过来的 id参数
+        console.log("[ArticleDetail] articleId: ", articleId)
+        return articleId
     }
 
     // 获取数据
@@ -68,7 +65,7 @@ class ArticleDetail extends Component {
             return (
                 <li className="row" key={index}>
                     <div className="col-15" style={{padding:'0.3rem 0', width:"1.5rem"}}>
-                        <img className="comment-avatar" src="" alt="无"/>
+                        <img className="comment-avatar" src="C:\Users\Administrator\Desktop\baseData\MyWebApp\App\static\Pic\eg_cute.gif" alt="无"/>
                     </div>
                     <div className="col-85 comment-list">
                         <div>

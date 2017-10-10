@@ -11,9 +11,9 @@ router.get('/fetchArticle/:id', function(req, res) {
         'author_id': -1
     }
 
-    Model('Article').find({"createTime": req.params.id}).exec(function(err, collection) {
+    Model('Article').findById(req.params.id).exec(function(err, collection) {
         console.log("fetchArticle: ", collection)
-        res.send(JSON.stringify(collection[0]))
+        res.send(JSON.stringify(collection))
     })
 })
 
@@ -29,6 +29,7 @@ router.get('/fetchList', function (req, res) {
         var articleList = []
         collection.forEach(function(item) {
             articleList.push({
+                _id: item._id,
                 title: item.title,
                 content: item.content,
                 createTime: item.createTime,
