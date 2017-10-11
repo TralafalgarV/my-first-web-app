@@ -8,6 +8,7 @@
 import React, { Component } from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
 import '../../static/CSS/articleDetail.css'
+import AVATARPATH from '../../static/avatar/eg_cute.gif'
 
 let Style = {
     width: "100%",
@@ -65,7 +66,7 @@ class ArticleDetail extends Component {
             return (
                 <li className="row" key={index}>
                     <div className="col-15" style={{padding:'0.3rem 0', width:"1.5rem"}}>
-                        <img className="comment-avatar" src="C:\Users\Administrator\Desktop\baseData\MyWebApp\App\static\Pic\eg_cute.gif" alt="无"/>
+                        <img className="comment-avatar" src={AVATARPATH} alt="无"/>
                     </div>
                     <div className="col-85 comment-list">
                         <div>

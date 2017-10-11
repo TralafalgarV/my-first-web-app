@@ -1,30 +1,78 @@
-main {
+* {
+    margin: 0;
+}
+.container {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    /*改变3D元素透视位置*/
+    perspective: 1500px;
+    /*水平居中*/
+    margin: 0 auto;
+    text-align: center;
+}
+
+.gallery {
     position: absolute;
+    width: 100%;
+    height: 100%;
+    /*flat: 表示所有子元素在2D平面展现； preserve-3d：表示所有子元素在3D空间中呈现*/
+    transform-style: preserve-3d;
+    transition: 0.4s;
+    transition-timing-function: ease-out;
+}
+
+.gallery-pic {
+    position: absolute;
+    width: 200px;
+    height: 120px;
+    top: 50%;
+    left: 50%;
+    /* transform: translate(-50%, -50%); */
+}
+
+.gallery-pic img {
+    width: 100%;
+    height: 100%;
+}
+
+/*设置每个pic的初始位置*/
+.gallery-pic:nth-child(1) {
+    transform:translate(-50%, -50%) rotateY(0deg) translateZ(350px)
+}
+
+.gallery-pic:nth-child(2) {
+    transform:translate(-50%, -50%) rotateY(60deg) translateZ(350px)
+}
+
+.gallery-pic:nth-child(3) {
+    transform:translate(-50%, -50%) rotateY(120deg) translateZ(350px)
+}
+
+.gallery-pic:nth-child(4) {
+    transform:translate(-50%, -50%) rotateY(180deg) translateZ(350px)
+}
+
+.gallery-pic:nth-child(5) {
+    transform:translate(-50%, -50%) rotateY(240deg) translateZ(350px)
+}
+
+.gallery-pic:nth-child(6) {
+    transform:translate(-50%, -50%) rotateY(300deg) translateZ(350px)
+}
+
+#buttons {
+    position: absolute;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
 }
 
-main > ul {
-    list-style-type: none;
-}
-
-li {
-    position: absolute;
-    width: 2rem;
-    height: 2rem;
-    background-color: rgba(0, 0, 0, 0.15);
-}
-
-li > a > div {
-    text-align: center;
-}
-
-li:nth-child(1) {
-    transform: skewX(-75deg);
-    transform-origin:  bottom;
-    transition: 1s ease-in-out;
-}
-
-li:nth-child(1):hover {
-    transform: skewX(75deg);    
+.btn {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    margin-left: 4px;
+    border: 1px solid #888;
 }
