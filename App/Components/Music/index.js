@@ -3,9 +3,14 @@
 import React from 'react'
 import {render} from 'react-dom'
 import '../../static/CSS/music.css'
-const requireContext = require.context("../../static/cover", true, /[0-9]\.(png|jpg)/)
-const images = requireContext.keys().map(requireContext)
 
+// 获取所有封面图片路径的集合
+const requireCover = require.context("../../static/cover", true, /[0-9]\.(png|jpg)/)
+const images = requireCover.keys().map(requireCover)
+// 获取歌曲路径
+// const requireMusic = require.context("../../static/resource", true, /.*\.(mp3)/)
+// const musics = requireMusic.keys().map(requireMusic)
+// console.log(requireMusic)
 
 class Music extends React.Component {
     constructor(props) {
@@ -63,25 +68,48 @@ class Music extends React.Component {
 
     componentDidMount() {
         // setInternal 中传入的回调函数，需要绑定当前运行环境
-        setInterval(this.rotateGallery, 1000)
+        this.timer = setInterval(this.rotateGallery, 1000)
     }
 
-    componentDidUpdate() {
+    // 设置点击图片的位置
+    setGalleryImage(index) {
+        let galleryNode = this.galleryNode
+        let deg = index * 60
+        galleryNode.style.transition = "0.4s"
+        galleryNode.style.transform = "rotateY(" + deg + "deg)"
+    }
+
+    // 重启定时器
+    restartTimer() {
+        clearInterval(this.timer)
+        this.timer = setInterval(this.rotateGallery, 1000)
+    }
+
+    btnHandle() {
+        let _this = this
+        return (
+            images.map(function(item, index) {
+                return (
+                    <div className="btn" key={index} onClick={function(e) {
+                        _this.setGalleryImage(index)
+                        _this.restartTimer()
+                    }}>{index}</div>
+                )
+            })
+        )
     }
     
     render() {
         return (
-            <div className="container">
-                <div className="gallery" id="gallery" ref={(node) => {this.galleryNode = node}}>{this.coverImages()}</div>
-                <div id="buttons">
-                    <div className="btn">1</div>
-                    <div className="btn">2</div>
-                    <div className="btn">3</div>
-                    <div className="btn">4</div>
-                    <div className="btn">5</div>
-                    <div className="btn">6</div>
-                </div>                    
-            </div>
+            <div style={{position: "relative"}}>
+                <div className="container">
+                    <div className="gallery" id="gallery" ref={(node) => {this.galleryNode = node}}>{this.coverImages()}</div>
+                    <div id="buttons">{this.btnHandle()}</div>                
+                </div>
+                <div className="media">
+                    <audio src="" controls="controls"></audio>
+                </div>    
+            </div>           
         )
     }
 }
