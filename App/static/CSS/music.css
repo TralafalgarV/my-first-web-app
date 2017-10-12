@@ -11,6 +11,36 @@
     margin: 0 auto;
     text-align: center;
 }
+
+/********************双飞翼布局*********************/
+.main {
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+
+.content {
+    float: left;
+    height: 100%;
+    margin-left: 2.1rem;
+    margin-right: 2.1rem;
+}
+
+.sub, .extra {
+    width: 2rem;
+    height: 100%;
+    float: left;
+    background-color: yellow;
+}
+
+.sub {
+    margin-left: -100%;
+}
+
+.extra {
+    margin-left: -2rem;
+}
+
 /********************专辑封面样式*******************/
 .gallery {
     position: absolute;
@@ -88,4 +118,25 @@
 .media {
     position: relative;
     bottom: 0px;
+}
+
+.progress {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    left: 0px;
+    bottom: 0px;
+    background-color: green;
+}
+
+.progress::after {
+    content: "";
+    position: absolute;
+    border: .2px solid grey;
+    box-sizing: border-box;
+    bottom: 0;
+    left: 0;
+    width: 20px;
+    height: 2px;
+    background-color: rebeccapurple;
 }

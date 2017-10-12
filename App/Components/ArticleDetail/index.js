@@ -113,6 +113,7 @@ class ArticleDetail extends Component {
     }
 
     render() {
+        console.log("[ArticleDetail] render " + location.hash)        
         return(
             <div className="ad">            
                 <header className="ad-title">{this.state.title}</header>
@@ -128,8 +129,8 @@ class ArticleDetail extends Component {
                     </div>
                 </section>
                 <div className="comment row no-gutter" style={{margin:'none',zIndex:'2002'}}>
-                    <input type="text" style={{border:'none'}} ref={(e) => {
-                        this.comment = e
+                    <input type="text" style={{border:'none'}} ref={(node) => {
+                        this.comment = node
                     }} className="col-75 comment-input" placeholder="说点什么吧" onChange={this.checkLogin}/>
                     <a onClick={()=>{this.handleComment()}} className="button col-25 button-fill button-big">评论</a>
                 </div>

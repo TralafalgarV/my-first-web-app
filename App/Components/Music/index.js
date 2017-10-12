@@ -7,10 +7,11 @@ import '../../static/CSS/music.css'
 // 获取所有封面图片路径的集合
 const requireCover = require.context("../../static/cover", true, /[0-9]\.(png|jpg)/)
 const images = requireCover.keys().map(requireCover)
-// 获取歌曲路径
+//获取歌曲路径
 // const requireMusic = require.context("../../static/resource", true, /.*\.(mp3)/)
 // const musics = requireMusic.keys().map(requireMusic)
-// console.log(requireMusic)
+// import musics from '../../static/resource/1.mp3'
+// console.log(musics)
 
 class Music extends React.Component {
     constructor(props) {
@@ -22,6 +23,7 @@ class Music extends React.Component {
         // 绑定当前运行环境
         this.rotateGallery = this.rotateGallery.bind(this)
         this.resetDeg = this.resetDeg.bind(this)
+        this.listHandle = this.listHandle.bind(this)
     }
 
     // 展示专辑封面
@@ -69,6 +71,13 @@ class Music extends React.Component {
     componentDidMount() {
         // setInternal 中传入的回调函数，需要绑定当前运行环境
         this.timer = setInterval(this.rotateGallery, 1000)
+
+        // 加载 music 路径：加载用时过长，故放在此处   
+    }
+
+    // 卸载钩子函数
+    componentWillUnmount() {
+        clearInterval(this.timer)
     }
 
     // 设置点击图片的位置
@@ -85,7 +94,7 @@ class Music extends React.Component {
         this.timer = setInterval(this.rotateGallery, 1000)
     }
 
-    btnHandle() {
+    listHandle() {
         let _this = this
         return (
             images.map(function(item, index) {
@@ -100,15 +109,19 @@ class Music extends React.Component {
     }
     
     render() {
+        console.log("[Music] render " + location.hash)                
         return (
             <div style={{position: "relative"}}>
                 <div className="container">
                     <div className="gallery" id="gallery" ref={(node) => {this.galleryNode = node}}>{this.coverImages()}</div>
-                    <div id="buttons">{this.btnHandle()}</div>                
+                    <div id="buttons">{this.listHandle()}</div>                
                 </div>
                 <div className="media">
                     <audio src="" controls="controls"></audio>
-                </div>    
+                    <div className="progress">
+
+                    </div>
+                </div>
             </div>           
         )
     }

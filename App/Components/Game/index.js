@@ -13,6 +13,7 @@ class Game extends React.Component {
         }
     }
     render() {
+        console.log("[Game] render " + location.hash)        
         return (
             <div>
                 Game

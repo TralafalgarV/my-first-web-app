@@ -112,6 +112,7 @@ class IndexList extends React.Component {
     }
     
     render() {
+        console.log("[Indexlist] render " + location.hash)        
         return (
             <div>
                 <ul>

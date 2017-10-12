@@ -90,7 +90,7 @@ class Login extends React.Component {
 
         // console.log(userInfo);
         UserModel.register(userInfo, (data) => {
-            if(data.id == '1'){
+            if (data.id == '1') {
                 console.log("注册成功", data)
                 UserModel.storeLogin(JSON.stringify({
                     content: data.content,
@@ -107,7 +107,7 @@ class Login extends React.Component {
         })
     }
 
-    handleChangeVal(e, key){
+    handleChangeVal(e, key) {
         let val = e.target.value
         switch(key) {
             case 'username':
@@ -136,7 +136,7 @@ class Login extends React.Component {
         UserModel.login(userInfo, (data) => {
             console.log("[Login] userLogin return data: ", data)
             // 判断是否登录成功
-            if(data.id == '1'){
+            if(data.id == '1') {
                 console.log("登录成功")
                 // 记录server返回数据，username用于create页面
                 UserModel.storeLogin(JSON.stringify({
@@ -165,6 +165,7 @@ class Login extends React.Component {
     }
 
     render() {
+        console.log("[Login] render " + location.hash)        
         let loginTemplate = this.state.loginFlag ? (
             <div className="content" style={{position: "relative"}}>
                 <div className="list-block">

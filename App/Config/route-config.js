@@ -1,5 +1,9 @@
-import React, {Component} from 'react'
-import {render} from 'react-dom'
+import React, {
+    Component
+} from 'react'
+import {
+    render
+} from 'react-dom'
 import {
     Route,
     Router,
@@ -20,47 +24,47 @@ const IndexList = {
 }
 
 const Create = {
-    path:'create',
-    getComponent(nextState,cb){
-        require.ensure([],(require)=>{
-            return cb(null,require('../Components/Create'))
-        },'create')
+    path: 'create',
+    getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+            return cb(null, require('../Components/Create'))
+        }, 'create')
     },
 }
 
 const Music = {
-    path:'music',
-    getComponent(nextState,cb){
-        require.ensure([],(require)=>{
-            return cb(null,require('../Components/Music'))
-        },'music')
+    path: 'music',
+    getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+            return cb(null, require('../Components/Music'))
+        }, 'music')
     },
 }
 
 const Game = {
-    path:'game',
-    getComponent(nextState,cb){
-        require.ensure([],(require)=>{
-            return cb(null,require('../Components/Game'))
-        },'game')
+    path: 'game',
+    getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+            return cb(null, require('../Components/Game'))
+        }, 'game')
     },
 }
 
 const ArticleDetail = {
-    path:'/indexList/:id',
-    getComponent(nextState,cb){
-        require.ensure([],(require)=>{
-            return cb(null,require('../Components/ArticleDetail'))  // 注意路径大小写
-        },'articleDetail')
+    path: '/indexList/:id',
+    getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+            return cb(null, require('../Components/ArticleDetail')) // 注意路径大小写
+        }, 'articleDetail')
     }
 }
 
 const Login = {
-    path:'login',
-    getComponent(nextState,cb){
-        require.ensure([],(require)=>{
-            return cb(null,require('../Components/Login'))  // 注意路径大小写
-        },'login')
+    path: 'login',
+    getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+            return cb(null, require('../Components/Login')) // 注意路径大小写
+        }, 'login')
     }
 }
 

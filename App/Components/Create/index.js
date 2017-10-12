@@ -80,6 +80,7 @@ class Create extends React.Component {
     }
     
     render() {
+        console.log("[Create] render " + location.hash)        
         return (
             <div>
                 <header className="bar bar-nav" style={{position: "relative"}}>
