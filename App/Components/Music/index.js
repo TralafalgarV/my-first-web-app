@@ -112,14 +112,27 @@ class Music extends React.Component {
         console.log("[Music] render " + location.hash)                
         return (
             <div style={{position: "relative"}}>
-                <div className="container">
-                    <div className="gallery" id="gallery" ref={(node) => {this.galleryNode = node}}>{this.coverImages()}</div>
+                <div className="mContainer">
+                    <div className="mGallery" id="mGallery" ref={(node) => {this.galleryNode = node}}>{this.coverImages()}</div>
                     <div id="buttons">{this.listHandle()}</div>                
                 </div>
-                <div className="media">
-                    <audio src="" controls="controls"></audio>
-                    <div className="progress">
-
+                <div className="music-player-container is-playing">
+                    <div className="music-player">
+                        <div className="player-content-container">
+                            <h1 className="artist-name">Incubus</h1>
+                            <h2 className="album-title">Make Yourself</h2>
+                            <h3 className="song-title">"Stellar"</h3>
+                            <div className="music-player-controls">
+                                <div className="control-back"></div>
+                                <div className="control-play"></div>
+                                <div className="control-forwards"></div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div className="album">
+                        <div className="album-art"></div>
+                        <div className="vinyl is-playing"></div>
                     </div>
                 </div>
             </div>           

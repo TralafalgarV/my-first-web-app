@@ -1,10 +1,7 @@
-* {
-    margin: 0;
-}
-.container {
+.mContainer {
     position: relative;
     width: 100%;
-    height: 600px;
+    height: 300px;
     /*改变3D元素透视位置*/
     perspective: 1500px;
     /*水平居中*/
@@ -13,36 +10,36 @@
 }
 
 /********************双飞翼布局*********************/
-.main {
+.mMain {
     float: left;
     width: 100%;
     height: 100%;
 }
 
-.content {
+.mContent {
     float: left;
     height: 100%;
     margin-left: 2.1rem;
     margin-right: 2.1rem;
 }
 
-.sub, .extra {
+.mSub, .mExtra {
     width: 2rem;
     height: 100%;
     float: left;
     background-color: yellow;
 }
 
-.sub {
+.mSub {
     margin-left: -100%;
 }
 
-.extra {
+.mExtra {
     margin-left: -2rem;
 }
 
 /********************专辑封面样式*******************/
-.gallery {
+.mGallery {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -115,28 +112,143 @@
 }
 
 /********************播放器样式*******************/
-.media {
+.music-player-container {
     position: relative;
-    bottom: 0px;
+    display: inline-block;
+    height: 365px;
+    min-width: 460px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.music-player-container::after {
+    content: '';
+    display: block;
+    position: absolute;
+    height: 10px;
+    width: 70%;    
+    bottom: -2px;
+    transform: rotate(-3deg);
+    background-color: rgba(0, 0, 0, 0.8);
+    filter: blur(8px);
+    z-index: 0;
 }
 
-.progress {
+.music-player {
     position: absolute;
-    width: 100%;
-    height: 2px;
+    height: 365px;
+    width: 460px;
+    padding: 40px 250px 40px 40px;
+    text-align: right;
+    z-index: 3;
+    background-color: #fff;
+}
+
+.player-content-container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.artist-name {
+    font-size: 28px;
+    font-weight: normal;
+    margin: 0 0 0.75em 0;
+}
+
+.album-title {
+	font-weight: 200;
+	font-size: 24px;
+	margin: 0 0 1.75em 0;
+}
+
+.song-title {
+	font-size: 18px;
+	font-weight: 200;
+	margin: 0 0 1.5em 0;
+}
+
+.album {
+    position: relative;
+    height: 315px;
+    width: 315px;
+    margin-left: 250px;
+    margin-top: 25px;
+	z-index: 10;    
+}
+
+.album-art {
+	background: #fff url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/83141/incubus-make-yourself.jpg') center / cover no-repeat;
+	height: 315px;
+	position: relative;
+	width: 315px;
+	z-index: 10;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.vinyl {
+    position: absolute;
+    height: 300px;
+    width: 300px;
+    top: 5px;
     left: 0px;
-    bottom: 0px;
-    background-color: green;
+    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/83141/vinyl.png'), url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/83141/incubus-make-yourself.jpg');
+    background-position: center, center;
+    background-size: cover, 40% auto;
+    background-repeat: no-repeat;
+    border-radius: 100%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+    transition: all 500ms;
+    animation: spin 2s infinite linear;
+    z-index: 5;
+    will-change: transform, left;
 }
 
-.progress::after {
-    content: "";
-    position: absolute;
-    border: .2px solid grey;
-    box-sizing: border-box;
-    bottom: 0;
-    left: 0;
-    width: 20px;
-    height: 2px;
-    background-color: rebeccapurple;
+.is-playing {
+    left: 52%;
 }
+
+.music-player-controls {
+	text-align: center;
+}
+
+
+/*
+[class^="control-"] {
+	@include filter(brightness(95%));
+	border-radius: 100%;
+	display: inline-block;
+	height: 44px;
+	margin: 0 3px;
+	width: 44px;
+
+
+	&:hover {
+		@include filter(brightness(85%));
+		cursor: pointer;
+	}
+}
+
+.control-play {
+	background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/83141/play.svg') center / cover no-repeat;
+
+	.is-playing & {
+		background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/83141/pause.svg') center / cover no-repeat;
+	}
+}
+
+.control-forwards {
+	background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/83141/forwards.svg') center / cover no-repeat;
+}
+
+.control-back {
+	background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/83141/backwards.svg') center / cover no-repeat;
+}
+*/
