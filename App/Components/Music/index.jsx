@@ -21,7 +21,9 @@ class Music extends React.Component {
             artistName: '阿三',
             albumTitle: '农业重金属',
             songTitle: '东北隆冬',
+            musicUrl: "http://music.163.com/outchain/player?type=2&id=483671599",
             musicList: [],
+            curMusic: '',
         }
         // 绑定专辑轮播图运行环境
         this.rotateGallery = this.rotateGallery.bind(this)
@@ -80,9 +82,9 @@ class Music extends React.Component {
 
     fetchData() {
         MusicModel.fetchList("", (data) => {
-            console.log("success")
+            console.log("music success")
         }, (err) => {
-            console.log("fail")
+            console.log("music fail")
         })
     }
 
@@ -127,6 +129,7 @@ class Music extends React.Component {
                 break
             case "control-play":
                 console.log("control-play")
+                this.audio.play()
                 break
             case "control-forwards":
                 console.log("control-forwards")
@@ -150,10 +153,12 @@ class Music extends React.Component {
                             <h2 className="album-title">{this.state.albumTitle}</h2>
                             <h3 className="song-title">{this.state.songTitle}</h3>
                             <div className="music-player-controls">
-                                <div className="control-back" onClick={this.ctlHandle("control-back")}></div>
-                                <div className="control-play" onClick={this.ctlHandle("control-play")}></div>
-                                <div className="control-forwards" onClick={this.ctlHandle("control-forwards")}></div>
-                                <audio src="../../static/resource/童话镇.mp3"></audio>
+                                <div className="control-back" onClick={() => this.ctlHandle("control-back")}></div>
+                                <div className="control-play" onClick={() => this.ctlHandle("control-play")}></div>
+                                <div className="control-forwards" onClick={() => this.ctlHandle("control-forwards")}></div>
+                                <audio ref={(node) => {this.audio = node}}>
+                                    <source src={this.state.musicUrl} type="audio/mpeg" />
+                                </audio>
                             </div>
                         </div>
                     </div>

@@ -221,8 +221,8 @@
 	text-align: center;
 }
 
-[class^="control-"] {
-    filter: brightness(95%);
+div [class^="control-"] {
+    filter: brightness(50%);
     border-radius: 100%;
     display: inline-block;
     height: 44px;
@@ -230,6 +230,26 @@
     margin: 0 3px;
 }
 
+div [class^="control-"]:hover {
+    filter: brightness(25%);
+    cursor: pointer;
+}
+
+.control-play {
+	background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/83141/play.svg') center / cover no-repeat;    
+}
+
+.control-forwards {
+	background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/83141/forwards.svg') center / cover no-repeat;
+}
+
+.control-back {
+	background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/83141/backwards.svg') center / cover no-repeat;
+}
+
+.control-playing {
+    background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/83141/pause.svg') center / cover no-repeat;
+}
 /*
 [class^="control-"] {
 	@include filter(brightness(95%));
