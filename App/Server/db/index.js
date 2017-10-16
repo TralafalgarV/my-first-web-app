@@ -22,7 +22,7 @@ mongoose.model('Article', new mongoose.Schema({
     }],    
 }))
 
-//文章model 这里规定的内容，就是数据库实际存储内容，其他地方无法随意添加
+// user model 这里规定的内容，就是数据库实际存储内容，其他地方无法随意添加
 mongoose.model('User', new mongoose.Schema({
     username: {type: String, isRequired: true},
     password: {type: String, isRequired: true},
@@ -33,6 +33,12 @@ mongoose.model('User', new mongoose.Schema({
     avatar: {type: String, default: 'http://www.qdaily.com/images/missing_face.png'}//头像
 }))
 
+// music model 这里规定的内容，就是数据库实际存储内容，其他地方无法随意添加
+mongoose.model('Music', new mongoose.Schema({
+    artistName: {type: String, isRequired: true},
+    albunTitle: {type: String, isRequired: true},
+    songTitle: {type: String, isRequired: true},
+}))
 //在程序的任何地方都可以调用此方法,设置为全局
 global.Model = function(modelName) {
     return mongoose.model(modelName)

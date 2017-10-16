@@ -3,6 +3,7 @@
 import React from 'react'
 import {render} from 'react-dom'
 import '../../static/CSS/music.css'
+import {MusicModel} from '../../Model/dataModel'
 
 // 获取所有封面图片路径的集合
 const requireCover = require.context("../../static/cover", true, /[0-9]\.(png|jpg)/)
@@ -17,13 +18,17 @@ class Music extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            list: [],
-            defaultTop: null,
+            artistName: '阿三',
+            albumTitle: '农业重金属',
+            songTitle: '东北隆冬',
+            musicList: [],
         }
-        // 绑定当前运行环境
+        // 绑定专辑轮播图运行环境
         this.rotateGallery = this.rotateGallery.bind(this)
         this.resetDeg = this.resetDeg.bind(this)
         this.listHandle = this.listHandle.bind(this)
+        // 绑定播放器运行环境
+        this.ctlHandle = this.ctlHandle.bind(this)
     }
 
     // 展示专辑封面
@@ -67,12 +72,18 @@ class Music extends React.Component {
         galleryNode.style.transform = "rotateY(0deg)"
         window.requestAnimationFrame(this.rotateGallery)
     }
-
     componentDidMount() {
         // setInternal 中传入的回调函数，需要绑定当前运行环境
-        this.timer = setInterval(this.rotateGallery, 1000)
+        this.timer = setInterval(this.rotateGallery, 1500)
+        this.fetchData()
+    }
 
-        // 加载 music 路径：加载用时过长，故放在此处   
+    fetchData() {
+        MusicModel.fetchList("", (data) => {
+            console.log("success")
+        }, (err) => {
+            console.log("fail")
+        })
     }
 
     // 卸载钩子函数
@@ -91,7 +102,7 @@ class Music extends React.Component {
     // 重启定时器
     restartTimer() {
         clearInterval(this.timer)
-        this.timer = setInterval(this.rotateGallery, 1000)
+        this.timer = setInterval(this.rotateGallery, 1500)
     }
 
     listHandle() {
@@ -107,7 +118,23 @@ class Music extends React.Component {
             })
         )
     }
-    
+
+    // 播放器相关函数
+    ctlHandle(btnType) {
+        switch (btnType) {
+            case "control-back":
+                console.log("control-back")
+                break
+            case "control-play":
+                console.log("control-play")
+                break
+            case "control-forwards":
+                console.log("control-forwards")
+                break
+            default:
+                break
+        }
+    }
     render() {
         console.log("[Music] render " + location.hash)                
         return (
@@ -119,13 +146,14 @@ class Music extends React.Component {
                 <div className="music-player-container is-playing">
                     <div className="music-player">
                         <div className="player-content-container">
-                            <h1 className="artist-name">Incubus</h1>
-                            <h2 className="album-title">Make Yourself</h2>
-                            <h3 className="song-title">"Stellar"</h3>
+                            <h1 className="artist-name">{this.state.artistName}</h1>
+                            <h2 className="album-title">{this.state.albumTitle}</h2>
+                            <h3 className="song-title">{this.state.songTitle}</h3>
                             <div className="music-player-controls">
-                                <div className="control-back"></div>
-                                <div className="control-play"></div>
-                                <div className="control-forwards"></div>
+                                <div className="control-back" onClick={this.ctlHandle("control-back")}></div>
+                                <div className="control-play" onClick={this.ctlHandle("control-play")}></div>
+                                <div className="control-forwards" onClick={this.ctlHandle("control-forwards")}></div>
+                                <audio src="../../static/resource/童话镇.mp3"></audio>
                             </div>
                         </div>
                     </div>

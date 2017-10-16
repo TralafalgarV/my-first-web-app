@@ -17,6 +17,7 @@ var mongoose = require('mongoose')
 
 var article = require('./routes/article')
 var user = require('./routes/user')
+var music = require('./routes/music')
 
 //dev-API
 global.API = 'http://localhost:4545'
@@ -57,6 +58,7 @@ app.use(bodyParser.json())
 /*加载article和user中间件*/
 app.use('/article', article)
 app.use('/user', user)
+app.use('/music', music)
 
 app.listen('4545',function () {
     console.log('listen 4545 port')

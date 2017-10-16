@@ -22,9 +22,15 @@ React-Router
 2017.9.24--引入MongoDB
 * server端的数据不再存储在file里面，现在引入MongoDB，用来管理数据
 
-2017.10.11--
+2017.10.11--Music页面
 * 开写Music组件
 * react批量引入图片方法
 * 专辑封面轮转效果
 * React修改dom的css方式
 * react 动画 ReactCSSTransitionGroup
+
+2017.10.16--Music页面
+* 完成专辑展示轮播图
+* 制作播放器页面
+* 播放器动画效果添加
+* 学习transform、translate、filter、animation、translation等属性

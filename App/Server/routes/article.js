@@ -64,7 +64,7 @@ router.post('/publish', function (req, res) {
         console.log("[article] publish a new article...")
         Model('Article').create(data, function(err, doc) {
             if (err) {
-                res,send(err)
+                res.send(err)
             } else {
                 if (doc) {
                     res.send({title: 1, content: '发表成功'})
@@ -84,7 +84,7 @@ router.post('/comment', function (req, res) {
         if(err) {
             res.send(err)
         } else {
-            res.send({title:1, content:'评论成功'})
+            res.send({title: 1, content: '评论成功'})
         }
     })        
 })

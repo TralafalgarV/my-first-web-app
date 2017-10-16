@@ -35,7 +35,7 @@ module.exports = {
     module:{
         loaders:[
             {
-                test: /\.js$/, //正则，匹配到的文件后缀名
+                test: /\.(js|jsx)$/, //正则，匹配到的文件后缀名
                 loader: 'babel'
             },
             //加载css代码

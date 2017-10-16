@@ -111,4 +111,9 @@ let UserModel = {
     },     
 }
 
-export {ArticleModel, UserModel}
+let MusicModel = {
+    fetchList:(_params, _success, _error) => {
+        _request('GET', `${API}music/fetchList`, _params, _success, _error)
+    },    
+}
+export {ArticleModel, UserModel, MusicModel}

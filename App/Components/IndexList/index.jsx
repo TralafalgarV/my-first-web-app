@@ -75,10 +75,9 @@ class IndexList extends React.Component {
         }
         return word
     }
-    // 点击文章，并传入createTime
-    articleClick(item) {
-        console.log(item)
-        location.hash = `/indexList/${item.createTime}`
+    // 点击文章，并传入articleId
+    articleClick(articleId) {
+        location.hash = `/indexList/${articleId}`
         // browserHistory.push("#/indexList/2")
     }
     // 列表
@@ -92,7 +91,7 @@ class IndexList extends React.Component {
                 <li className="" style={Styles.indexList} key={index}>
                     <Link to={'/indexList/'+item._id} style={{display:'block'}}>                    
                         <div className="list" onClick={() => {
-                            _this.articleClick(item)}}>
+                            _this.articleClick(item._id)}}>
                             <div className=""><h4 style={Styles.h4Style}>{item.title}</h4></div>
                             <div className="">
                                 <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
