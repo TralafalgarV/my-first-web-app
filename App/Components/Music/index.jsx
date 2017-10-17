@@ -22,10 +22,10 @@ class Music extends React.Component {
         this.state = {
             musicList: [],
             curMusic: {
-                artistName: "菠萝赛东",
-                albumTitle: "未知",
-                songTitle: "我的一个道姑朋友",
-                musicUrl: ""
+                // artistName: "菠萝赛东",
+                // albumTitle: "未知",
+                // songTitle: "我的一个道姑朋友",
+                // musicUrl: "http://ws.stream.qqmusic.qq.com/200138786.m4a?fromtag=46"
             },
         }
         // 绑定专辑轮播图运行环境
@@ -120,9 +120,11 @@ class Music extends React.Component {
 
     // 点歌
     chooseMusic(index) {
+        console.log("点歌", this.audio)
         this.setState({
             curMusic: musicList[index]
         })
+        this.audio.load()
     }
 
     // 轮播导航栏
@@ -148,10 +150,10 @@ class Music extends React.Component {
         
         // 音乐的播放停止，图标的变化
         if (this.playNode.classList.contains("control-pause")) {
-            console.log("music play")            
+            console.log("music play", this.audio)            
             this.audio.play()                    
         } else {
-            console.log("music stop")
+            console.log("music stop", this.audio)
             this.audio.pause()
         }
     }
@@ -175,7 +177,7 @@ class Music extends React.Component {
     }
 
     render() {
-        console.log("[Music] render " + location.hash)                
+        console.log("[Music] render " + location.hash)
         return (
             <div style={{position: "relative"}}>
                 <div className="mContainer">
