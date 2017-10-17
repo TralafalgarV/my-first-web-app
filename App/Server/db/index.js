@@ -36,8 +36,9 @@ mongoose.model('User', new mongoose.Schema({
 // music model 这里规定的内容，就是数据库实际存储内容，其他地方无法随意添加
 mongoose.model('Music', new mongoose.Schema({
     artistName: {type: String, isRequired: true},
-    albunTitle: {type: String, isRequired: true},
+    albumTitle: {type: String, isRequired: true},
     songTitle: {type: String, isRequired: true},
+    musicUrl: {type: String, isRequired: true},    
 }))
 //在程序的任何地方都可以调用此方法,设置为全局
 global.Model = function(modelName) {

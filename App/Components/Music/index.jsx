@@ -14,16 +14,19 @@ const images = requireCover.keys().map(requireCover)
 // import musics from '../../static/resource/1.mp3'
 // console.log(musics)
 
+var musicList = []
+
 class Music extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            artistName: '阿三',
-            albumTitle: '农业重金属',
-            songTitle: '东北隆冬',
-            musicUrl: "http://music.163.com/outchain/player?type=2&id=483671599",
             musicList: [],
-            curMusic: '',
+            curMusic: {
+                artistName: "菠萝赛东",
+                albumTitle: "未知",
+                songTitle: "我的一个道姑朋友",
+                musicUrl: ""
+            },
         }
         // 绑定专辑轮播图运行环境
         this.rotateGallery = this.rotateGallery.bind(this)
@@ -74,15 +77,23 @@ class Music extends React.Component {
         galleryNode.style.transform = "rotateY(0deg)"
         window.requestAnimationFrame(this.rotateGallery)
     }
+
     componentDidMount() {
         // setInternal 中传入的回调函数，需要绑定当前运行环境
         this.timer = setInterval(this.rotateGallery, 1500)
         this.fetchData()
     }
 
+    // 获取music相关数据
     fetchData() {
         MusicModel.fetchList("", (data) => {
-            console.log("music success")
+            // 更新state
+            this.setState({
+                musicList: data
+            })
+            // 
+            musicList = this.state.musicList
+            console.log("Music List:", musicList)
         }, (err) => {
             console.log("music fail")
         })
@@ -107,6 +118,14 @@ class Music extends React.Component {
         this.timer = setInterval(this.rotateGallery, 1500)
     }
 
+    // 点歌
+    chooseMusic(index) {
+        this.setState({
+            curMusic: musicList[index]
+        })
+    }
+
+    // 轮播导航栏
     listHandle() {
         let _this = this
         return (
@@ -115,29 +134,46 @@ class Music extends React.Component {
                     <div className="btn" key={index} onClick={function(e) {
                         _this.setGalleryImage(index)
                         _this.restartTimer()
+                        _this.chooseMusic(index)
                     }}>{index}</div>
                 )
             })
         )
     }
 
+    playHandle() {
+        // 给play按钮添加播放样式
+        this.playNode.classList.toggle("control-pause")
+        this.vinylNode.classList.toggle("album-playing")
+        
+        // 音乐的播放停止，图标的变化
+        if (this.playNode.classList.contains("control-pause")) {
+            console.log("music play")            
+            this.audio.play()                    
+        } else {
+            console.log("music stop")
+            this.audio.pause()
+        }
+    }
+
     // 播放器相关函数
     ctlHandle(btnType) {
         switch (btnType) {
             case "control-back":
-                console.log("control-back")
+                console.log("[Music] control-back")
                 break
             case "control-play":
-                console.log("control-play")
-                this.audio.play()
+                console.log("[Music] click control-play")
+                this.playHandle()
                 break
             case "control-forwards":
-                console.log("control-forwards")
+                console.log("[Music] control-forwards")
                 break
             default:
                 break
         }
     }
+
     render() {
         console.log("[Music] render " + location.hash)                
         return (
@@ -149,15 +185,15 @@ class Music extends React.Component {
                 <div className="music-player-container is-playing">
                     <div className="music-player">
                         <div className="player-content-container">
-                            <h1 className="artist-name">{this.state.artistName}</h1>
-                            <h2 className="album-title">{this.state.albumTitle}</h2>
-                            <h3 className="song-title">{this.state.songTitle}</h3>
+                            <h1 className="artist-name">{this.state.curMusic.artistName}</h1>
+                            <h2 className="album-title">{this.state.curMusic.albumTitle}</h2>
+                            <h3 className="song-title">{this.state.curMusic.songTitle}</h3>
                             <div className="music-player-controls">
                                 <div className="control-back" onClick={() => this.ctlHandle("control-back")}></div>
-                                <div className="control-play" onClick={() => this.ctlHandle("control-play")}></div>
+                                <div className="control-play" onClick={() => this.ctlHandle("control-play")} ref={(node) => this.playNode = node}></div>
                                 <div className="control-forwards" onClick={() => this.ctlHandle("control-forwards")}></div>
                                 <audio ref={(node) => {this.audio = node}}>
-                                    <source src={this.state.musicUrl} type="audio/mpeg" />
+                                    <source src={this.state.curMusic.musicUrl} type="audio/mpeg" />
                                 </audio>
                             </div>
                         </div>
@@ -165,7 +201,7 @@ class Music extends React.Component {
             
                     <div className="album">
                         <div className="album-art"></div>
-                        <div className="vinyl is-playing"></div>
+                        <div className="vinyl" ref={(node) => {this.vinylNode = node}}></div>
                     </div>
                 </div>
             </div>           

@@ -3,8 +3,17 @@ var music = express.Router()
 
 music.get('/fetchList', function (req, res) {
     console.log("music req")
-    // 不可以send null （作死）
-    res.send(JSON.stringify("wocao"))
+
+    Model('Music').find().exec(function(err, doc) {
+        if (err) {
+            res.send(err)
+        } else {
+            if (doc) {
+                console.log(doc)
+                res.send(JSON.stringify(doc))
+            }
+        }
+    })    
 })
 
 module.exports = music
