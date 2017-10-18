@@ -150,10 +150,10 @@ class Music extends React.Component {
         
         // 音乐的播放停止，图标的变化
         if (this.playNode.classList.contains("control-pause")) {
-            console.log("music play", this.audio)            
+            console.log("music play")            
             this.audio.play()                    
         } else {
-            console.log("music stop", this.audio)
+            console.log("music stop")
             this.audio.pause()
         }
     }
@@ -175,7 +175,17 @@ class Music extends React.Component {
                 break
         }
     }
-
+    // 播放列表
+    musicListHandle() {
+        let musicList = this.state.musicList
+        return musicList.map(function(ele, index) {
+            return (
+                <li key={index}>
+                    <div onClick={() => {}}><span>{ele.songTitle}</span></div>
+                </li>
+            )
+        })
+    }
     render() {
         console.log("[Music] render " + location.hash)
         return (
@@ -184,12 +194,17 @@ class Music extends React.Component {
                     <div className="mGallery" id="mGallery" ref={(node) => {this.galleryNode = node}}>{this.coverImages()}</div>
                     <div id="buttons">{this.listHandle()}</div>                
                 </div>
+                <div className="music-list">
+                    <ul>
+                        {this.musicListHandle()}
+                    </ul>
+                </div>                
                 <div className="music-player-container is-playing">
                     <div className="music-player">
                         <div className="player-content-container">
-                            <h1 className="artist-name">{this.state.curMusic.artistName}</h1>
+                            <h1 className="song-title">{this.state.curMusic.songTitle}</h1>
                             <h2 className="album-title">{this.state.curMusic.albumTitle}</h2>
-                            <h3 className="song-title">{this.state.curMusic.songTitle}</h3>
+                            <h3 className="artist-name">{this.state.curMusic.artistName}</h3>
                             <div className="music-player-controls">
                                 <div className="control-back" onClick={() => this.ctlHandle("control-back")}></div>
                                 <div className="control-play" onClick={() => this.ctlHandle("control-play")} ref={(node) => this.playNode = node}></div>
@@ -205,6 +220,7 @@ class Music extends React.Component {
                         <div className="album-art"></div>
                         <div className="vinyl" ref={(node) => {this.vinylNode = node}}></div>
                     </div>
+
                 </div>
             </div>           
         )
