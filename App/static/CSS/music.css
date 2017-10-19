@@ -267,8 +267,21 @@ div [class^="control-"]:hover {
     list-style-type: none;
 }
 
-.music-list li {
+.musis-list-btn {
     padding: 0 0.2rem;
     border: 1px solid gray;
     border-radius: 3px;
+}
+
+.musis-list-btn:hover {
+    /*水平、垂直、[模糊距离]、[阴影的尺寸]、[颜色]、[将外部阴影 (outset) 改为内部阴影]*/ 
+    box-shadow: 1px 1px 1px #888; 
+    cursor: pointer;
+    background-color: #f4c79d;  
+}
+
+/*阻止事件捕获*/ 
+.musis-list-btn > * 
+{
+    pointer-events:none;
 }

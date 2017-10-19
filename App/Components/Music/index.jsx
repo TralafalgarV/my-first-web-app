@@ -26,6 +26,7 @@ class Music extends React.Component {
                 // albumTitle: "未知",
                 // songTitle: "我的一个道姑朋友",
                 // musicUrl: "http://ws.stream.qqmusic.qq.com/200138786.m4a?fromtag=46"
+                // 
             },
         }
         // 绑定专辑轮播图运行环境
@@ -34,6 +35,7 @@ class Music extends React.Component {
         this.listHandle = this.listHandle.bind(this)
         // 绑定播放器运行环境
         this.ctlHandle = this.ctlHandle.bind(this)
+        this.chooseMusic = this.chooseMusic.bind(this)
     }
 
     // 展示专辑封面
@@ -120,10 +122,15 @@ class Music extends React.Component {
 
     // 点歌
     chooseMusic(index) {
+        // 给play按钮添加停止样式
+        this.playNode.classList.remove("control-pause")
+        this.vinylNode.classList.remove("album-playing")
+
         console.log("点歌", this.audio)
         this.setState({
             curMusic: musicList[index]
         })
+        // 修改source.src之后，需要重新加载audio元素
         this.audio.load()
     }
 
@@ -137,7 +144,7 @@ class Music extends React.Component {
                         _this.setGalleryImage(index)
                         _this.restartTimer()
                         _this.chooseMusic(index)
-                    }}>{index}</div>
+                    }}>{index + 1}</div>
                 )
             })
         )
@@ -148,7 +155,7 @@ class Music extends React.Component {
         this.playNode.classList.toggle("control-pause")
         this.vinylNode.classList.toggle("album-playing")
         
-        // 音乐的播放停止，图标的变化
+        // 音乐的播放停止
         if (this.playNode.classList.contains("control-pause")) {
             console.log("music play")            
             this.audio.play()                    
@@ -177,11 +184,15 @@ class Music extends React.Component {
     }
     // 播放列表
     musicListHandle() {
+        let _this = this
         let musicList = this.state.musicList
         return musicList.map(function(ele, index) {
             return (
                 <li key={index}>
-                    <div onClick={() => {}}><span>{ele.songTitle}</span></div>
+                    <div className="musis-list-btn" data-index={index} onClick={(e) => {
+                        e.stopPropagation()  // stopPropagation()方法既可以阻止事件冒泡，也可以阻止事件捕获，也可以阻止处于目标阶段
+                        _this.chooseMusic(e.target.dataset.index)
+                    }}><span>{ele.songTitle}</span></div>
                 </li>
             )
         })
