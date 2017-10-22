@@ -34,3 +34,7 @@ React-Router
 * 制作播放器页面
 * 播放器动画效果添加
 * 学习transform、translate、filter、animation、translation等属性
+
+2017.10.20--indexList slider
+* 技术难点：1. 判断设备类型 2. 绑定touchStart、touchMove、touchEnd事件 3. 在绑定事件处理函数中，处理下拉距离对slider的影响
+* 将slider进行封装，使用了ES6的class语法
