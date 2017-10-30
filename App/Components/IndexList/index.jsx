@@ -108,18 +108,27 @@ class IndexList extends React.Component {
         } else {
             // 绑定PC端下拉事件
             indexListSlider.addEventListener("mousedown", function(e) {
-                _this.touchStart(e)
             }, false)
             indexListSlider.addEventListener("mousemove", function(e) {
-                _this.touchMove(e)
             }, true)        
             indexListSlider.addEventListener("mouseup", function(e) {
-                _this.touchEnd(e)
             }, false)               
         }
 
         // 更新数据
-        this.fetchData()        
+        this.fetchData()   
+        // 初始化slider  
+        let indexListComponent = this
+        this.slider = new Slider(".indexList", 60, function() {
+            let _this = this
+            this.timer = setTimeout(function() {
+                // 更新完数据后，将slider高度设为0
+                _this.sliderBack(0)
+                // 调用indexList组件的fetchData()方法更新数据
+                indexListComponent.fetchData()
+                // console.log("setTimeout", _this)           
+            }, 2000)
+        })           
     }
 
     // 获取数据
@@ -179,18 +188,8 @@ class IndexList extends React.Component {
     
     // 下拉开始记录Y值
     touchStart(e) {
-        let indexListComponent = this
-        this.slider = new Slider(".indexList", 60, function() {
-            let _this = this
-            this.timer = setTimeout(function() {
-                // 更新完数据后，将slider高度设为0
-                _this.sliderBack(0)
-                // 调用indexList组件的fetchData()方法更新数据
-                indexListComponent.fetchData()
-                // console.log("setTimeout", _this)           
-            }, 2000)
-        })
-        this.slider.stateLock = "touchStart"
+
+        // this.slider.stateLock = "touchStart"
         this.slider.setTransition(0)
         this.slider.touchStartY = e.touches[0].pageY
         this.slider.firstChild.firstChild.innerHTML = '下拉加载更多数据'
@@ -200,23 +199,25 @@ class IndexList extends React.Component {
 
     // 下拉移动中
     touchMove(e) {
-        console.log("Move:", this.slider.stateLock)
+        console.log("Move:")
         // 下拉过程中清空定时器
-            this.slider.timer = null
+        if (!this.slider.timer) {
+            clearInterval(this.slider.timer)
+        }
 
-            this.slider.setTransition(0)        
-            this.slider.touchEndY = e.touches[0].pageY
-            // 计算下拉距离
-            this.slider.diff = this.slider.touchEndY - this.slider.touchStartY
-            this.slider.stateLock = "touchMove"
-            // 下拉刷新
-            this.slider.sliderPull()
+        this.slider.setTransition(0)        
+        this.slider.touchEndY = e.touches[0].pageY
+        // 计算下拉距离
+        this.slider.diff = this.slider.touchEndY - this.slider.touchStartY
+        // this.slider.stateLock = "touchMove"
+        // 下拉刷新
+        this.slider.sliderPull()
     }
 
     // 下拉结束
     touchEnd() {
-        console.log("End: ", this.slider.stateLock)
-        this.slider.stateLock = "touchEnd"
+        console.log("End: ")
+        // this.slider.stateLock = "touchEnd"
         this.slider.setTransition(1)
         
         if (this.slider.diff > this.slider.offset) {
