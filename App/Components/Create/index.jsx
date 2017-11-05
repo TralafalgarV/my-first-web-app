@@ -2,6 +2,7 @@
 
 import React from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
+import "../../static/CSS/create"
 
 class Create extends React.Component {
     constructor(props) {
@@ -83,47 +84,42 @@ class Create extends React.Component {
         console.log("[Create] render " + location.hash)        
         return (
             <div>
-                <header className="bar bar-nav" style={{position: "relative"}}>
-                    <h1 className="title">{this.state.pageTitle}</h1>
-                </header>
-                <div className="content"  style={{position: "relative", top: "0"}}>
-                    <div className="list-block" style={{margin: "0"}}>
-                        <ul>
-                            <li>
-                                <div className="item-content">
-                                    <div className="item-inner" style={{borderBottom: "2px solid #eee"}}>
-                                        <div className="item-input">
-                                            <input type="text" placeholder="请输入标题" value={this.state.title} onChange={(e) => {
-                                                this.handleChangeVal(e, "title")
-                                            }}/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li className="align-top">
-                                <div className="item-content">
-                                    <div className="item-inner">
-                                        <div className="item-input">
-                                            <textarea placeholder="请输入内容" value={this.state.content} style={{height: "10rem"}} onChange={(e) => {
-                                                this.handleChangeVal(e, "content")    
-                                            }}></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                <div className="create-container">
+                    <div className="form-group">
+                        <label htmlFor="title" className="sr-only">标题</label>
+                        <input id="myTitle" type="text" name="title" required="" data-error="" autoComplete="off" className="form-control tagClose input-lg" placeholder="标题：不需要很长" value="" />
                     </div>
-                    <div className="content-block">
-                        <div className="row">
-                            <div className="col-50">
-                                <a className="button button-big button-fill button-danger" onClick={(e) => {
-                                    this.handleCancel(e)
-                                }}>取消</a>
+                    <div id="questionText" className="editor liveMode" style={{width: "100%"}}>
+                        <div className="wmd">
+                            <textarea id="myEditor" className="mono form-control wmd-input tabIndent" placeholder="" style={{backgroundPosition: "right top", backgroundRepeat: "no-repeat", opacity: "1", height: "444px"}}></textarea>
+                            <div style={{position: "absolute", zIndex: "100", top: "31px", right: "0"}} className="alert alert-info code-detect hide" role="alert">
+                                <span className="showVideo" style={{cursor: "pointer"}}></span>
+                                <span className="disable" style={{marginLeft: "10px", cursor: "pointer"}}></span> 
                             </div>
-                            <div className="col-50">
-                                <a className="button button-big button-fill button-success" onClick={(e) => {
-                                    this.handlePublish(e)
-                                }}>发表</a>
+                        </div>
+                        <div className="editor-line"></div>
+                        <div className="editor-preview">
+                            <div className="fmt" id="wmd-preview">
+                                <p></p>
+                            </div>
+                        </div>
+                        <a className="editor__resize" href="javascript:void(0);">调整高度</a>
+                        <div className=" publish-footer">
+                            <div className="container">
+                                <div className="operations clearfix">
+                                     <div className="shareToWeibo checkbox pull-left mr10 mb0">
+                                        <label htmlFor="shareToWeibo">
+                                            <input type="checkbox" id="shareToWeibo"/> 同步到新浪微博</label>
+                                    </div>
+                                    <div className="pull-right">
+                                        <span className="text-muted" id="editorStatus">已保存草稿</span>
+                                        <a id="dropIt" href="javascript:void(0);" className="mr10">[舍弃]</a>
+                                        <button className="hide" type="button"></button>
+                                        <button data-toggle="tooltip" data-placement="top" title="" type="button" data-type="question" id="publishIt" className="btn btn-primary ml10" data-id="" data-do="" data-url="" data-text="发布问题" data-name="" data-original-title="">
+                                            发布文章
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
