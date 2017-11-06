@@ -53,6 +53,7 @@
     "babel-plugin-transform-object-assign": "^6.8.0",
     "eslint": "^4.5.0",
     "formidable": "^1.0.17",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "showdown": "^1.8.1"
   }
 }

@@ -182,6 +182,7 @@ class Music extends React.Component {
                 break
         }
     }
+    
     // 播放列表
     musicListHandle() {
         let _this = this
@@ -197,6 +198,7 @@ class Music extends React.Component {
             )
         })
     }
+
     render() {
         console.log("[Music] render " + location.hash)
         return (
@@ -226,12 +228,11 @@ class Music extends React.Component {
                             </div>
                         </div>
                     </div>
-            
+
                     <div className="album">
                         <div className="album-art"></div>
                         <div className="vinyl" ref={(node) => {this.vinylNode = node}}></div>
                     </div>
-
                 </div>
             </div>           
         )

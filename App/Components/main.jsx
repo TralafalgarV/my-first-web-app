@@ -9,11 +9,20 @@ import '../static/CSS/articleDetail.css'
 // Import styles if they don't get loaded already
 import 'react-perf-tool/lib/styles.css'
 
+// [优化] 对象字面量会导致 render 触发重新渲染
+const navStyle = {
+    position: "relative",
+    height: "50px",
+    width: "100%",
+    top: "0px",
+    zIndex: '2001'
+}
+
 // Link组件用于取代<a>元素，生成一个链接，允许用户点击后跳转到另一个路由
 // Link的to属性值，需要加‘/’，否则会触发两次route跳转
 // activeClassName 属性是 Link 被点击时，显示的样式
 let nav = () => {
-    console.log("main.js: nav loading")
+    console.log("[App] nav display")
     return (
         <nav className="bar bar-tab">
             <Link className="tab-item" activeClassName="active" to="/indexlist">
@@ -49,11 +58,10 @@ let nav = () => {
 //  上面代码中，App组件的this.props.children属性就是子组件
 /**
 App
- +--- IndexList 优先加载页面
- +--- IndexList
+ +--- IndexList(优先加载页面)---ArticleList
  +--- Create
+ +--- Music
  +--- Game
- +--- ArticleDetail
  */
 class App extends React.Component {
     constructor(props) {
@@ -93,7 +101,7 @@ class App extends React.Component {
         console.log("[App] render " + location.hash)
         return (
             <div data-log="one">
-                <div style={{position:"relative",height:"50px",width:"100%",top:"0px",zIndex:'2001'}}>{nav()}</div>                
+                <div style={navStyle}>{nav()}</div>                
                 <div data-log="two">
                     {this.props.children}
                 </div>

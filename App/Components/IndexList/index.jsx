@@ -72,7 +72,7 @@ class Slider {
                 // e.preventDefault() 
                 this.firstChild.style.height = this.diff/2 + "px"
             }
-        }       
+        }
     }
 
     // 回到初始状态
@@ -134,16 +134,16 @@ class IndexList extends React.Component {
     // 获取数据
     fetchData() {
         ArticleModel.fetchList("", (data) => {
-            console.log("[Index] fetch from Server：", data)
+            console.log("[IndexList] fetch from Server：", data)
             this.setState({list : data})      
         }, (err) => {
             console.log(err)
         })        
     }
     //限制字数
-    wordControl(word){
-        if(word.length>65){
-           word = word.substring(0,65)+' ...';
+    wordControl(word) {
+        if(word.length > 65){
+           word = word.substring(0, 65) + '...'
         }
         return word
     }
@@ -194,7 +194,7 @@ class IndexList extends React.Component {
         this.slider.touchStartY = e.touches[0].pageY
         this.slider.firstChild.firstChild.innerHTML = '下拉加载更多数据'
         
-        console.log("[Silder]: touchStartY=", this.slider.touchStartY)            
+        console.log("[IndexList Silder]: touchStartY=", this.slider.touchStartY)            
     }
 
     // 下拉移动中
@@ -231,7 +231,7 @@ class IndexList extends React.Component {
     }
 
     render() {
-        console.log("[Indexlist] render " + location.hash)        
+        console.log("[IndexList] render " + location.hash)        
         return (
             <div className="indexList">
                 <div id="scroller" className="scroller">

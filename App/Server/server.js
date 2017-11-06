@@ -55,7 +55,7 @@ app.all('*', function(req, res, next) {
 
 app.use(bodyParser.json())
 
-/*加载article和user中间件*/
+/*加载article、user、music中间件*/
 app.use('/article', article)
 app.use('/user', user)
 app.use('/music', music)

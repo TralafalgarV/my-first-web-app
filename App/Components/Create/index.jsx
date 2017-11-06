@@ -3,6 +3,7 @@
 import React from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
 import "../../static/CSS/create"
+import showdown from "showdown"
 
 class Create extends React.Component {
     constructor(props) {
@@ -87,11 +88,11 @@ class Create extends React.Component {
                 <div className="create-container">
                     <div className="form-group">
                         <label htmlFor="title" className="sr-only">标题</label>
-                        <input id="myTitle" type="text" name="title" required="" data-error="" autoComplete="off" className="form-control tagClose input-lg" placeholder="标题：不需要很长" value="" />
+                        <input id="myTitle" type="text" name="title" required="" data-error="" autoComplete="off" className="form-control tagClose input-lg" placeholder="标题：不需要很长"/>
                     </div>
                     <div id="questionText" className="editor liveMode" style={{width: "100%"}}>
                         <div className="wmd">
-                            <textarea id="myEditor" className="mono form-control wmd-input tabIndent" placeholder="" style={{backgroundPosition: "right top", backgroundRepeat: "no-repeat", opacity: "1", height: "444px"}}></textarea>
+                            <textarea id="myEditor" className="mono form-control wmd-input" placeholder="" style={{backgroundPosition: "right top", backgroundRepeat: "no-repeat", opacity: "1", height: "444px"}}></textarea>
                             <div style={{position: "absolute", zIndex: "100", top: "31px", right: "0"}} className="alert alert-info code-detect hide" role="alert">
                                 <span className="showVideo" style={{cursor: "pointer"}}></span>
                                 <span className="disable" style={{marginLeft: "10px", cursor: "pointer"}}></span> 
@@ -103,26 +104,25 @@ class Create extends React.Component {
                                 <p></p>
                             </div>
                         </div>
-                        <a className="editor__resize" href="javascript:void(0);">调整高度</a>
-                        <div className=" publish-footer">
-                            <div className="container">
-                                <div className="operations clearfix">
-                                     <div className="shareToWeibo checkbox pull-left mr10 mb0">
-                                        <label htmlFor="shareToWeibo">
-                                            <input type="checkbox" id="shareToWeibo"/> 同步到新浪微博</label>
-                                    </div>
-                                    <div className="pull-right">
-                                        <span className="text-muted" id="editorStatus">已保存草稿</span>
-                                        <a id="dropIt" href="javascript:void(0);" className="mr10">[舍弃]</a>
-                                        <button className="hide" type="button"></button>
-                                        <button data-toggle="tooltip" data-placement="top" title="" type="button" data-type="question" id="publishIt" className="btn btn-primary ml10" data-id="" data-do="" data-url="" data-text="发布问题" data-name="" data-original-title="">
-                                            发布文章
-                                        </button>
-                                    </div>
+                    </div>
+                    <div className=" publish-footer">
+                        <div className="container">
+                            <div className="operations clearfix">
+                                    <div className="shareToWeibo checkbox pull-left mr10 mb0">
+                                    <label htmlFor="shareToWeibo">
+                                        <input type="checkbox" id="shareToWeibo"/> 同步到新浪微博</label>
+                                </div>
+                                <div className="pull-right">
+                                    <span className="text-muted" id="editorStatus">已保存草稿</span>
+                                    <a id="dropIt" href="javascript:void(0);" className="mr10">[舍弃]</a>
+                                    <button className="hide" type="button"></button>
+                                    <button data-toggle="tooltip" data-placement="top" title="" type="button" data-type="question" id="publishIt" className="btn btn-primary ml10" data-id="" data-do="" data-url="" data-text="发布问题" data-name="" data-original-title="">
+                                        发布文章
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>                    
                 </div>
             </div>
         )

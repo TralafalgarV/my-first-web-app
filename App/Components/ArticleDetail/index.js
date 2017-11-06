@@ -37,7 +37,7 @@ class ArticleDetail extends Component {
     // 从路由中获取文章 Id
     getArticleId() {
         let articleId = this.props.params.id  // 通过Link标签带过来的 id参数
-        console.log("[ArticleDetail] articleId: ", articleId)
+        console.log("ArticleId: ", articleId)
         return articleId
     }
 
