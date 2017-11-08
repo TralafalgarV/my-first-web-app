@@ -14,7 +14,6 @@
     clear: both
 }
 
-
 .mono {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace
 }
@@ -92,9 +91,6 @@ fieldset[disabled] .form-control {
 
 .form-group {
     position: relative;
-}
-
-.form-group {
     margin-bottom: 15px;
 }
 
@@ -102,11 +98,7 @@ textarea.form-control {
     height: auto
 }
 
-.input-lg,
-.form-horizontal .form-group-lg .form-control,
-.input-group-lg>.form-control,
-.input-group-lg>.input-group-addon,
-.input-group-lg>.input-group-btn>.btn {
+.input-lg {
     height: 46px;
     padding: 10px 16px;
     font-size: 18px;
@@ -116,7 +108,8 @@ textarea.form-control {
 
 .editor-preview {
     position: absolute;
-    padding: 10px 20px;
+    padding: 6px 12px;
+    padding-top: 31px;
     /* margin-top: 31px; */
     border-left: 1px solid #CCC;
     background-color: #f6f6f6;
@@ -141,11 +134,6 @@ textarea.form-control {
     width: 50%
 }
 
-.editor.liveMode .editor-line {
-    left: 50%
-}
-
-
 .editor {
     position: relative;
     z-index: 1;
@@ -156,15 +144,6 @@ textarea.form-control {
     -webkit-border-radius: 4px;
     border-radius: 4px
 }
-
-.editor .wmd-input.mono.form-control {
-    padding-top: 31px;
-    resize: none;
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4
-}
-
 
 .editor .wmd-input.mono.form-control {
     padding-top: 31px;
@@ -234,13 +213,13 @@ textarea.form-control {
     float: right !important
 }
 
+/*草稿*/
 .text-muted {
     color: #777
 }
 
 button,
 input,
-optgroup,
 select,
 textarea {
     color: inherit;
@@ -329,52 +308,6 @@ fieldset[disabled] .btn {
     box-shadow: none
 }
 
-.btn-default {
-    color: #333;
-    background-color: #fff;
-    border-color: #ccc
-}
-
-.btn-default:hover,
-.btn-default:focus,
-.btn-default:active,
-.btn-default.active,
-.open>.btn-default.dropdown-toggle {
-    color: #333;
-    background-color: #e6e6e6;
-    border-color: #adadad
-}
-
-.btn-default:active,
-.btn-default.active,
-.open>.btn-default.dropdown-toggle {
-    background-image: none
-}
-
-.btn-default.disabled,
-.btn-default.disabled:hover,
-.btn-default.disabled:focus,
-.btn-default.disabled:active,
-.btn-default.disabled.active,
-.btn-default[disabled],
-.btn-default[disabled]:hover,
-.btn-default[disabled]:focus,
-.btn-default[disabled]:active,
-.btn-default[disabled].active,
-fieldset[disabled] .btn-default,
-fieldset[disabled] .btn-default:hover,
-fieldset[disabled] .btn-default:focus,
-fieldset[disabled] .btn-default:active,
-fieldset[disabled] .btn-default.active {
-    background-color: #fff;
-    border-color: #ccc
-}
-
-.btn-default .badge {
-    color: #fff;
-    background-color: #333
-}
-
 .btn-primary {
     color: #fff;
     background-color: #009a61;
@@ -384,7 +317,6 @@ fieldset[disabled] .btn-default.active {
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
-.btn-primary.active,
 .open>.btn-primary.dropdown-toggle {
     color: #fff;
     background-color: #006741;
@@ -400,18 +332,7 @@ fieldset[disabled] .btn-default.active {
 .btn-primary.disabled,
 .btn-primary.disabled:hover,
 .btn-primary.disabled:focus,
-.btn-primary.disabled:active,
-.btn-primary.disabled.active,
-.btn-primary[disabled],
-.btn-primary[disabled]:hover,
-.btn-primary[disabled]:focus,
-.btn-primary[disabled]:active,
-.btn-primary[disabled].active,
-fieldset[disabled] .btn-primary,
-fieldset[disabled] .btn-primary:hover,
-fieldset[disabled] .btn-primary:focus,
-fieldset[disabled] .btn-primary:active,
-fieldset[disabled] .btn-primary.active {
+.btn-primary.disabled:active {
     background-color: #009a61;
     border-color: #008151
 }
@@ -424,5 +345,166 @@ fieldset[disabled] .btn-primary.active {
 .ml10,
 .ml-10 {
     margin-left: 10px !important
+}
+
+/***************markdown***************/
+code,
+pre,
+samp {
+    font-family: "Source Code Pro", Consolas,Menlo,Monaco, "Courier New", monospace;
+}
+
+.fmt {
+    line-height: 1.6;
+    word-wrap: break-word
+}
+
+.fmt h1 {
+    font-size: 2.25em
+}
+
+.fmt h2 {
+    font-size: 1.75em
+}
+
+.fmt h3 {
+    font-size: 1.5em
+}
+
+.fmt h4 {
+    font-size: 1.25em
+}
+
+.fmt h5 {
+    font-size: 1em
+}
+
+.fmt h6 {
+    font-size: 0.86em
+}
+
+.fmt h4,
+.fmt h5,
+.fmt p,
+.fmt ul,
+.fmt ol,
+.fmt pre,
+.fmt blockquote,
+.fmt table {
+    margin: 0.5em 0
+}
+
+.fmt h1,
+.fmt h2,
+.fmt h3 {
+    margin: 1.5em 0 0
+}
+
+.fmt h1,
+.fmt h2 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px
+}
+
+.fmt>h1:first-child,
+.fmt h2:first-child,
+.fmt h3:first-child,
+.fmt h4:first-child,
+.fmt p:first-child,
+.fmt ul:first-child,
+.fmt ol:first-child,
+.fmt pre:first-child,
+.fmt blockquote:first-child {
+    margin-top: 0
+}
+
+.fmt ul,
+.fmt ol {
+    margin-left: 1em;
+    padding-left: 0
+}
+
+.fmt ul li,
+.fmt ol li {
+    margin: .1em 0
+}
+
+.fmt ul ul,
+.fmt ul ol,
+.fmt ol ul,
+.fmt ol ol {
+    margin-top: 0;
+    margin-bottom: 0
+}
+
+.fmt ul p,
+.fmt ol p {
+    margin: 0
+}
+
+.fmt p:last-child {
+    margin-bottom: 0
+}
+
+.fmt p>p:empty,
+.fmt div>p:empty,
+.fmt p>div:empty,
+.fmt div>div:empty,
+.fmt div>br:only-child,
+.fmt p+br,
+.fmt img+br {
+    display: none
+}
+
+.fmt img,
+.fmt video,
+.fmt audio {
+    position: static !important;
+    max-width: 100%
+}
+
+.fmt img {
+    padding: 3px;
+    border: 1px solid #ddd
+}
+
+.fmt img.emoji {
+    padding: 0;
+    border: none
+}
+
+.fmt blockquote {
+    border-left: 2px solid #009A61;
+    background: #F6F6F6;
+    color: #555;
+    font-size: 1em
+}
+
+.fmt pre,
+.fmt code {
+    font-size: 0.9em;
+}
+
+.fmt pre {
+    padding: 0.5em;
+    border: none;
+    overflow: auto;
+    line-height: 1.45;
+    max-height: 35em;
+    position: relative;
+    background-color: #E7F1F5;
+    -moz-background-size: 30px,30px;
+    -o-background-size: 30px,30px;
+    -webkit-background-size: 30px,30px;
+    background-size: 30px,30px;
+    border-radius: 4px;
+}
+
+pre code {
+    font-size: 90%;
+    padding: 0;
+    color: inherit;
+    white-space: pre-wrap;
+    border-radius: 4px;    
 }
 

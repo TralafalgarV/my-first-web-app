@@ -2,8 +2,8 @@
 
 import React from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
-import "../../static/CSS/create"
-import showdown from "showdown"
+import Markdown from '../Markdown'
+import "../../static/CSS/create.css"
 
 class Create extends React.Component {
     constructor(props) {
@@ -29,7 +29,8 @@ class Create extends React.Component {
         if (key === 'title') {
             this.setState({title: val})
         } else {
-            this.setState({content: val})
+            // 将内容以markdown格式进行存储
+            this.setState({content: val})            
         }
     }
     
@@ -78,7 +79,7 @@ class Create extends React.Component {
             content: ''
         })
         // 路由跳转
-        location.hash = '/indexlist'
+        // location.hash = '/indexlist'
     }
     
     render() {
@@ -88,21 +89,19 @@ class Create extends React.Component {
                 <div className="create-container">
                     <div className="form-group">
                         <label htmlFor="title" className="sr-only">标题</label>
-                        <input id="myTitle" type="text" name="title" required="" data-error="" autoComplete="off" className="form-control tagClose input-lg" placeholder="标题：不需要很长"/>
+                        <input id="myTitle" type="text" name="title" required="" data-error="" autoComplete="off" className="form-control tagClose input-lg" placeholder="标题：不需要很长" onChange={(e) => {
+                            this.handleChangeVal(e, "title")
+                        }}/>
                     </div>
                     <div id="questionText" className="editor liveMode" style={{width: "100%"}}>
                         <div className="wmd">
-                            <textarea id="myEditor" className="mono form-control wmd-input" placeholder="" style={{backgroundPosition: "right top", backgroundRepeat: "no-repeat", opacity: "1", height: "444px"}}></textarea>
-                            <div style={{position: "absolute", zIndex: "100", top: "31px", right: "0"}} className="alert alert-info code-detect hide" role="alert">
-                                <span className="showVideo" style={{cursor: "pointer"}}></span>
-                                <span className="disable" style={{marginLeft: "10px", cursor: "pointer"}}></span> 
-                            </div>
+                            <textarea id="myEditor" className="mono form-control wmd-input" placeholder="" style={{backgroundPosition: "right top", backgroundRepeat: "no-repeat", opacity: "1", height: "444px"}} onChange={(e) => {
+                                this.handleChangeVal(e, "content")    
+                            }}></textarea>
                         </div>
                         <div className="editor-line"></div>
                         <div className="editor-preview">
-                            <div className="fmt" id="wmd-preview">
-                                <p></p>
-                            </div>
+                            <Markdown content={this.state.content} />
                         </div>
                     </div>
                     <div className=" publish-footer">
@@ -114,11 +113,13 @@ class Create extends React.Component {
                                 </div>
                                 <div className="pull-right">
                                     <span className="text-muted" id="editorStatus">已保存草稿</span>
-                                    <a id="dropIt" href="javascript:void(0);" className="mr10">[舍弃]</a>
+                                    <a id="dropIt" href="javascript:void(0);" className="mr10" onClick={(e) => {
+                                        this.handleCancel(e)    
+                                    }}>[舍弃]</a>
                                     <button className="hide" type="button"></button>
-                                    <button data-toggle="tooltip" data-placement="top" title="" type="button" data-type="question" id="publishIt" className="btn btn-primary ml10" data-id="" data-do="" data-url="" data-text="发布问题" data-name="" data-original-title="">
-                                        发布文章
-                                    </button>
+                                    <button data-toggle="tooltip" data-placement="top" title="" type="button" data-type="question" id="publishIt" className="btn btn-primary ml10" data-text="发布问题" onClick={(e) => {
+                                        this.handlePublish(e);
+                                    }}>发布文章</button>
                                 </div>
                             </div>
                         </div>

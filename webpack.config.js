@@ -51,12 +51,7 @@ module.exports = {
             {
                 test: /\.(png|jpg|jpeg|gif)$/,
                 loader: 'url?limit=10000&name=img/[name].[hash].[ext]'
-            },
-            // 暂时不用 hash后太大了
-            {
-                test: /\.(mp3|mov)$/,
-                loader: 'url?name=music/[name].[hash].[ext]'
-            },            
+            }           
         ]
     }
 }

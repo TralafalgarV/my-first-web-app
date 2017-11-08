@@ -7,8 +7,10 @@
  */
 import React, { Component } from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
+import '../../static/CSS/create.css'
 import '../../static/CSS/articleDetail.css'
 import AVATARPATH from '../../static/avatar/eg_cute.gif'
+import Markdown from '../Markdown'
 
 let Style = {
     width: "100%",
@@ -51,7 +53,7 @@ class ArticleDetail extends Component {
                 content: article.content,
                 comments: article.comments,
                 _id: article._id,
-            })
+            })           
         }, (err) => {
             console.log("[ERROR] fetchArticle: ", err)
         })
@@ -119,7 +121,9 @@ class ArticleDetail extends Component {
                 <header className="ad-title">{this.state.title}</header>
                 <section>
                     <div className="ad-author">{this.state.author}</div>
-                    <article className="ad-article">{this.state.content}</article>
+                    <article className="ad-article">
+                        <Markdown content={this.state.content}/>
+                    </article>
                 </section>
                 <section>
                     <div className="ad-comments">
