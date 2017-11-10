@@ -14,6 +14,7 @@ import {
 import ArticleDetail from '../ArticleDetail'
 import '../../static/CSS/indexList.css'
 import {ArticleModel} from '../../Model/dataModel'
+import showdown from 'showdown'
 
 let Styles = {
     indexList:{
@@ -90,7 +91,11 @@ class IndexList extends React.Component {
             defaultTop: null
         }
         this.slider = null
+        this.pattern = /<[^>]*>/g
+        // 初始化markdown模块
+        this.converter = new showdown.Converter()
     }
+
     componentDidMount() {
         let _this = this
         let indexListSlider = document.querySelector(".indexList")
@@ -128,7 +133,7 @@ class IndexList extends React.Component {
                 indexListComponent.fetchData()
                 // console.log("setTimeout", _this)           
             }, 2000)
-        })           
+        })
     }
 
     // 获取数据
@@ -161,9 +166,13 @@ class IndexList extends React.Component {
     indexList() {
         let _this = this        
         let list = this.state.list
-        
+
         return list.map(function(item, index) {
-            let date = new Date()              
+            // 剥离html标签，显示value内容
+            let html = _this.converter.makeHtml(item.content)
+            let str = html.replace(_this.pattern, "")
+
+            let date = new Date()        
             return (
                 <li className="" style={Styles.indexList} key={index}>
                     <Link to={'/indexList/'+item._id} style={{display:'block'}}>                    
@@ -178,7 +187,7 @@ class IndexList extends React.Component {
                                     <div style={{display:'inline-block', fontSize:'10px'}}><span className="icon icon-clock"></span>{item.createTime}</div>
                                 </div>
                             </div>
-                            <div className=""><p style={Styles.pStyle}>{_this.wordControl(item.content)}</p></div>
+                            <div className=""><p style={Styles.pStyle}>{_this.wordControl(str)}</p></div>
                         </div>
                     </Link>
                 </li>
