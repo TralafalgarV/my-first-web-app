@@ -74,14 +74,29 @@ class Create extends React.Component {
 
     // 取消用户输入内容
     handleCancel(e) {
+
+        // 清空所有输入内容
         this.setState({
             title: '',
             content: ''
         })
+        document.querySelector("#myEditor").value = ""
         // 路由跳转
         // location.hash = '/indexlist'
     }
     
+    // 隐藏 \ 显示 Markdown
+    hideMarkdown(e) {
+        console.log(e.target.innerHTML)
+        if (e.target.innerHTML == "Hide MK") {
+            e.target.innerHTML = "Show MK"
+        } else {
+            e.target.innerHTML = "Hide MK"            
+        }
+        document.querySelector(".editor-preview").classList.toggle("hidden")
+        document.querySelector(".wmd").classList.toggle("expendWidth")
+    }
+
     render() {
         console.log("[Create] render " + location.hash)        
         return (
@@ -89,14 +104,19 @@ class Create extends React.Component {
                 <div className="create-container">
                     <div className="form-group">
                         <label htmlFor="title" className="sr-only">标题</label>
-                        <input id="myTitle" type="text" name="title" required="" data-error="" autoComplete="off" className="form-control tagClose input-lg" placeholder="标题：不需要很长" onChange={(e) => {
+                        <input type="text" name="title" required="" data-error="" autoComplete="off" className="form-control tagClose input-lg" placeholder="标题：不需要很长" onChange={(e) => {
                             this.handleChangeVal(e, "title")
                         }}/>
                     </div>
                     <div id="questionText" className="editor liveMode" style={{width: "100%"}}>
+                        <button type="button" className="btn" value="Hide MK" style={{position:"absolute", right:"0px", top:"0px", margin:"5px", padding:"3px", backgroundColor:"#009a61", color:"#FFF"}} onClick={(e) => {
+                            this.hideMarkdown(e)
+                        }}>Hide MK</button>                        
                         <div className="wmd">
                             <textarea id="myEditor" className="mono form-control wmd-input" placeholder="" style={{backgroundPosition: "right top", backgroundRepeat: "no-repeat", opacity: "1", height: "444px"}} onChange={(e) => {
                                 this.handleChangeVal(e, "content")    
+                            }} onFocus={() => {
+                                document.querySelector(".liveMode").classList.add("liveMode-focus")
                             }}></textarea>
                         </div>
                         <div className="editor-line"></div>
@@ -107,9 +127,8 @@ class Create extends React.Component {
                     <div className=" publish-footer">
                         <div className="container">
                             <div className="operations clearfix">
-                                    <div className="shareToWeibo checkbox pull-left mr10 mb0">
-                                    <label htmlFor="shareToWeibo">
-                                        <input type="checkbox" id="shareToWeibo"/> 同步到新浪微博</label>
+                                <div className="shareToWeibo checkbox pull-left mr10 mb0">
+                                    {/* <label htmlFor="shareToWeibo"><input type="checkbox" id="shareToWeibo"/> 同步到新浪微博</label> */}
                                 </div>
                                 <div className="pull-right">
                                     <span className="text-muted" id="editorStatus">已保存草稿</span>

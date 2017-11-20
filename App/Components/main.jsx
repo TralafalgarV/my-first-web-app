@@ -105,7 +105,7 @@ class App extends React.Component {
                 <div data-log="two">
                     {this.props.children}
                 </div>
-                <ReactPerfTool perf={Perf} />
+                {/* <ReactPerfTool perf={Perf} /> */}
             </div>
         )
     }

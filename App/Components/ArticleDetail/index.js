@@ -82,7 +82,7 @@ class ArticleDetail extends Component {
         })
     }
 
-    // 提交评论
+    // 提交评论信息，并更新到服务器
     handleComment() {
         if (this.comment.value == '') {
             alert("评论不能为空")

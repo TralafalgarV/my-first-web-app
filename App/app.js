@@ -15,11 +15,11 @@ import {IndexList, Create, Music, Game, ArticleDetail, Login} from './Config/rou
 // rootRoute 定义了 组件结构
 /**
 App
- +--- IndexList 作为首页进行加载
- +--- IndexList
- +--- Create
- +--- Game
- +--- ArticleDetail
+ +---> IndexList 作为首页进行加载
+ |     +---> ArticleDetail 显示详情
+ +---> Create
+ +---> Game
+ +---> ArticleDetail
  */
 const rootRoute = {
     // 此时访问App时，不会显示任何子组件，this.prop.children为undefined

@@ -140,7 +140,7 @@ class Music extends React.Component {
         return (
             images.map(function(item, index) {
                 return (
-                    <div className="btn" key={index} onClick={function(e) {
+                    <div className="music-btn" key={index} onClick={function(e) {
                         _this.setGalleryImage(index)
                         _this.restartTimer()
                         _this.chooseMusic(index)

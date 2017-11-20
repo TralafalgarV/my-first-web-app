@@ -120,8 +120,9 @@ class IndexList extends React.Component {
             }, false)               
         }
 
-        // 更新数据
-        this.fetchData()   
+        // 更新文章数据
+        this.fetchData()
+           
         // 初始化slider  
         let indexListComponent = this
         this.slider = new Slider(".indexList", 60, function() {
@@ -129,14 +130,14 @@ class IndexList extends React.Component {
             this.timer = setTimeout(function() {
                 // 更新完数据后，将slider高度设为0
                 _this.sliderBack(0)
-                // 调用indexList组件的fetchData()方法更新数据
+                // 调用indexList组件的fetchData()方法更新文章数据
                 indexListComponent.fetchData()
                 // console.log("setTimeout", _this)           
             }, 2000)
         })
     }
 
-    // 获取数据
+    // 从服务器获取文章列表数据
     fetchData() {
         ArticleModel.fetchList("", (data) => {
             console.log("[IndexList] fetch from Server：", data)
@@ -145,7 +146,7 @@ class IndexList extends React.Component {
             console.log(err)
         })        
     }
-    //限制字数
+    // 限制文章显示字数
     wordControl(word) {
         if(word.length > 65){
            word = word.substring(0, 65) + '...'
@@ -153,6 +154,7 @@ class IndexList extends React.Component {
         return word
     }
 
+    // 设备类型判断
     getDevice() {
         var check = false;
         (function(a) {
@@ -162,7 +164,7 @@ class IndexList extends React.Component {
         return check;
     }
 
-    // 列表
+    // 文章列表
     indexList() {
         let _this = this        
         let list = this.state.list
@@ -178,13 +180,13 @@ class IndexList extends React.Component {
                     <Link to={'/indexList/'+item._id} style={{display:'block'}}>                    
                         <div className="list">
                             <div className=""><h4 style={Styles.h4Style}>{item.title}</h4></div>
-                            <div className="">
+                            <div className="" style={{marginTop:'10px'}}>
                                 <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
                                     <img src="" style={{marginRight:'0.3rem', height:'1rem', display:'inline-block'}}  alt="图片"/>
                                 </div>
                                 <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
-                                    <div style={{display:'inline-block', fontSize:'13px', fontWeight:600, marginRight:'0.3rem'}}>{item.author}</div>
-                                    <div style={{display:'inline-block', fontSize:'10px'}}><span className="icon icon-clock"></span>{item.createTime}</div>
+                                    <div style={{display:'inline-block', fontSize:'16px', fontWeight:600, marginRight:'0.3rem'}}>{item.author}</div>
+                                    <div style={{display:'inline-block', fontSize:'13px'}}><span className="icon icon-clock"></span>{item.createTime}</div>
                                 </div>
                             </div>
                             <div className=""><p style={Styles.pStyle}>{_this.wordControl(str)}</p></div>
