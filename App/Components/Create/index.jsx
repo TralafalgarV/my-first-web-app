@@ -2,6 +2,7 @@
 
 import React from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
+import { ClassOperation } from '../../Tools'
 import Markdown from '../Markdown'
 import "../../static/CSS/create.css"
 
@@ -39,7 +40,6 @@ class Create extends React.Component {
         let title = this.state.title
         let content = this.state.content
         let info = []
-        let now = new Date()
 
         // 内容检测
         if('' == title) {
@@ -58,9 +58,10 @@ class Create extends React.Component {
         info.push({
             title: title,
             content: content,
+            backup: null,
             login: this.state.login,
             author: JSON.parse(userInfo).username,  //作者需要根据登录信息来判断
-            createTime: now.toUTCString(),
+            createTime: Date.now(),
         }) 
 
         // 将数据更新到数据库
@@ -81,20 +82,27 @@ class Create extends React.Component {
             content: ''
         })
         document.querySelector("#myEditor").value = ""
-        // 路由跳转
-        // location.hash = '/indexlist'
+        document.querySelector(".input-lg").value = ""        
+        // 路由跳转        // location.hash = '/indexlist'
     }
     
     // 隐藏 \ 显示 Markdown
     hideMarkdown(e) {
-        console.log(e.target.innerHTML)
-        if (e.target.innerHTML == "Hide MK") {
-            e.target.innerHTML = "Show MK"
+        if (e.target.innerHTML == "Hide MD") {
+            e.target.innerHTML = "Show MD"
         } else {
-            e.target.innerHTML = "Hide MK"            
+            e.target.innerHTML = "Hide MD"            
         }
-        document.querySelector(".editor-preview").classList.toggle("hidden")
-        document.querySelector(".wmd").classList.toggle("expendWidth")
+        //document.querySelector(".editor-preview").classList.toggle("hidden")
+        ClassOperation.ToggleClass(".editor-preview", "hidden")
+        ClassOperation.ToggleClass(".wmd", "expendWidth")        
+    }
+
+    // 定时保存功能：键入时开始；5min 一次保存
+    saveContent() {
+        setInterval(()=>{
+            console.log("save")
+        }, 1000 * 60)
     }
 
     render() {
@@ -104,22 +112,24 @@ class Create extends React.Component {
                 <div className="create-container">
                     <div className="form-group">
                         <label htmlFor="title" className="sr-only">标题</label>
-                        <input type="text" name="title" required="" data-error="" autoComplete="off" className="form-control tagClose input-lg" placeholder="标题：不需要很长" onChange={(e) => {
+                        <input type="text" name="title" required="" data-error="" autoComplete="off" className="form-control tagClose input-lg" placeholder="文章标题：" onChange={(e) => {
                             this.handleChangeVal(e, "title")
                         }}/>
                     </div>
-                    <div id="questionText" className="editor liveMode" style={{width: "100%"}}>
-                        <button type="button" className="btn" value="Hide MK" style={{position:"absolute", right:"0px", top:"0px", margin:"5px", padding:"3px", backgroundColor:"#009a61", color:"#FFF"}} onClick={(e) => {
+                    <div className="editor liveMode" style={{width: "100%"}}>
+                        <button type="button" className="btn" value="Hide MD" style={{position:"absolute", right:"0px", top:"0px", margin:"5px", padding:"3px", backgroundColor:"#009a61", color:"#FFF"}} onClick={(e) => {
                             this.hideMarkdown(e)
-                        }}>Hide MK</button>                        
+                        }}>Hide MD</button>                        
                         <div className="wmd">
-                            <textarea id="myEditor" className="mono form-control wmd-input" placeholder="" style={{backgroundPosition: "right top", backgroundRepeat: "no-repeat", opacity: "1", height: "444px"}} onChange={(e) => {
+                            <textarea id="myEditor" className="mono form-control wmd-input" placeholder="正文内容：" style={{backgroundPosition: "right top", backgroundRepeat: "no-repeat", opacity: "1", height: "444px"}} onChange={(e) => {
                                 this.handleChangeVal(e, "content")    
                             }} onFocus={() => {
-                                document.querySelector(".liveMode").classList.add("liveMode-focus")
+                                ClassOperation.AddClass(".liveMode", "liveMode-focus")                                
+                            }} onBlur={() => {
+                                // 失去焦点后去掉border样式
+                                ClassOperation.RemoveClass(".liveMode", "liveMode-focus")                                                                
                             }}></textarea>
                         </div>
-                        <div className="editor-line"></div>
                         <div className="editor-preview">
                             <Markdown content={this.state.content} />
                         </div>
@@ -127,16 +137,15 @@ class Create extends React.Component {
                     <div className=" publish-footer">
                         <div className="container">
                             <div className="operations clearfix">
-                                <div className="shareToWeibo checkbox pull-left mr10 mb0">
-                                    {/* <label htmlFor="shareToWeibo"><input type="checkbox" id="shareToWeibo"/> 同步到新浪微博</label> */}
-                                </div>
+                                {/* <div className="shareToWeibo checkbox pull-left mr10 mb0">
+                                    <label htmlFor="shareToWeibo"><input type="checkbox" id="shareToWeibo"/> 同步到新浪微博</label>
+                                </div> */}
                                 <div className="pull-right">
-                                    <span className="text-muted" id="editorStatus">已保存草稿</span>
-                                    <a id="dropIt" href="javascript:void(0);" className="mr10" onClick={(e) => {
+                                    <span className="text-muted">已保存草稿</span>
+                                    <a href="javascript:void(0);" className="mr10" onClick={(e) => {
                                         this.handleCancel(e)    
                                     }}>[舍弃]</a>
-                                    <button className="hide" type="button"></button>
-                                    <button data-toggle="tooltip" data-placement="top" title="" type="button" data-type="question" id="publishIt" className="btn btn-primary ml10" data-text="发布问题" onClick={(e) => {
+                                    <button title="" type="button" className="btn btn-primary ml10" data-text="发布问题" onClick={(e) => {
                                         this.handlePublish(e);
                                     }}>发布文章</button>
                                 </div>

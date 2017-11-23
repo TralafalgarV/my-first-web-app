@@ -12,6 +12,7 @@ class Markdown extends React.Component{
     componentDidMount() {
     }
 
+    // 接收更新后的 props 
     componentWillReceiveProps(nextProps) {
         console.log("componentWillReceiveProps: ", nextProps)
         // 更新 article 内容

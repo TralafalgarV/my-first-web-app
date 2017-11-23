@@ -1,7 +1,7 @@
 // 文章列表组件
 
 import React from 'react'
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 import {
     Router,
     Route,
@@ -13,7 +13,9 @@ import {
 } from 'react-router'
 import ArticleDetail from '../ArticleDetail'
 import '../../static/CSS/indexList.css'
-import {ArticleModel} from '../../Model/dataModel'
+import { ArticleModel } from '../../Model/dataModel'
+import { dateDiff } from '../../Tools'
+import AVATARPATH from '../../static/avatar/eg_cute.gif'
 import showdown from 'showdown'
 
 let Styles = {
@@ -182,11 +184,11 @@ class IndexList extends React.Component {
                             <div className=""><h4 style={Styles.h4Style}>{item.title}</h4></div>
                             <div className="" style={{marginTop:'10px'}}>
                                 <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
-                                    <img src="" style={{marginRight:'0.3rem', height:'1rem', display:'inline-block'}}  alt="图片"/>
+                                    <img src={AVATARPATH} style={{marginRight:'0.3rem', height:'1rem', display:'inline-block'}}  alt="图片"/>
                                 </div>
                                 <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
                                     <div style={{display:'inline-block', fontSize:'16px', fontWeight:600, marginRight:'0.3rem'}}>{item.author}</div>
-                                    <div style={{display:'inline-block', fontSize:'13px'}}><span className="icon icon-clock"></span>{item.createTime}</div>
+                                    <div style={{display:'inline-block', fontSize:'13px', marginRight:"3px"}}><span className="icon icon-clock"></span>{dateDiff(item.createTime)}</div>
                                 </div>
                             </div>
                             <div className=""><p style={Styles.pStyle}>{_this.wordControl(str)}</p></div>
