@@ -1,3 +1,5 @@
+import { port } from "_debugger";
+
 // 数据库调试命令：
 // 1. 评论添加
 db.articles.update({'title': '暴走大事件'}, {$set:{'comments': [{
@@ -22,3 +24,26 @@ http://soso.music.qq.com/fcgi-bin/fcg_search_xmldata.fcg?source=0&w=The%20Phoeni
 git reset --hard HEAD  (回到当前版本)
 git reset --hard HEAD^ (回到上一个版本)
 git reset --hard 7c7e1c86 (回到特定版本前8位hash码)
+
+/************linux 常用命令 ************/
+1. 创建dir 
+mkdir [dir]
+
+2. 创建文件
+vi [文件名]
+
+3. 查看所有进程
+ps -ef/-al
+
+/*********** mongodb 在子进程中运行配置 ********/
+1. 将程序在子进程中执行
+processName -fork
+
+2. 设置程序的port号
+processName -port
+
+3. 设置程序的数据库位置
+processName -dbpath
+
+4. 设置程序的log输出位置
+processName -logpath [path]/[*].log -logappend  # 使用追加的方式写日志

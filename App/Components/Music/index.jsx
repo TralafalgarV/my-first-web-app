@@ -2,7 +2,7 @@
 
 import React from 'react'
 import {render} from 'react-dom'
-import '../../static/CSS/music.css'
+import '../../static/CSS/music.less'
 import {MusicModel} from '../../Model/dataModel'
 
 // 获取所有封面图片路径的集合
