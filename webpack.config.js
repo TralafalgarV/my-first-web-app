@@ -11,7 +11,7 @@ module.exports = {
         chunkFilename:'js/[name].[chunkhash:5].js'
     },
     resolve:{
-        extensions:['','.js','.jsx','.css','.json'],
+        extensions:['*','.js','.jsx','.css','.json'],
     },
     plugins:[
         new HtmlWebpackPlugin({

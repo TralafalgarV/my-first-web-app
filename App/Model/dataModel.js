@@ -1,4 +1,4 @@
-//const API = 'http://localhost:4545/'
+// const API = 'http://localhost:4545/'
 const API = 'http://47.96.183.75/'
 
 const USER_LOGIN = 'userLogin'
