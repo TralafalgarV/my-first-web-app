@@ -7,9 +7,9 @@
  */
 import React, { Component } from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
-import '../../static/CSS/create.css'
-import '../../static/CSS/articleDetail.css'
-import AVATARPATH from '../../static/avatar/eg_cute.gif'
+import '../../Static/CSS/create.css'
+import '../../Static/CSS/articleDetail.css'
+import AVATARPATH from '../../Static/avatar/eg_cute.gif'
 import Markdown from '../Markdown'
 
 let Style = {

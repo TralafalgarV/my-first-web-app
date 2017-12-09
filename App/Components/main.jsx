@@ -5,7 +5,7 @@ import pureRender from "pure-render-decorator"  // render 性能优化模块
 import { is } from 'immutable'
 import ReactPerfTool from 'react-perf-tool' // 性能检测模块
 import Perf from 'react-addons-perf'        // 性能检测模块
-import '../static/CSS/articleDetail.css'
+import '../Static/CSS/articleDetail.css'
 // Import styles if they don't get loaded already
 import 'react-perf-tool/lib/styles.css'
 

@@ -1,0 +1,175 @@
+// ******************** 公共部分 ******************
+@MaxWidth: 100%;
+@MaxHeight: 100%;
+@BtnSize: 2rem;
+
+.absCenter {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+// 定位
+.pos(a) {
+    position: absolute;
+}
+.pos(f) {
+    position: fixed;
+}
+.pos(r) {
+    position: relative;
+}
+
+// ******************** 播放器样式 ******************
+.music-player-container {
+    .pos(r);
+    .absCenter;
+    margin-bottom: 30px;
+
+    .music-player {
+        .pos(a);
+        height: 14.25rem;
+        width: 17.96rem;
+        padding: 1.56rem 9.76rem 1.56rem 1.56rem;
+        text-align: right;
+        z-index: 3;
+
+        .player-content-container {
+            .pos(r);
+            .absCenter;
+
+            .song-title {
+                font-size: 1.09rem;
+                font-weight: normal;
+                margin: 0 0 0.75em 0;
+            }
+            .album-title {
+                font-weight: 200;
+                font-size: 0.6rem;
+                margin: 0 0 1.75em 0;
+            }
+            .artist-name {
+                font-size: 18px;
+                font-weight: 200;
+                margin: 0 0 1.5em 0;
+            }
+            
+            .music-player-controls {
+                text-align: center;
+
+                .control-play {
+                    background: transparent url('../../Static/music-icon/play.svg') center / cover no-repeat;    
+                }
+                .control-forwards {
+                    background: transparent url('../../Static/music-icon/forwards.svg') center / cover no-repeat;
+                }
+                .control-back {
+                    background: transparent url('../../Static/music-icon/backwards.svg') center / cover no-repeat;
+                }
+                .control-pause {
+                    background: transparent url('../../Static/music-icon/pause.svg') center / cover no-repeat;
+                }
+            }
+        }
+    }
+
+    // 唱片效果实现
+    .album {
+        position: relative;
+        // height: 15rem;
+        // width: 15rem;
+        // margin-left: 250px;
+        // margin-top: 25px;
+        z-index: 10;
+
+        // 唱片封面
+        .album-art {
+            .absCenter;
+            position: relative;            
+            width: 15rem;
+            height: 15rem;
+            z-index: 10;
+            background: #fff url('../avatar/EVA10.jpg') center / cover no-repeat;
+            
+                // 阴影效果
+                &:after {
+                    content: "";
+                    display: block;
+                    .pos(a);
+                    height: .39rem;
+                    width: 70%;
+                    bottom: -0.07rem;
+                    transform: rotate(-3deg);
+                    background-color: rgba(0, 0, 0, 0.8);
+                    filter: blur(0.31rem);
+                    z-index: 0;
+                }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .vinyl {
+            .absCenter;
+            position: absolute;
+            height: 14.5rem;
+            width: 14.5rem;
+            top: .25rem;
+            left: 50%;
+            background-image: url('../cover/vinyl.png'), url('../cover/1.png');
+            background-position: center, center;
+            background-size: cover, 70% auto;
+            background-repeat: no-repeat;
+            border-radius: 100%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            transition: all 500ms;
+            animation: spin 3s infinite linear;
+            z-index: 5;
+            will-change: transform, left;
+        }
+    }
+}
+
+.album-playing {
+    left: 52% !important;
+}
+
+div [class^="control-"] {
+    filter: brightness(50%);
+    border-radius: 100%;
+    display: inline-block;
+    height: 44px;
+    width: 44px;
+    margin: 0 3px;
+}
+
+div [class^="control-"]:hover {
+    filter: brightness(25%);
+    cursor: pointer;
+}
+
+@media screen and (max-width: 414px) {
+    .music-player-container {
+        .album {
+
+        
+            &::after {
+                content: "";
+
+            }
+        }
+
+        .music-player {
+            padding: 1rem;
+
+            .player-content-container:nth-child(0) {
+                margin-right: 2rem;
+            }
+        }
+    }
+}

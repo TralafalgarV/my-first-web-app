@@ -12,30 +12,13 @@ import {
     browserHistory
 } from 'react-router'
 import ArticleDetail from '../ArticleDetail'
-import '../../static/CSS/indexList.css'
+import '../../Static/CSS/indexList.css'
 import { ArticleModel } from '../../Model/dataModel'
 import { dateDiff } from '../../Tools'
-import AVATARPATH from '../../static/avatar/eg_cute.gif'
+import AVATARPATH from '../../Static/avatar/eg_cute.gif'
 import showdown from 'showdown'
 
 let Styles = {
-    indexList:{
-        paddingRight:'0.75rem',
-        marginBottom:'0.2rem',
-        borderTop:'1px solid #dfdfdf',
-        borderBottom:'1px solid #dfdfdf',
-        paddingLeft:"0.75rem",
-        paddingBottom:"0.3rem",
-        position: "relative",
-        zIndex: "2001",
-        background: "rgba(255, 255, 255, 0)",
-        listStyleType:"none"
-    },
-    h4Style:{
-        margin:"0.1rem 0",
-        color:'#259',
-        fontSize:'25px',
-    },
     pStyle:{
         margin:"0.2rem 0",
         fontSize:"20px"
@@ -178,10 +161,10 @@ class IndexList extends React.Component {
 
             let date = new Date()        
             return (
-                <li className="" style={Styles.indexList} key={index}>
+                <li className="" key={index}>
                     <Link to={'/indexList/'+item._id} style={{display:'block'}}>                    
                         <div className="list">
-                            <div className=""><h4 style={Styles.h4Style}>{item.title}</h4></div>
+                            <div className=""><h4>{item.title}</h4></div>
                             <div className="" style={{marginTop:'10px'}}>
                                 <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
                                     <img src={AVATARPATH} style={{marginRight:'0.3rem', height:'1rem', display:'inline-block'}}  alt="图片"/>

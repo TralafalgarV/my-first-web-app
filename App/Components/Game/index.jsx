@@ -3,7 +3,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { createStore } from 'redux'
-import "../../static/CSS/game.less"
+import "../../Static/CSS/game.less"
 // 创建 Redux store 来存放应用的状态。
 // API 是 { subscribe, dispatch, getState }。
 let store = createStore(counter)

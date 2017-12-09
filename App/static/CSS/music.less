@@ -1,6 +1,7 @@
 // ******************** 公共部分 ******************
 @MaxWidth: 100%;
 @MaxHeight: 100%;
+@BtnSize: 2rem;
 
 // 定位
 .pos(a) {
@@ -17,7 +18,7 @@
 .mContainer {
     .pos(r);
     width: @MaxWidth;
-    height: 10.71rem;
+    height: 12rem;
     /*改变3D元素透视位置*/
     perspective: 1500px;
     /*水平居中*/
@@ -37,12 +38,12 @@
         // 每个专辑封面的效果
         .gallery-pic {
             .pos(a);
-            width: 200px;
-            height: 120px;
+            width: 10rem;
+            height: 6rem;
             top: 50%;
             left: 50%;
             /* transform: translate(-50%, -50%); */
-        
+            
             img {
                 width: @MaxWidth;
                 height: @MaxHeight;
@@ -50,6 +51,13 @@
         
             // 利用 less 递归循环
             .Circle(1);
+        }
+
+        @media screen and (max-width: 414px) {
+            .gallery-pic {
+                width: 8rem;
+                height: 4.8rem;
+            }
         }
     }
 }
@@ -67,16 +75,18 @@
 // ******************** 轮播按钮样式 ******************
 #buttons {
     .pos(a);
-    bottom: 0;
+    bottom: -@BtnSize / 4;
     left: 50%;
     transform: translateX(-50%);
 
     .music-btn {
+        
         display: inline-block;
-        width: 36px;
-        height: 36px;
-        line-height: 36px;
-        margin-left: 4px;
+        width: @BtnSize;
+        height: @BtnSize;
+        border-radius: (@BtnSize / 2);        
+        line-height: @BtnSize;
+        margin: 0 (@BtnSize / 8);
         border: 1px solid #888;
         cursor: pointer;
         text-align: center;
@@ -88,171 +98,72 @@
     }
 }
 
-// ******************** 播放器样式 ******************
-.music-player-container {
-    .pos(r);
-    display: inline-block;
-    height: 14.25rem;
-    min-width: 17.96rem;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 30px;
-
-    .music-player {
-        .pos(a);
-        height: 14.25rem;
-        width: 17.96rem;
-        padding: 1.56rem 9.76rem 1.56rem 1.56rem;
-        text-align: right;
-        z-index: 3;
-
-        .player-content-container {
-            .pos(r);
-            top: 50%;
-            transform: translateY(-50%);
-
-            .song-title {
-                font-size: 1.09rem;
-                font-weight: normal;
-                margin: 0 0 0.75em 0;
-            }
-            .album-title {
-                font-weight: 200;
-                font-size: 0.6rem;
-                margin: 0 0 1.75em 0;
-            }
-            .artist-name {
-                font-size: 18px;
-                font-weight: 200;
-                margin: 0 0 1.5em 0;
-            }
-            
-            .music-player-controls {
-                text-align: center;
-
-                .control-play {
-                    background: transparent url('../../static/music-icon/play.svg') center / cover no-repeat;    
-                }
-                .control-forwards {
-                    background: transparent url('../../static/music-icon/forwards.svg') center / cover no-repeat;
-                }
-                .control-back {
-                    background: transparent url('../../static/music-icon/backwards.svg') center / cover no-repeat;
-                }
-                .control-pause {
-                    background: transparent url('../../static/music-icon/pause.svg') center / cover no-repeat;
-                }
-            }
-        }
-    }
-
-    // 唱片效果实现
-    .album {
-        position: relative;
-        height: 315px;
-        width: 315px;
-        margin-left: 250px;
-        margin-top: 25px;
-        z-index: 10; 
-
-        // 唱片封面
-        .album-art {
-            background: #fff url('../avatar/EVA10.jpg') center / cover no-repeat;
-            height: 315px;
-            position: relative;
-            width: 315px;
-            z-index: 10;
-
-                // 阴影效果
-                &:after {
-                    content: "";
-                    display: block;
-                    .pos(a);
-                    height: .39rem;
-                    width: 70%;
-                    bottom: -0.07rem;
-                    transform: rotate(-3deg);
-                    background-color: rgba(0, 0, 0, 0.8);
-                    filter: blur(0.31rem);
-                    z-index: 0;
-                }
-        }
-
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .vinyl {
-            position: absolute;
-            height: 300px;
-            width: 300px;
-            top: 5px;
-            left: 0px;
-            background-image: url('../cover/vinyl.png'), url('../cover/1.png');
-            background-position: center, center;
-            background-size: cover, 70% auto;
-            background-repeat: no-repeat;
-            border-radius: 100%;
-            box-shadow: 0 0 10px rgba(0,0,0,0.8);
-            transition: all 500ms;
-            animation: spin 2s infinite linear;
-            z-index: 5;
-            will-change: transform, left;
+@media screen and (max-width: 414px) {
+    #buttons {
+        width: @MaxWidth;
+        bottom: @BtnSize / 4;
+        .music-btn {
+            width: 0.8 * @BtnSize;
+            height: 0.8 * @BtnSize;
+            line-height: 0.8 * @BtnSize;        
         }
     }
 }
 
-.album-playing {
-    left: 52% !important;
-}
-
-div [class^="control-"] {
-    filter: brightness(50%);
-    border-radius: 100%;
-    display: inline-block;
-    height: 44px;
-    width: 44px;
-    margin: 0 3px;
-}
-
-div [class^="control-"]:hover {
-    filter: brightness(25%);
-    cursor: pointer;
-}
-
+/************************* 歌曲列表 ************************/
 .music-list {
-    position: absolute;
-    display: inline-block;
-    /* width: 3rem; */
+    .pos(a);
+    display: block;
+    width: 100%;
     height: 100%;
     /* background-color: yellow; */
     z-index: 3000;
+    margin-top: 25px;
 
     ul {
         padding: 0 0.75rem;
         list-style-type: none;
+
+        & > * {
+            
+        }
     }
 }
 
-.musis-list-btn {
+.musis-list-item {
+    margin: 0.4rem 0;
     padding: 0 0.2rem;
-    border: 1px solid gray;
+    border-bottom: 1px solid gray;
     border-radius: 3px;
 
     &:hover {
         /*水平、垂直、[模糊距离]、[阴影的尺寸]、[颜色]、[将外部阴影 (outset) 改为内部阴影]*/ 
         box-shadow: 1px 1px 1px #888; 
         cursor: pointer;
-        background-color: #f4c79d;  
+        background-color: rgba(136, 136, 136, 0.2);  
     }
 
     /*阻止事件捕获*/ 
     & > *{
         pointer-events:none;
+    }
+
+    header  {
+        padding-top: 0.2rem;
+        font-size: 1rem;
+    }
+
+    section {
+        & > * {
+            display: inline-block;
+            margin-right: 0.5rem;
+            padding: 0.2rem 0;
+        }
+    }
+}
+
+@media screen and (max-width: 414px) {
+    .music-list {
+        margin: 0;
     }
 }

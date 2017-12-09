@@ -1,19 +1,5 @@
 import React, { Component } from 'react'
 import { UserModel } from '../../Model/dataModel'
-// import md5 from 'md5'
-
-let Styles = {
-    header:{
-        lineHeight: "2.2rem",
-        position: "relative"
-    },
-    floatLeft:{
-        float: "left"
-    },
-    floatRight:{
-        float: "right"
-    }
-}
 
 // 登录组件
 class Login extends React.Component {
@@ -198,6 +184,7 @@ class Login extends React.Component {
                 <div className="content-block">
                     <div className="row">
                         <div className="col-100"><a onClick={()=>{this.userLogin()}} className="button button-big button-fill button-success">登录</a></div>
+                        <div className="col-100"><a id="register" ref="register" onClick={(e)=>this.changeRegisterFlag(e)}  className="button button-big button-fill button-register">注册</a></div>
                     </div>
                 </div>
             </div>
@@ -264,16 +251,6 @@ class Login extends React.Component {
         )
         return (
             <main>
-                <header className="bar bar-nav row" style={Styles.header} >
-                        {/*事件用箭头函数和用bind  写法不同,结果不同*/}
-                        <a className="col-50" id="login" ref="login" onClick={(e)=>this.changeLoginFlag(e)}>
-                            <span className="tab-label">登录</span>
-                        </a>
-
-                        <a className="col-50" id="register" ref="register" onClick={(e)=>this.changeRegisterFlag(e)}>
-                            <span className="tab-label"  style={Styles.floatRight}>注册</span>
-                        </a>
-                </header>
                 {loginTemplate}
             </main>
         )

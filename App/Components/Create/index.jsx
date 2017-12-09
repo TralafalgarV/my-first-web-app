@@ -4,7 +4,7 @@ import React from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
 import { ClassOperation } from '../../Tools'
 import Markdown from '../Markdown'
-import "../../static/CSS/create.css"
+import "../../Static/CSS/create.css"
 
 class Create extends React.Component {
     constructor(props) {
