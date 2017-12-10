@@ -59,10 +59,14 @@
 } 
 
 /**************************** ArticleDetail样式 **************************/
+.ad {
+    font-family: -apple-system,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft Yahei",sans-serif;    
+}
 .ad-title {
     width: 100%;
     text-align: center;
     font-size: 1rem;
+    margin: 0.2rem;
 }
 
 .ad-article {
@@ -74,9 +78,10 @@
 }
 
 .ad-author {
-    font-size: .6rem;
-    text-align: center;
-    
+    font-size: .8rem;
+    margin: 0.2rem;
+    color: #999;
+    text-align: center; 
 }
 
 /************************comments 样式***************************/
@@ -84,10 +89,9 @@
     /* border-bottom: .5px solid grey; */
     list-style-type: none;
 }
-.ad {
-    
-}
+
 .ad-comments {
+    margin-left: 0.8rem;
     position: relative;
 }
 .ad-comments-info {
@@ -112,8 +116,7 @@
     padding: 3px 0.5rem;
     box-shadow: 0px -1px 3px 0px #888888;
 }
-.comment a{
-}
+
 .comment-input{
     padding: 0 0.5rem;
     height: 100%;

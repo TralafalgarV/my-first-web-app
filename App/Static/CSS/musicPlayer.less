@@ -23,14 +23,15 @@
 .music-player-container {
     .pos(r);
     .absCenter;
-    margin-bottom: 30px;
+    margin: 1rem 0;
 
     .music-player {
         .pos(a);
+        .absCenter;
         height: 14.25rem;
         width: 17.96rem;
-        padding: 1.56rem 9.76rem 1.56rem 1.56rem;
-        text-align: right;
+        padding: 1rem;
+        text-align: center;
         z-index: 3;
 
         .player-content-container {
@@ -75,8 +76,9 @@
     // 唱片效果实现
     .album {
         position: relative;
-        // height: 15rem;
-        // width: 15rem;
+        height: 15rem;
+        width: 15rem;
+        .absCenter;
         // margin-left: 250px;
         // margin-top: 25px;
         z-index: 10;
@@ -115,12 +117,12 @@
         }
 
         .vinyl {
-            .absCenter;
+            .absCenter;             
             position: absolute;
             height: 14.5rem;
             width: 14.5rem;
             top: .25rem;
-            left: 50%;
+            left: 0;
             background-image: url('../cover/vinyl.png'), url('../cover/1.png');
             background-position: center, center;
             background-size: cover, 70% auto;
@@ -130,13 +132,13 @@
             transition: all 500ms;
             animation: spin 3s infinite linear;
             z-index: 5;
-            will-change: transform, left;
+            will-change: transform, left;           
         }
     }
 }
 
 .album-playing {
-    left: 52% !important;
+    left: 48% !important;
 }
 
 div [class^="control-"] {
@@ -155,13 +157,22 @@ div [class^="control-"]:hover {
 
 @media screen and (max-width: 414px) {
     .music-player-container {
+        // 唱片封面
         .album {
+            height: 10rem;
+            width: 10rem;
 
-        
-            &::after {
-                content: "";
-
+            // 唱片封面
+            .album-art {
+                height: 10rem;
+                width: 10rem;
             }
+
+            // 唱片
+            .vinyl {
+                height: 9.5rem;
+                width: 9.5rem;            
+            }            
         }
 
         .music-player {
@@ -171,5 +182,9 @@ div [class^="control-"]:hover {
                 margin-right: 2rem;
             }
         }
+    }
+
+    .album-playing {
+        left: 48% !important;
     }
 }

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { render } from 'react-dom'
-import { Link } from 'react-router'
+import { Link, hashHistory } from 'react-router'
 import '../../Static/CSS/music.less'
 import { MusicModel } from '../../Model/dataModel'
 
@@ -34,8 +34,7 @@ class Music extends React.Component {
         this.rotateGallery = this.rotateGallery.bind(this)
         this.resetDeg = this.resetDeg.bind(this)
         this.listHandle = this.listHandle.bind(this)
-        // 绑定播放器运行环境
-        this.chooseMusic = this.chooseMusic.bind(this)
+
     }
 
     // 展示专辑封面
@@ -120,20 +119,6 @@ class Music extends React.Component {
         this.timer = setInterval(this.rotateGallery, 1500)
     }
 
-    // 点歌
-    chooseMusic(index) {
-        // 给play按钮添加停止样式
-        // this.playNode.classList.remove("control-pause")
-        // this.vinylNode.classList.remove("album-playing")
-
-        //console.log("点歌", this.audio)   // audio 已经移动到 musicPlayer组件
-        this.setState({
-            curMusic: musicList[index]
-        })
-        // 修改source.src之后，需要重新加载audio元素
-        //this.audio.load()  // 这个很重要
-    }
-
     // 轮播导航栏
     listHandle() {
         let _this = this
@@ -155,12 +140,16 @@ class Music extends React.Component {
         let _this = this
         let musicList = this.state.musicList
         return musicList.map(function(ele, index) {
+            let path = {
+                pathname: "/musicPlayer",
+                state: ele
+            }
             return (
                 <li key={index}>
-                    <Link to="/musicPlayer">
+                    <Link to={path}>
                         <div className="musis-list-item" data-index={index} onClick={(e) => {
                             e.stopPropagation()  // stopPropagation()方法既可以阻止事件冒泡，也可以阻止事件捕获，也可以阻止处于目标阶段
-                            _this.chooseMusic(e.target.dataset.index)
+                            hashHistory.push(path)
                         }}>
                             <header>{ele.songTitle}</header>
                             <section>
@@ -168,6 +157,7 @@ class Music extends React.Component {
                                 <div>-</div>
                                 <div>{ele.albumTitle}</div>
                             </section>
+                            <div className="listNum">{index + 1}</div>
                         </div>
                     </Link>
                 </li>

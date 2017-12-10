@@ -13,17 +13,35 @@ class MusicPlayer extends React.Component {
                 albumTitle: "未知",
                 songTitle: "我的一个道姑朋友",
                 musicUrl: "http://ws.stream.qqmusic.qq.com/200138786.m4a?fromtag=46"
-                
             }            
         }
 
         // 绑定播放器运行环境
-        this.ctlHandle = this.ctlHandle.bind(this)        
+        this.ctlHandle = this.ctlHandle.bind(this)  
+        this.chooseMusic = this.chooseMusic.bind(this)              
     }
 
     componentDidMount() {
-
+        console.log("componentDidMount: ", this.props.location.state)
+        this.setState({
+            curMusic: this.props.location.state
+        })
     }
+
+    // 点歌
+    chooseMusic(index) {
+        // 给play按钮添加停止样式
+        // this.playNode.classList.remove("control-pause")
+        // this.vinylNode.classList.remove("album-playing")
+
+        //console.log("点歌", this.audio)   // audio 已经移动到 musicPlayer组件
+        this.setState({
+            curMusic: musicList[index]
+        })
+        // 修改source.src之后，需要重新加载audio元素
+        //this.audio.load()  // 这个很重要
+    }
+
 
     playHandle() {
         // 给play按钮添加播放样式

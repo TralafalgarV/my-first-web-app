@@ -87,10 +87,10 @@
         createBall();
     }
 
-    function render() {
+    function canvasRender() {
         //逐帧绘制之前先清画布
         context.clearRect(0,0,canvas.width, canvas.height);
-        //绘制每一帧的圆和线，创建一个render函数，然后在函数内先绘制所有的圆出来：
+        //绘制每一帧的圆和线，创建一个canvasRender函数，然后在函数内先绘制所有的圆出来：
         for (var k = 0; k < num; k++) {
             context.save();
             context.beginPath();
@@ -145,7 +145,7 @@
     }
 
     (function loop() {
-        render();
+        canvasRender();
         requestAnimationFrame(loop);
     })();
 </script>
