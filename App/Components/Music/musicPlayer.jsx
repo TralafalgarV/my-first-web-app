@@ -18,8 +18,7 @@ class MusicPlayer extends React.Component {
         }
 
         // 绑定播放器运行环境
-        this.ctlHandle = this.ctlHandle.bind(this)  
-        this.chooseMusic = this.chooseMusic.bind(this)              
+        this.ctlHandle = this.ctlHandle.bind(this)           
     }
 
     componentDidMount() {
