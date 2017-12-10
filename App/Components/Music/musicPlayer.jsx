@@ -13,7 +13,8 @@ class MusicPlayer extends React.Component {
                 albumTitle: "未知",
                 songTitle: "我的一个道姑朋友",
                 musicUrl: "http://ws.stream.qqmusic.qq.com/200138786.m4a?fromtag=46"
-            }            
+            } ,
+            index: 0           
         }
 
         // 绑定播放器运行环境
@@ -24,38 +25,65 @@ class MusicPlayer extends React.Component {
     componentDidMount() {
         console.log("componentDidMount: ", this.props.location.state)
         this.setState({
-            curMusic: this.props.location.state
+            curMusic: this.props.location.state.curMusic,
+            index: this.props.location.state.index
         })
     }
 
-    // 点歌
-    chooseMusic(index) {
-        // 给play按钮添加停止样式
-        // this.playNode.classList.remove("control-pause")
-        // this.vinylNode.classList.remove("album-playing")
-
-        //console.log("点歌", this.audio)   // audio 已经移动到 musicPlayer组件
-        this.setState({
-            curMusic: musicList[index]
-        })
-        // 修改source.src之后，需要重新加载audio元素
-        //this.audio.load()  // 这个很重要
-    }
-
-
-    playHandle() {
+/************************ 播放器操作函数 *************************/
+    play() {
         // 给play按钮添加播放样式
         this.playNode.classList.toggle("control-pause")
         this.vinylNode.classList.toggle("album-playing")
         
-        // 音乐的播放停止
+        // 音乐的播放开始
         if (this.playNode.classList.contains("control-pause")) {
             console.log("music play")            
             this.audio.play()                    
         } else {
+            // 音乐的播放开始
             console.log("music stop")
             this.audio.pause()
         }
+    }
+    
+    musicController(cmd) {
+        // 停止播放、更换play图标和唱片动画效果
+        this.audio.pause()
+        this.playNode.classList.remove("control-pause")
+        this.vinylNode.classList.remove("album-playing")
+
+        let curIndex = this.state.index
+        let musicList = this.props.location.state.musicList
+
+        switch (cmd) {
+            case "forwards":
+                // 计算下一首歌曲的index
+                if (musicList.length == curIndex + 1) {
+                    curIndex = 0
+                } else {
+                    curIndex = curIndex + 1
+                }                
+                break;
+            case "back":
+                // 计算上一首歌曲的index
+                if (curIndex == 0) {
+                    curIndex = musicList.length - 1
+                } else {
+                    curIndex = curIndex - 1
+                }              
+                break;        
+            default:
+                console.log("[ERROR] musicController")
+                break;
+        }
+        // 更新当前music和歌曲index
+        this.setState({
+            curMusic: musicList[curIndex],
+            index: curIndex
+        })
+        // 修改source.src之后，需要重新加载audio元素
+        this.audio.load()  // 这个很重要              
     }
 
     // 播放器相关函数
@@ -63,13 +91,15 @@ class MusicPlayer extends React.Component {
         switch (btnType) {
             case "control-back":
                 console.log("[Music] control-back")
+                this.musicController("back")
                 break
             case "control-play":
                 console.log("[Music] click control-play")
-                this.playHandle()
+                this.play()
                 break
             case "control-forwards":
                 console.log("[Music] control-forwards")
+                this.musicController("forwards")
                 break
             default:
                 break

@@ -142,24 +142,26 @@ class Music extends React.Component {
         return musicList.map(function(ele, index) {
             let path = {
                 pathname: "/musicPlayer",
-                state: ele
+                state: {
+                    curMusic: ele,
+                    musicList: _this.state.musicList,
+                    index: index
+                }
             }
             return (
                 <li key={index}>
-                    <Link to={path}>
-                        <div className="musis-list-item" data-index={index} onClick={(e) => {
-                            e.stopPropagation()  // stopPropagation()方法既可以阻止事件冒泡，也可以阻止事件捕获，也可以阻止处于目标阶段
-                            hashHistory.push(path)
-                        }}>
-                            <header>{ele.songTitle}</header>
-                            <section>
-                                <div>{ele.artistName}</div>
-                                <div>-</div>
-                                <div>{ele.albumTitle}</div>
-                            </section>
-                            <div className="listNum">{index + 1}</div>
-                        </div>
-                    </Link>
+                    <div className="musis-list-item" data-index={index} onClick={(e) => {
+                        e.stopPropagation()  // stopPropagation()方法既可以阻止事件冒泡，也可以阻止事件捕获，也可以阻止处于目标阶段
+                        hashHistory.push(path)  // 使用 react-router的 hashHistory 函数实现页面跳转和传参。
+                    }}>
+                        <header>{ele.songTitle}</header>
+                        <section>
+                            <div>{ele.artistName}</div>
+                            <div>-</div>
+                            <div>{ele.albumTitle}</div>
+                        </section>
+                        <div className="listNum">{index + 1}</div>
+                    </div>
                 </li>
             )
         })
