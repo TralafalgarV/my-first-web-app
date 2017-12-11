@@ -75,6 +75,7 @@
 // ******************** 轮播按钮样式 ******************
 #buttons {
     .pos(a);
+    width: @MaxWidth;
     bottom: -@BtnSize / 4;
     left: 50%;
     transform: translateX(-50%);
@@ -100,7 +101,6 @@
 
 @media screen and (max-width: 414px) {
     #buttons {
-        width: @MaxWidth;
         bottom: @BtnSize / 4;
         .music-btn {
             width: 0.8 * @BtnSize;

@@ -38,7 +38,8 @@ mongoose.model('Music', new mongoose.Schema({
     artistName: {type: String, isRequired: true},
     albumTitle: {type: String, isRequired: true},
     songTitle: {type: String, isRequired: true},
-    musicUrl: {type: String, isRequired: true},    
+    musicUrl: {type: String, isRequired: true},
+    albumId: {type: Number, isRequired: true},
 }))
 //在程序的任何地方都可以调用此方法,设置为全局
 global.Model = function(modelName) {

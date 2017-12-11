@@ -7,7 +7,7 @@
 
 .scroller ~ ul > li {
     position: relative;
-    margin: 0.3rem 0 0 3.6rem;
+    margin: 0.3rem 0 0 1rem;
     padding: 0rem 0.75rem 0.3rem 0.75rem;
     border-bottom: 1px solid #dfdfdf;
     border-top: 1px solid #dfdfdf;
@@ -21,7 +21,7 @@ h4 {
     margin: 0.2rem 0;
     margin-top: 0.5rem;
     color: #259;
-    font-size: 25px;
+    font-size: 1rem;
 }
 
 .loading {

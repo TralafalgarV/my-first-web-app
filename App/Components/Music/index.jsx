@@ -128,7 +128,6 @@ class Music extends React.Component {
                     <div className="music-btn" key={index} onClick={function(e) {
                         _this.setGalleryImage(index)
                         _this.restartTimer()
-                        _this.chooseMusic(index)
                     }}>{index + 1}</div>
                 )
             })

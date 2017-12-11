@@ -12,7 +12,8 @@ class MusicPlayer extends React.Component {
                 artistName: "菠萝赛东",
                 albumTitle: "未知",
                 songTitle: "我的一个道姑朋友",
-                musicUrl: "http://ws.stream.qqmusic.qq.com/200138786.m4a?fromtag=46"
+                musicUrl: "http://ws.stream.qqmusic.qq.com/200138786.m4a?fromtag=46",
+                albumId: 0,
             } ,
             index: 0           
         }
@@ -106,11 +107,15 @@ class MusicPlayer extends React.Component {
     }
 
     render() {
+        let _this = this
+        let albumUrl = `http://imgcache.qq.com/music/photo/album_300/${this.state.curMusic.albumId%100}/300_albumpic_${this.state.curMusic.albumId}_0.jpg`
         return (
             <div>
                 <div className="music-player-container is-playing">
                     <div className="album">
-                        <div className="album-art"></div>
+                        <div className="album-art">
+                            <img src={albumUrl} alt=""/>
+                        </div>
                         <div className="vinyl" ref={(node) => {this.vinylNode = node}}></div>
                     </div>                
                     <div className="music-player">
