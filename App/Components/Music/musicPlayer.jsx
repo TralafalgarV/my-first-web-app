@@ -52,7 +52,6 @@ class MusicPlayer extends React.Component {
         this.audio.pause()
         this.playNode.classList.remove("control-pause")
         this.vinylNode.classList.remove("album-playing")
-
         let curIndex = this.state.index
         let musicList = this.props.location.state.musicList
 
@@ -81,9 +80,11 @@ class MusicPlayer extends React.Component {
         this.setState({
             curMusic: musicList[curIndex],
             index: curIndex
-        })
-        // 修改source.src之后，需要重新加载audio元素
-        this.audio.load()  // 这个很重要              
+        }, function() {  // setState是异步操作，导致 curMusic 没有及时更新
+            console.log(this.state.curMusic, this.state.index)
+            // 修改source.src之后，需要重新加载audio元素
+            this.audio.load()  // 这个很重要  
+        })            
     }
 
     // 播放器相关函数
