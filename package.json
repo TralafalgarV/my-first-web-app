@@ -52,13 +52,15 @@
     "url-loader": "^0.5.7",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^1.16.5",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "dependencies": {
     "babel-plugin-transform-object-assign": "^6.8.0",
     "eslint": "^4.5.0",
     "formidable": "^1.0.17",
     "nodemon": "^1.11.0",
+    "pinkie-promise": "^2.0.1",
     "showdown": "^1.8.1"
   }
 }

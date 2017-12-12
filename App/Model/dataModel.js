@@ -2,6 +2,10 @@
 const API = 'http://47.96.183.75/'
 
 const USER_LOGIN = 'userLogin'
+// 引入 whatwg-fetch 模块，解决fetch兼容性问题
+import 'whatwg-fetch'
+import { win32 } from 'path';
+
 /**
  * fetch请求数据Model
  * @param _method
@@ -11,7 +15,6 @@ const USER_LOGIN = 'userLogin'
  * @param _onError
  * @private
  */
-
 function _request(_method, _api, _params, _onSuccess, _onError) {
     console.log("[Model] _request: " + _api)
     if (_method == 'POST') {

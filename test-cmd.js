@@ -64,3 +64,6 @@ git reset --hard 7c7e1c86 (回到特定版本前8位hash码)
 配置后重启：
 sudo nginx -t
 sudo service nginx reload
+
+/******************** npm常用命令 *********************/
+sudo npm update -g npm  # 更新 npm
