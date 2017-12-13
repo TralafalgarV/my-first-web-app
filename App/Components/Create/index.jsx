@@ -54,6 +54,9 @@ class Create extends React.Component {
         
         // 获取作者信息
         let userInfo = UserModel.fetchLogin()
+        if (userInfo == undefined) {
+            console.log("userinfo is undefined")
+        }
         // 更新文章列表
         info.push({
             title: title,

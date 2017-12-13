@@ -18,6 +18,7 @@ import {
     Login,
     MusicPlayer
 } from './Config/route-config'
+import '../App/Static/CSS/base.css'
 
 // 引入适配模块(适配移动端和IE)
 import '../App/Adaptation'
