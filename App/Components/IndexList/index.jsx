@@ -130,8 +130,7 @@ class IndexList extends React.Component {
                 // 取消mask效果
                 let mask = document.querySelector(".loader")
                 mask.style.transition = "0.5s"
-                mask.style.opacity = "0"
-                mask.style.height = "0%"                    
+                mask.style.opacity = "0"                
                 document.querySelector(".spans").classList.add("hidden")     
             })
         }, (err) => {
