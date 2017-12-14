@@ -122,11 +122,18 @@ class IndexList extends React.Component {
         })
     }
 
-    // 从服务器获取文章列表数据
+    // 从服务器获取文章列表数据, 并且去掉mask
     fetchData() {
         ArticleModel.fetchList("", (data) => {
             console.log("[IndexList] fetch from Server：", data)
-            this.setState({list : data})      
+            this.setState({list : data}, function() {
+                // 取消mask效果
+                let mask = document.querySelector(".loader")
+                mask.style.transition = "0.5s"
+                mask.style.opacity = "0"
+                mask.style.height = "0%"                    
+                document.querySelector(".spans").classList.add("hidden")     
+            })
         }, (err) => {
             console.log(err)
         })        

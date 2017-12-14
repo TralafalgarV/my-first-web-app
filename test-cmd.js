@@ -38,6 +38,7 @@ ps -ef/-al
 mv old new
 
 5. 移动文件
+mv srcPath desPath
 
 /*********** mongodb 在子进程中运行配置 ********/
 1. 将程序在子进程中执行
@@ -67,3 +68,21 @@ sudo service nginx reload
 
 /******************** npm常用命令 *********************/
 sudo npm update -g npm  # 更新 npm
+
+/******************* pm2 *****************/
+1. 启动任务
+pm2 start [procName]
+
+2. 停止任务
+pm2 start [procName]
+
+3. 查看pm启动任务的log
+pm2 logs [procName] [--lines numbers]
+
+/******************* 2017 流行色 潘通******************/
+#91B54D   // 草木绿
+#C46215   // Autumn Maple
+#4F84C4   // Marina
+#C68F65   // Butterum
+#8E918F   // Neutral Gray
+
