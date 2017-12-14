@@ -131,7 +131,8 @@ class IndexList extends React.Component {
                 let mask = document.querySelector(".loader")
                 mask.style.transition = "0.5s"
                 mask.style.opacity = "0"                
-                document.querySelector(".spans").classList.add("hidden")     
+                document.querySelector(".spans").classList.add("hidden")
+                document.querySelector(".loader").classList.add("hidden")   
             })
         }, (err) => {
             console.log(err)

@@ -44,7 +44,7 @@ global.API = 'http://localhost:4545'
  * 后面的中间件将得不到被执行的机会
  */
 app.all('*', function(req, res, next) {
-    console.log("[server] all: ", req)
+    console.log("[server] all: ", req.headers)
     res.header("Access-Control-Allow-Origin", "*")
     //
     res.header("Access-Control-Allow-Headers", "content-type")

@@ -1,6 +1,6 @@
 var webpack = require('webpack')
 var path = require('path')
-var buildPath = path.resolve(__dirname, 'build');
+// var buildPath = path.resolve(__dirname, 'build');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var Edition = './App'
@@ -11,12 +11,12 @@ module.exports = {
   },
   devtool:'source-map',
   output: {
-    path: buildPath,
+    path: '/data/app/build',
     filename: 'bundle.js',
     chunkFilename: 'js/[name].[chunkhash:5].js'
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
+    new webpack.optimize.UglifyJsPlugin({  //webpack自带的压缩代码插件
       compress: {
         warnings: false
       }
