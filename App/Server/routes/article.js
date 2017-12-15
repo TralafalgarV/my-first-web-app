@@ -38,15 +38,9 @@ router.get('/fetchList', function (req, res) {
         })
         res.send(articleList) // 数据类型为 object
     })
-    // fs.readFile(DBPATH, function(err, data) {
-    //     if (err) {
-    //         console.log("fetchList read file err: ", err)
-    //     }
-        // res.send(data) // 数据类型为 object
-    // })
 })
 
-// 将client发送的数据存到文件中
+// 将client发送的数据存到MongoDB数据库中
 router.post('/publish', function (req, res) {
     let data = req.body
 
@@ -72,6 +66,7 @@ router.post('/publish', function (req, res) {
             }
         })
     }
+})
 
 router.post('/comment', function (req, res) {
     var info = req.body
@@ -88,14 +83,25 @@ router.post('/comment', function (req, res) {
         }
     })        
 })
-    // fs.writeFile(DBPATH ,JSON.stringify(data), (error) => {
-    //     if (error) {
-    //         console.log("fail");
-    //     } else {
-    //         console.log("success");
-    //     }
-    // })
-    // res.send(JSON.stringify(null))
+
+router.get('/delete/:id', function(req, res) {
+    Model('Article').findById(req.params.id).exec(function(err, collection) {
+        if (err || collection == null) {
+            return handleError("Collection: ", collection, err)
+        } else {
+            console.log("Find it: ", collection)
+        }
+
+        Model('Article').deleteOne({"_id": req.params.id}, function (err) {
+            if (!err) {
+                res.send(collection)            
+                console.log("Article delete successful")
+            } else {
+                console.log("Article delete failed")
+                res.send(err)                
+            }
+        })
+    })
 })
 
 module.exports = router

@@ -1,4 +1,5 @@
 import { port } from "_debugger";
+import { ObjectId } from "../../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/bson";
 
 // 数据库调试命令：
 // 1. 评论添加
@@ -9,7 +10,6 @@ db.articles.update({'title': '暴走大事件'}, {$set:{'comments': [{
 }]}}, {multi:true})
 
 // 2. 修改musics数据库内容
-
 db.musics.insert({"artistName" : "陈一发", "albumTitle" : "童话镇", "songTitle" : "童话镇", "musicUrl" : "http://ws.stream.qqmusic.qq.com/108756031.m4a?fromtag=46", "albumId": 1632238})
 db.musics.insert({"artistName" : "双笙", "albumTitle" : "我的一个道姑朋友", "songTitle" : "我的一个道姑朋友", "musicUrl" : "http://ws.stream.qqmusic.qq.com/200138786.m4a?fromtag=46", "albumId": 2118582})
 db.musics.insert({"artistName" : "鹿先森乐队", "albumTitle" : "所有的酒，都不如你", "songTitle" : "春风十里", "musicUrl" : "http://ws.stream.qqmusic.qq.com/105393664.m4a?fromtag=46", "albumId": 1258581})
@@ -24,6 +24,8 @@ http://soso.music.qq.com/fcgi-bin/fcg_search_xmldata.fcg?source=0&w=The%20Phoeni
 &w=[参数] //修改此参数来查询歌曲信息 
 &perpage=[参数] //显示的信息个数
 
+// 删除评论
+db.articles.deleteOne( { "_id": ObjectId("5a24baaef9589506a57c24e3") } )
 /************linux 常用命令 ************/
 1. 创建dir 
 mkdir [dir]
@@ -85,4 +87,5 @@ pm2 logs [procName] [--lines numbers]
 #4F84C4   // Marina
 #C68F65   // Butterum
 #8E918F   // Neutral Gray
+
 

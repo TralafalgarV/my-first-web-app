@@ -172,7 +172,7 @@ class IndexList extends React.Component {
                     <Link to={'/indexList/'+item._id} style={{display:'block'}}>                    
                         <div className="list">
                             <div className=""><h4>{item.title}</h4></div>
-                            <div className="" style={{marginTop:'10px'}}>
+                            <div className="" style={{marginTop:'10px', position: "relative"}}>
                                 <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
                                     <img src={AVATARPATH} style={{marginRight:'0.3rem', height:'1rem', display:'inline-block'}}  alt="图片"/>
                                 </div>
@@ -184,6 +184,30 @@ class IndexList extends React.Component {
                             <div className=""><p style={Styles.pStyle}>{_this.wordControl(str)}</p></div>
                         </div>
                     </Link>
+                    <button
+                        className="delButton button"
+                        style={{
+                            position: "absolute",
+                            marginRight: "0.5rem",
+                            right: "0",
+                            top: "50%",
+                            display: "inline-block",
+                            zIndex: "3000",
+                            transform: "translateY(-50%)",
+                        }}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            console.log("Delete Article Id: ", item._id)
+                            ArticleModel.delete(item._id, function(data) {
+                                console.log("The article id", data._id, "has been deleted")
+                                // 删除后刷新list
+                                _this.fetchData()
+                            }, function(err) {
+                                if (err) {
+                                    console.log("Delete: ", err)
+                                }
+                            })
+                        }}>DEL</button>                    
                 </li>
             )
         })

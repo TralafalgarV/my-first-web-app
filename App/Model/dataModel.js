@@ -1,5 +1,5 @@
-// const API = 'http://localhost:4545/'
-const API = 'http://47.96.183.75/'
+const API = 'http://localhost:4545/'
+// const API = 'http://47.96.183.75/'
 
 const USER_LOGIN = 'userLogin'
 // 引入 whatwg-fetch 模块，解决fetch兼容性问题
@@ -98,6 +98,9 @@ let ArticleModel = {
     },
     comment: (_params, _success, _error) => {
         _request('POST', `${API}article/comment`, _params, _success, _error)
+    },
+    delete: (_id, _success, _error) => {
+        _request('GET', `${API}article/delete/${_id}`, null, _success, _error)
     },      
 }
 
