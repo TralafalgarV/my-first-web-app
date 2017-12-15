@@ -12,13 +12,13 @@ mongoose.model('Article', new mongoose.Schema({
     title: {type: String, isRequired: true},
     content: {type: String, isRequired: true},
     author: {type: String, isRequired: true},
-    createTime: {type: String, isRequired: true},    
+    createTime: {type: Number, isRequired: true},    
     user: {type: ObjectId, ref: 'User'},
     comments:[{//评论的一个数组
         user: {type: ObjectId, ref: 'User'},//评论人
         author: {type: String, isRequired: true},
         content: {type: String},//评论的内容
-        createTime: {type: String, isRequired: true}//评论的时间
+        createTime: {type: Number, isRequired: true}//评论的时间
     }],    
 }))
 

@@ -56,6 +56,7 @@ class Create extends React.Component {
         let userInfo = UserModel.fetchLogin()
         if (userInfo == undefined) {
             console.log("userinfo is undefined")
+            return
         }
         // 更新文章列表
         info.push({

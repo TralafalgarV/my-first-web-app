@@ -6,10 +6,6 @@ var router = express.Router()
 
 router.get('/fetchArticle/:id', function(req, res) {
     console.log("fetchArticle: ",req.params.id)
-    // 1：升序； -1：降序
-    var orderObj = {
-        'author_id': -1
-    }
 
     Model('Article').findById(req.params.id).exec(function(err, collection) {
         console.log("fetchArticle: ", collection)
@@ -44,28 +40,16 @@ router.get('/fetchList', function (req, res) {
 router.post('/publish', function (req, res) {
     let data = req.body
 
-    console.log('[article] publish',data)
-
-    if (data.createTime) {
-        // Model('Article').update({_id: data.createTime}, {$set: {title: data.title, content: data.content}}, function(err, result) {
-        //     if(err){
-        //         res.send(err)
-        //     }else{
-        //         res.send({title:1,content:'修改成功'})
-        //     }
-        // })
-    } else {
-        console.log("[article] publish a new article...")
-        Model('Article').create(data, function(err, doc) {
-            if (err) {
-                res.send(err)
-            } else {
-                if (doc) {
-                    res.send({title: 1, content: '发表成功'})
-                }
+    console.log("[article] publish a new article...", data)
+    Model('Article').create(data, function(err, doc) {
+        if (err) {
+            res.send(err)
+        } else {
+            if (doc) {
+                res.send({title: 1, content: '发表成功'})
             }
-        })
-    }
+        }
+    })
 })
 
 router.post('/comment', function (req, res) {
