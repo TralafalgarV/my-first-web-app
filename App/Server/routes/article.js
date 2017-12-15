@@ -52,16 +52,18 @@ router.post('/publish', function (req, res) {
     })
 })
 
+// comment 处理
 router.post('/comment', function (req, res) {
     var info = req.body
     var articleId = info._id
     var comment = info.comments
-    console.log("[comments] comments data: ", comment)
+    console.log("[comments] comments data: ", info)
     // 根据文章Id更新评论
     Model('Article').update({_id: articleId}, {
         $push: {comments:{author: comment.author, content: comment.content, createTime: comment.createTime}}}, function(err, newDoc) {
         if(err) {
-            res.send(err)
+            console.log("comment fail")
+            res.send({title: 2, content: '评论失败'})
         } else {
             res.send({title: 1, content: '评论成功'})
         }

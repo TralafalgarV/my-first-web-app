@@ -7,6 +7,7 @@
  */
 import React, { Component } from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
+import { dateDiff } from '../../Tools'
 import '../../Static/CSS/create.css'
 import '../../Static/CSS/articleDetail.css'
 import AVATARPATH from '../../Static/avatar/eg_cute.gif'
@@ -73,7 +74,7 @@ class ArticleDetail extends Component {
                     <div className="col-85 comment-list">
                         <div>
                             <div style={{fontWeight:'bold', fontSize:'15px', display: "inline-block"}}>{item.author}</div>
-                            <div style={{fontSize:'13px', display: "inline-block"}}><span className="icon icon-clock">{item.createTime}</span></div>
+                            <div style={{fontSize:'13px', display: "inline-block"}}><span className="icon icon-clock">{dateDiff(item.createTime)}</span></div>
                         </div>
                         <p className="col-85" style={{margin:'0.2rem 0', fontSize:'18px'}}>{item.content}</p>
                     </div>
@@ -102,7 +103,7 @@ class ArticleDetail extends Component {
             comments: {
                 author: JSON.parse(userinfo).username,
                 content: this.comment.value,
-                createTime: new Date()
+                createTime: Date.now()
             },
         }
 
