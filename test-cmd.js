@@ -26,6 +26,14 @@ http://soso.music.qq.com/fcgi-bin/fcg_search_xmldata.fcg?source=0&w=The%20Phoeni
 
 // 删除评论
 db.articles.deleteOne( { "_id": ObjectId("5a24baaef9589506a57c24e3") } )
+
+// 删除users 集合的内容
+db.users.deleteMany({})  // 删全部
+db.users.deleteMany({ status : "A" })
+db.users.deleteOne( { status: "D" } )
+
+// 添加users内容
+db.users.insert({"username" : "Administrator", "email" : "wangwei@.com", "password" : "wangwei27", "authority" : 99, "avatar" : "http://www.qdaily.com/images/missing_face.png", "list" : [ ], "__v" : 0})
 /************linux 常用命令 ************/
 1. 创建dir 
 mkdir [dir]

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { UserModel } from '../../Model/dataModel'
-
 // 登录组件
 class Login extends React.Component {
     constructor(props) {
@@ -71,21 +70,24 @@ class Login extends React.Component {
         let userInfo = {
             username: this.state.username,
             email: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            authority: 2    // 注册用户权限默认都为2级
         }
 
         // console.log(userInfo);
         UserModel.register(userInfo, (data) => {
-            if (data.id == '1') {
+            if (data.registerState == true) {
                 console.log("注册成功", data)
                 UserModel.storeLogin(JSON.stringify({
                     content: data.content,
-                    username: data.username
+                    username: data.username,
+                    authority: data.authority
                 }))
                 location.hash = "/indexList";
-            }else if(data.id == '2') {
+            } else if (data.registerState == false) {
+                console.log("注册失败", data)
                 alert(data.content)
-            }else if(data.id == '3') {
+            } else {
                 alert(data.content)
             }
         }, (err) => {

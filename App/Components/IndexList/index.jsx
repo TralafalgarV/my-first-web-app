@@ -13,7 +13,7 @@ import {
 } from 'react-router'
 import ArticleDetail from '../ArticleDetail'
 import '../../Static/CSS/indexList.css'
-import { ArticleModel } from '../../Model/dataModel'
+import { ArticleModel, UserModel } from '../../Model/dataModel'
 import { dateDiff } from '../../Tools'
 import AVATARPATH from '../../Static/avatar/eg_cute.gif'
 import showdown from 'showdown'
@@ -24,7 +24,7 @@ let Styles = {
         fontSize:"20px"
     },
     listBlock:{
-      margin:0,
+        margin:0,
     },
     userTitle:{
         dispaly:'inline-blcok',
@@ -79,6 +79,7 @@ class IndexList extends React.Component {
         this.pattern = /<[^>]*>/g
         // 初始化markdown模块
         this.converter = new showdown.Converter()
+        this.delArticle = this.delArticle.bind(this)
     }
 
     componentDidMount() {
@@ -138,6 +139,7 @@ class IndexList extends React.Component {
             console.log(err)
         })        
     }
+
     // 限制文章显示字数
     wordControl(word) {
         if(word.length > 65){
@@ -156,6 +158,34 @@ class IndexList extends React.Component {
         return check;
     }
 
+    // 删除操作
+    delArticle(e, item) {
+        let _this = this
+        e.stopPropagation()
+        console.log("Article Id: ", item._id, "will be deleted")
+        ArticleModel.delete(item._id, function(data) {
+            console.log("The article id", data._id, "has been deleted")
+            // 删除后刷新list
+            _this.fetchData()
+        }, function(err) {
+            if (err) {
+                console.log("Delete: ", err)
+            }
+        })
+    }
+
+    // 获取当前登录用户的权限
+    getAuthority() {
+        let userinfo = UserModel.fetchLogin()
+        let authority = 2
+        if (userinfo == false) {
+            console.log("UserInfo is null")
+        } else {
+            let authority = JSON.parse(userinfo).authority
+        }
+        return authority        
+    }
+
     // 文章列表
     indexList() {
         let _this = this        
@@ -166,7 +196,9 @@ class IndexList extends React.Component {
             let html = _this.converter.makeHtml(item.content)
             let str = html.replace(_this.pattern, "")
 
-            let date = new Date()        
+            let date = new Date()
+
+            let authority = 99
             return (
                 <li className="" key={index}>
                     <Link to={'/indexList/'+item._id} style={{display:'block'}}>                    
@@ -184,8 +216,9 @@ class IndexList extends React.Component {
                             <div className=""><p style={Styles.pStyle}>{_this.wordControl(str)}</p></div>
                         </div>
                     </Link>
-                    <button
-                        className="delButton button"
+                    {
+                        authority == 99 ? 
+                        <button className="delButton button"
                         style={{
                             position: "absolute",
                             marginRight: "0.5rem",
@@ -196,18 +229,9 @@ class IndexList extends React.Component {
                             transform: "translateY(-50%)",
                         }}
                         onClick={(e) => {
-                            e.stopPropagation()
-                            console.log("Delete Article Id: ", item._id)
-                            ArticleModel.delete(item._id, function(data) {
-                                console.log("The article id", data._id, "has been deleted")
-                                // 删除后刷新list
-                                _this.fetchData()
-                            }, function(err) {
-                                if (err) {
-                                    console.log("Delete: ", err)
-                                }
-                            })
-                        }}>DEL</button>                    
+                            _this.delArticle(e, item)
+                        }}>DEL</button> : null 
+                    }
                 </li>
             )
         })
