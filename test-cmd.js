@@ -33,7 +33,7 @@ db.users.deleteMany({ status : "A" })
 db.users.deleteOne( { status: "D" } )
 
 // 添加users内容
-db.users.insert({"username" : "Administrator", "email" : "wangwei@.com", "password" : "wangwei27", "authority" : 99, "avatar" : "http://www.qdaily.com/images/missing_face.png", "list" : [ ], "__v" : 0})
+db.users.insert({"username" : "Administrator", "email" : "wangwei@.com", "password" : "wangwei27", "authority" : {"createArticle": true, "delArticle": true, "delComment": false}, "avatar" : "http://www.qdaily.com/images/missing_face.png", "list" : [ ], "__v" : 0})
 /************linux 常用命令 ************/
 1. 创建dir 
 mkdir [dir]

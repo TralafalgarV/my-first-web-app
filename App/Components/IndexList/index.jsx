@@ -177,11 +177,12 @@ class IndexList extends React.Component {
     // 获取当前登录用户的权限
     getAuthority() {
         let userinfo = UserModel.fetchLogin()
-        let authority = 2
-        if (userinfo == false) {
+        let authority = {createArticle: true, delArticle: false, delComment: false}
+        if (userinfo == null) {
             console.log("UserInfo is null")
         } else {
-            let authority = JSON.parse(userinfo).authority
+            console.log("UserInfo: ", JSON.parse(userinfo).authority)
+            authority = JSON.parse(userinfo).authority
         }
         return authority        
     }
@@ -197,8 +198,8 @@ class IndexList extends React.Component {
             let str = html.replace(_this.pattern, "")
 
             let date = new Date()
-
-            let authority = 99
+            // 获取当前登录用户的权限
+            let authority = _this.getAuthority()
             return (
                 <li className="" key={index}>
                     <Link to={'/indexList/'+item._id} style={{display:'block'}}>                    
@@ -217,7 +218,7 @@ class IndexList extends React.Component {
                         </div>
                     </Link>
                     {
-                        authority == 99 ? 
+                        authority.delArticle == true ? 
                         <button className="delButton button"
                         style={{
                             position: "absolute",

@@ -33,7 +33,7 @@ class Login extends React.Component {
         })
     }    
 
-    userRegister(){
+    userRegister () {
         let reg = /^\s+$/;
         let input = this.state;
         switch ('') {
@@ -71,7 +71,6 @@ class Login extends React.Component {
             username: this.state.username,
             email: this.state.email,
             password: this.state.password,
-            authority: 2    // 注册用户权限默认都为2级
         }
 
         // console.log(userInfo);
@@ -91,7 +90,7 @@ class Login extends React.Component {
                 alert(data.content)
             }
         }, (err) => {
-            console.log(err)
+            console.log("register fail: ", err)
         })
     }
 
@@ -120,20 +119,20 @@ class Login extends React.Component {
             username: username,
             password: password
         }
-        console.log("userInfo", userInfo);
         UserModel.login(userInfo, (data) => {
             console.log("[Login] userLogin return data: ", data)
             // 判断是否登录成功
-            if(data.id == '1') {
-                console.log("登录成功")
+            if (data.resState == 'success') {
+                console.log(data.content)
                 // 记录server返回数据，username用于create页面
                 UserModel.storeLogin(JSON.stringify({
                     content: data.content,
-                    username: data.username
+                    username: data.username,
+                    authority: data.authority
                 }))
                 location.hash = "/create"
-            } else if(data.id == '0') {
-                alert("登录失败")
+            } else if (data.resState == 'error') {
+                alert(data.content)
                 location.hash = "/login"
             }
             // location.hash = '/create'

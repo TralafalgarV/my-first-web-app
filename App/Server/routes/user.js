@@ -113,23 +113,37 @@ user.post('/register', function (req, res) {
     // })
 })
 
+// interface req.body {
+//     username: string;
+//     password: string;
+// }
+// interface response {
+//     resState: string,
+//     content: string,
+//     authority: object
+//     username?: string
+// }
 user.post('/login', function (req, res) {
     console.log("user login: ", req.body)
     var user = req.body
     Model('User').findOne(user, function (err, doc) {
         if (err) {
             res.send({
+                resState: "error",
                 content: err
             })
         } else {
             if (doc) {
                 res.send({
-                    content: doc._id,
-                    username: doc.username
+                    resState: "success",
+                    content: "登陆成功",
+                    username: doc.username,
+                    authority: doc.authority
                 })
             } else {
                 res.send({
-                    content: '用户不存在'
+                    resState: "error",
+                    content: "用户不存在"
                 })
             }
         }
