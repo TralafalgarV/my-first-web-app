@@ -54,10 +54,15 @@ class Create extends React.Component {
         
         // 获取作者信息
         let userInfo = UserModel.fetchLogin()
-        if (userInfo == undefined) {
-            console.log("userinfo is undefined")
+        if (JSON.parse(userInfo)) {
+            if (JSON.parse(userInfo).username) {
+                console.log("username is null")            
+            }
+        } else {
+            console.log("userinfo is null")
             return
         }
+
         // 更新文章列表
         info.push({
             title: title,
@@ -79,7 +84,6 @@ class Create extends React.Component {
 
     // 取消用户输入内容
     handleCancel(e) {
-
         // 清空所有输入内容
         this.setState({
             title: '',
@@ -92,10 +96,10 @@ class Create extends React.Component {
     
     // 隐藏 \ 显示 Markdown
     hideMarkdown(e) {
-        if (e.target.innerHTML == "Hide MD") {
-            e.target.innerHTML = "Show MD"
+        if (e.target.innerHTML == "Hide Markdown") {
+            e.target.innerHTML = "Show Markdown"
         } else {
-            e.target.innerHTML = "Hide MD"            
+            e.target.innerHTML = "Hide Markdown"            
         }
         //document.querySelector(".editor-preview").classList.toggle("hidden")
         ClassOperation.ToggleClass(".editor-preview", "hidden")
@@ -121,9 +125,9 @@ class Create extends React.Component {
                         }}/>
                     </div>
                     <div className="editor liveMode" style={{width: "100%"}}>
-                        <button type="button" className="btn" value="Hide MD" style={{position:"absolute", right:"0px", top:"0px", margin:"5px", padding:"3px", backgroundColor:"#009a61", color:"#FFF"}} onClick={(e) => {
+                        <button type="button" className="btn" value="Hide MD" style={{position:"absolute", right:"0px", top:"0px", margin:"12px", padding:"0px 3px", backgroundColor:"#009a61", color:"#FFF"}} onClick={(e) => {
                             this.hideMarkdown(e)
-                        }}>Hide MD</button>                        
+                        }}>Hide Markdown</button>                        
                         <div className="wmd">
                             <textarea id="myEditor" className="mono form-control wmd-input" placeholder="正文内容：" style={{backgroundPosition: "right top", backgroundRepeat: "no-repeat", opacity: "1", height: "444px"}} onChange={(e) => {
                                 this.handleChangeVal(e, "content")    

@@ -5,17 +5,16 @@ import { render } from 'react-dom'
 import { Link, hashHistory } from 'react-router'
 import '../../Static/CSS/music.less'
 import { MusicModel } from '../../Model/dataModel'
+import { getMusicAlbumUrl } from '../../Tools'
 
-// 获取所有封面图片路径的集合
-const requireCover = require.context("../../Static/cover", true, /[0-9]\.(png|jpg)/)
-const images = requireCover.keys().map(requireCover)
-//获取歌曲路径
+// 获取所有本地封面图片路径
+// const requireCover = require.context("../../Static/cover", true, /[0-9]\.(png|jpg)/)
+// const images = requireCover.keys().map(requireCover)
+//获取本地歌曲路径
 // const requireMusic = require.context("../../Static/resource", true, /.*\.(mp3)/)
 // const musics = requireMusic.keys().map(requireMusic)
 // import musics from '../../Static/resource/1.mp3'
 // console.log(musics)
-
-var musicList = []
 
 class Music extends React.Component {
     constructor(props) {
@@ -34,11 +33,13 @@ class Music extends React.Component {
         this.rotateGallery = this.rotateGallery.bind(this)
         this.resetDeg = this.resetDeg.bind(this)
         this.listHandle = this.listHandle.bind(this)
-
     }
 
     // 展示专辑封面
     coverImages() {
+        let images = this.state.musicList.map(function(ele) {
+            return getMusicAlbumUrl(ele.albumId)
+        })
         return (
             images.map(function(item, index) {
                 return (
@@ -80,9 +81,9 @@ class Music extends React.Component {
     }
 
     componentDidMount() {
+        this.fetchData()
         // setInternal 中传入的回调函数，需要绑定当前运行环境
         this.timer = setInterval(this.rotateGallery, 1500)
-        this.fetchData()
     }
 
     // 获取music相关数据
@@ -92,9 +93,7 @@ class Music extends React.Component {
             this.setState({
                 musicList: data
             })
-            // 
-            musicList = this.state.musicList
-            console.log("Music List:", musicList)
+            console.log("Music List:", this.state.musicList)
         }, (err) => {
             console.log("music fail")
         })
@@ -123,7 +122,7 @@ class Music extends React.Component {
     listHandle() {
         let _this = this
         return (
-            images.map(function(item, index) {
+            this.state.musicList.map(function(item, index) {
                 return (
                     <div className="music-btn" key={index} onClick={function(e) {
                         _this.setGalleryImage(index)

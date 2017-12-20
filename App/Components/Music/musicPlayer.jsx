@@ -2,6 +2,8 @@ import React from 'react'
 import {render} from 'react-dom'
 import '../../Static/CSS/musicPlayer.less'
 import {MusicModel} from '../../Model/dataModel'
+import { getMusicAlbumUrl } from '../../Tools'
+import VinylPath from '../../Static/cover/vinyl.png'
 
 class MusicPlayer extends React.Component {
     constructor(props) {
@@ -19,7 +21,7 @@ class MusicPlayer extends React.Component {
         }
 
         // 绑定播放器运行环境
-        this.ctlHandle = this.ctlHandle.bind(this)           
+        this.ctlHandle = this.ctlHandle.bind(this)
     }
 
     componentDidMount() {
@@ -109,7 +111,8 @@ class MusicPlayer extends React.Component {
 
     render() {
         let _this = this
-        let albumUrl = `http://imgcache.qq.com/music/photo/album_300/${this.state.curMusic.albumId%100}/300_albumpic_${this.state.curMusic.albumId}_0.jpg`
+        // 获取当前歌曲封面的url
+        let albumUrl = getMusicAlbumUrl(this.state.curMusic.albumId)
         return (
             <div>
                 <div className="music-player-container is-playing">
@@ -117,7 +120,7 @@ class MusicPlayer extends React.Component {
                         <div className="album-art">
                             <img src={albumUrl} alt=""/>
                         </div>
-                        <div className="vinyl" ref={(node) => {this.vinylNode = node}}></div>
+                        <div className="vinyl" ref={(node) => {this.vinylNode = node}} style={{backgroundImage : "url(" + VinylPath + "),url(" + albumUrl + ")"}}></div>
                     </div>                
                     <div className="music-player">
                         <div className="player-content-container">

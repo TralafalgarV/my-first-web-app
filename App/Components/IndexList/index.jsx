@@ -14,7 +14,7 @@ import {
 import ArticleDetail from '../ArticleDetail'
 import '../../Static/CSS/indexList.css'
 import { ArticleModel, UserModel } from '../../Model/dataModel'
-import { dateDiff } from '../../Tools'
+import { dateDiff, getAuthority } from '../../Tools'
 import AVATARPATH from '../../Static/avatar/eg_cute.gif'
 import showdown from 'showdown'
 
@@ -174,19 +174,6 @@ class IndexList extends React.Component {
         })
     }
 
-    // 获取当前登录用户的权限
-    getAuthority() {
-        let userinfo = UserModel.fetchLogin()
-        let authority = {createArticle: true, delArticle: false, delComment: false}
-        if (userinfo == null) {
-            console.log("UserInfo is null")
-        } else {
-            console.log("UserInfo: ", JSON.parse(userinfo).authority)
-            authority = JSON.parse(userinfo).authority
-        }
-        return authority        
-    }
-
     // 文章列表
     indexList() {
         let _this = this        
@@ -199,7 +186,7 @@ class IndexList extends React.Component {
 
             let date = new Date()
             // 获取当前登录用户的权限
-            let authority = _this.getAuthority()
+            let authority = getAuthority()
             return (
                 <li className="" key={index}>
                     <Link to={'/indexList/'+item._id} style={{display:'block'}}>                    

@@ -1,3 +1,5 @@
+import { UserModel } from '../Model/dataModel'
+
 let dateDiff = function (hisTime) {
     var now = new Date().getTime(),
         diffValue = now - hisTime,
@@ -59,4 +61,30 @@ const ClassOperation = {
     }
 }
 
-export {dateDiff, ClassOperation}
+// 获取当前用户的权限
+const getAuthority = function() {
+    let userinfo = UserModel.fetchLogin()
+    let authority = {createArticle: true, delArticle: false, delComment: false}
+    if (userinfo == null) {
+        console.log("UserInfo is null")
+    } else {
+        console.log("UserInfo: ", JSON.parse(userinfo).authority)
+        authority = JSON.parse(userinfo).authority
+    }
+    return authority        
+}
+
+// 获取音乐专辑封面
+const getMusicAlbumUrl = function(albumId) {
+    if (!albumId) {
+        console.log("albumId error", albumId)
+    }
+    return `http://imgcache.qq.com/music/photo/album_300/${albumId%100}/300_albumpic_${albumId}_0.jpg` 
+}
+
+// const Tools = {
+//     dateDiff: dateDiff,
+//     ClassOperation: ClassOperation,
+//     getAuthority: getAuthority,
+// }
+export {dateDiff, ClassOperation, getAuthority, getMusicAlbumUrl}

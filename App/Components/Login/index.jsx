@@ -14,26 +14,26 @@ class Login extends React.Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         console.log('[Login] componentDidMount: clear localStorage')
         // 一旦login组件被渲染，则删除本地登录信息
         localStorage.clear()
     }
 
-    changeLoginFlag(e){
+    changeLoginFlag(e) {
         e.stopPropagation();
         this.setState({
             loginFlag: true
         })
     }
-    changeRegisterFlag(e){
+    changeRegisterFlag(e) {
         e.stopPropagation();
         this.setState({
             loginFlag: false
         })
-    }    
+    }
 
-    userRegister () {
+    userRegister() {
         let reg = /^\s+$/;
         let input = this.state;
         switch ('') {
@@ -50,19 +50,19 @@ class Login extends React.Component {
                 alert('两次密码不一致')
                 return
         }
-        if(!(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(this.state.email))){
+        if (!(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(this.state.email))) {
             alert('邮箱格式不正确')
             return
         }
-        if(input.password!=input.rpassword){
+        if (input.password != input.rpassword) {
             alert('两次密码不一致')
             return
         }
-        if(input.password.length<6){
+        if (input.password.length < 6) {
             alert('密码不得少于6位数')
             return
         }
-        if(reg.test(input.username)){
+        if (reg.test(input.username)) {
             alert('用户名不能为空')
             return
         }
@@ -99,16 +99,16 @@ class Login extends React.Component {
         switch(key) {
             case 'username':
                 this.setState({username: val})
-                break;
+                break
             case 'email':
                 this.setState({email: val})
-                break;
+                break
             case 'password':
                 this.setState({password: val})
-                break;
+                break
             case 'rpassword':
                 this.setState({rpassword: val})
-                break;
+                break
         }
     }
 

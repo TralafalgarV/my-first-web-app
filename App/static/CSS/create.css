@@ -5,11 +5,7 @@
     padding-right: 15px;
     padding-top: 25px;
 }
-.create-container:before,
-.create-container:after {
-    content: " ";
-    display: table
-}
+
 .create-container:after {
     clear: both
 }
@@ -17,7 +13,6 @@
 .mono {
     font-family: Menlo, Monaco, Consolas, "Courier New", monospace
 }
-
 
 .sr-only {
     position: absolute;
@@ -29,6 +24,7 @@
     clip: rect(0, 0, 0, 0);
     border: 0;
 }
+
 .sf-header {
     position: relative;
     z-index: 3;
@@ -36,7 +32,6 @@
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1), 0 1px rgba(0, 0, 0, 0.1);
     background: #fafafa
 }
-
 
 .global-nav.publish {
     margin-bottom: 25px
@@ -136,7 +131,7 @@ textarea.form-control {
 }
 
 .wmd {
-    width: 50%;  
+    width: 50%;
 }
 
 /* 放在 wmd 后面来提高优先级，便于 wmd toggle 后优先显示*/
@@ -175,22 +170,6 @@ textarea.form-control {
     border: none
 }
 
-.editor__resize {
-    position: absolute;
-    width: 120px;
-    height: 4px;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 2px;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    cursor: row-resize;
-    text-indent: 110%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-transform: capitalize
-}
-
 /************************footer***********************/
 .publish-footer {
     width: 100%;
@@ -199,11 +178,11 @@ textarea.form-control {
     bottom: 0;
     z-index: 3;
     background-color: #F3F3F3;
-    box-shadow: 0px -1px 2px 0px rgba(0,0,0,0.24);
+    box-shadow: 0px -1px 2px 0px rgba(0, 0, 0, 0.24);
 }
 
 .publish-footer .operations {
-    padding: 10px;
+    padding: 10px 15px;
 }
 
 .clearfix:before,
@@ -368,7 +347,7 @@ fieldset[disabled] .btn {
 code,
 pre,
 samp {
-    font-family: "Source Code Pro", Consolas,Menlo,Monaco, "Courier New", monospace;
+    font-family: "Source Code Pro", Consolas, Menlo, Monaco, "Courier New", monospace;
 }
 
 .fmt {
@@ -377,27 +356,27 @@ samp {
 }
 
 .fmt h1 {
-    font-size: 2.25em
+    font-size: 2em
 }
 
 .fmt h2 {
-    font-size: 1.75em
-}
-
-.fmt h3 {
     font-size: 1.5em
 }
 
-.fmt h4 {
+.fmt h3 {
     font-size: 1.25em
 }
 
-.fmt h5 {
+.fmt h4 {
     font-size: 1em
 }
 
+.fmt h5 {
+    font-size: 0.75em
+}
+
 .fmt h6 {
-    font-size: 0.86em
+    font-size: 0.5em
 }
 
 .fmt h4,
@@ -414,12 +393,12 @@ samp {
 .fmt h1,
 .fmt h2,
 .fmt h3 {
-    margin: 1.5em 0 0
+    margin: 1em 0 0
 }
 
 .fmt h1,
 .fmt h2 {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #888;
     padding-bottom: 10px
 }
 
@@ -510,10 +489,10 @@ samp {
     max-height: 35em;
     position: relative;
     background-color: #E7F1F5;
-    -moz-background-size: 30px,30px;
-    -o-background-size: 30px,30px;
-    -webkit-background-size: 30px,30px;
-    background-size: 30px,30px;
+    -moz-background-size: 30px, 30px;
+    -o-background-size: 30px, 30px;
+    -webkit-background-size: 30px, 30px;
+    background-size: 30px, 30px;
     border-radius: 4px;
 }
 
@@ -522,6 +501,5 @@ pre code {
     padding: 0;
     color: inherit;
     white-space: pre-wrap;
-    border-radius: 4px;    
+    border-radius: 4px;
 }
-
