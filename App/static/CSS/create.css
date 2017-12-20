@@ -134,7 +134,9 @@ textarea.form-control {
     width: 50%;
 }
 
+
 /* 放在 wmd 后面来提高优先级，便于 wmd toggle 后优先显示*/
+
 .expendWidth {
     width: 100%;
 }
@@ -170,7 +172,9 @@ textarea.form-control {
     border: none
 }
 
+
 /************************footer***********************/
+
 .publish-footer {
     width: 100%;
     position: fixed;
@@ -208,7 +212,9 @@ textarea.form-control {
     float: right !important
 }
 
+
 /*草稿*/
+
 .text-muted {
     color: #777
 }
@@ -306,8 +312,8 @@ fieldset[disabled] .btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #009a61;
-    border-color: #008151
+    background-color: #0894ec;
+    border-color: #4F84C4
 }
 
 .btn-primary:hover,
@@ -343,7 +349,9 @@ fieldset[disabled] .btn {
     margin-left: 10px !important
 }
 
+
 /***************markdown***************/
+
 code,
 pre,
 samp {

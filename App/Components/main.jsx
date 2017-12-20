@@ -25,6 +25,9 @@ let nav = () => {
     console.log("[App] nav display")
     return (
         <nav className="bar bar-tab">
+            <div className="tab-item">
+                <img src="" alt="Logo" style={{marginLeft:"1rem"}}/>
+            </div>
             <Link className="tab-item" activeClassName="active" to="/indexlist">
                 <span className="tab-label">Index</span>
             </Link>
@@ -35,12 +38,12 @@ let nav = () => {
                 <span className="tab-label">Music</span>
             </Link>
             <Link className="tab-item" activeClassName="active" to="/game">
-                <div className="multi-drop-menu"><span>Game</span>
+                <div className="multi-drop-menu"><span>Me</span>
                     <ul>
                         <li><Link to="/login">Logout</Link></li>
-                        <li><a href="#">二级菜单：2</a></li>
-                        <li><a href="#">二级菜单：3</a></li>
-                        {/* <li><a href="#">二级菜单：4</a>
+                        {/* <li><a href="#">二级菜单：2</a></li>
+                            <li><a href="#">二级菜单：3</a></li>
+                            <li><a href="#">二级菜单：4</a>
                             <ul>
                                 <li><a href="#">三级菜单：1</a></li>
                                 <li><a href="#">三级菜单：2</a></li>

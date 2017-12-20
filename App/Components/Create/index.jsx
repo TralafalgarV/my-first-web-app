@@ -125,7 +125,7 @@ class Create extends React.Component {
                         }}/>
                     </div>
                     <div className="editor liveMode" style={{width: "100%"}}>
-                        <button type="button" className="btn" value="Hide MD" style={{position:"absolute", right:"0px", top:"0px", margin:"12px", padding:"0px 3px", backgroundColor:"#009a61", color:"#FFF"}} onClick={(e) => {
+                        <button type="button" className="btn" value="Hide MD" style={{position:"absolute", right:"0px", top:"0px", margin:"12px", padding:"0px 3px", backgroundColor:"#0894ec", color:"#FFF"}} onClick={(e) => {
                             this.hideMarkdown(e)
                         }}>Hide Markdown</button>                        
                         <div className="wmd">

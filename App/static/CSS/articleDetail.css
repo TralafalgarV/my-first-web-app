@@ -6,7 +6,7 @@
 .multi-drop-menu ul {
 }
 .multi-drop-menu li {
-    padding: 3px;
+    /* padding: 3px; */
     border-radius: 3px;
     list-style-type: none;
     position: relative;
@@ -28,14 +28,14 @@
 
 /*二级菜单样式*/
 .multi-drop-menu li a {
-    border-top-style: solid;
+    border-bottom: 1px solid #888;
 }
 /*二级菜单功能样式*/
 .multi-drop-menu > ul {
     /*隐藏2级菜单*/
     display: none;
     position: absolute;
-    left: 20%;
+    /* right: 20%; */
     top: 100%;
 }
 
