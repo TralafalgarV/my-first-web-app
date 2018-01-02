@@ -5,7 +5,7 @@ import { render } from 'react-dom'
 import { Link, hashHistory } from 'react-router'
 import '../../Static/CSS/music.less'
 import { MusicModel } from '../../Model/dataModel'
-import { getMusicAlbumUrl } from '../../Tools'
+import { getMusicAlbumUrl, cancelMask } from '../../Tools'
 
 // 获取所有本地封面图片路径
 // const requireCover = require.context("../../Static/cover", true, /[0-9]\.(png|jpg)/)
@@ -84,6 +84,8 @@ class Music extends React.Component {
         this.fetchData()
         // setInternal 中传入的回调函数，需要绑定当前运行环境
         this.timer = setInterval(this.rotateGallery, 1500)
+        // 取消加载mask
+        cancelMask()
     }
 
     // 获取music相关数据

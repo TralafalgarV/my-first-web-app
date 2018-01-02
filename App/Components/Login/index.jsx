@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { UserModel } from '../../Model/dataModel'
+import { getAuthority, cancelMask } from '../../Tools'
 // 登录组件
 class Login extends React.Component {
     constructor(props) {
@@ -18,6 +19,9 @@ class Login extends React.Component {
         console.log('[Login] componentDidMount: clear localStorage')
         // 一旦login组件被渲染，则删除本地登录信息
         localStorage.clear()
+
+        // 取消加载mask
+        cancelMask()     
     }
 
     changeLoginFlag(e) {
@@ -152,7 +156,7 @@ class Login extends React.Component {
     }
 
     render() {
-        console.log("[Login] render " + location.hash)        
+        console.log("[Login] render " + location.hash)      
         let loginTemplate = this.state.loginFlag ? (
             <div className="content" style={{position: "relative"}}>
                 <div className="list-block">

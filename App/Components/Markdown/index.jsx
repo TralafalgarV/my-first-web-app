@@ -17,12 +17,14 @@ class Markdown extends React.Component{
         console.log("componentWillReceiveProps: ", nextProps)
         // 更新 article 内容
         var html = this.converter.makeHtml(nextProps.content)
-        document.getElementById("wmd-preview").innerHTML = html        
+        document.getElementById("wmd-preview").innerHTML = html
     }
 
     render(){
         return(
-            <div className="fmt" id="wmd-preview"></div>
+            <div className="fmt" id="wmd-preview">
+                <div></div>
+            </div>
         )
     }
 }

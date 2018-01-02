@@ -2,7 +2,7 @@
 
 import React from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
-import { ClassOperation } from '../../Tools'
+import { ClassOperation, getAuthority, cancelMask } from '../../Tools'
 import Markdown from '../Markdown'
 import "../../Static/CSS/create.css"
 
@@ -22,6 +22,11 @@ class Create extends React.Component {
             author: 'unknown',
             pageTitle: '发表文章'
         }
+    }
+
+    componentDidMount() {
+        // 取消加载mask
+        cancelMask()
     }
 
     // 更新文章信息
@@ -114,7 +119,7 @@ class Create extends React.Component {
     }
 
     render() {
-        console.log("[Create] render " + location.hash)        
+        console.log("[Create] render " + location.hash)     
         return (
             <div>
                 <div className="create-container">

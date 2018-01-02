@@ -87,4 +87,15 @@ const getMusicAlbumUrl = function(albumId) {
 //     ClassOperation: ClassOperation,
 //     getAuthority: getAuthority,
 // }
-export {dateDiff, ClassOperation, getAuthority, getMusicAlbumUrl}
+
+const cancelMask = function() {
+    // 取消mask效果
+    let mask = document.querySelector(".loader")
+    mask.style.transition = "0.5s"
+    mask.style.opacity = "0"
+    mask.style.display = "none"   
+    document.querySelector(".spans").classList.add("hidden")
+    document.querySelector(".loader").classList.add("hidden") 
+}
+
+export {dateDiff, ClassOperation, getAuthority, getMusicAlbumUrl, cancelMask}

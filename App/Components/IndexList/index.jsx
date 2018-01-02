@@ -14,7 +14,7 @@ import {
 import ArticleDetail from '../ArticleDetail'
 import '../../Static/CSS/indexList.css'
 import { ArticleModel, UserModel } from '../../Model/dataModel'
-import { dateDiff, getAuthority } from '../../Tools'
+import { dateDiff, getAuthority, cancelMask } from '../../Tools'
 import AVATARPATH from '../../Static/avatar/eg_cute.gif'
 import showdown from 'showdown'
 
@@ -120,7 +120,7 @@ class IndexList extends React.Component {
                 indexListComponent.fetchData()
                 // console.log("setTimeout", _this)           
             }, 2000)
-        })
+        })     
     }
 
     // 从服务器获取文章列表数据, 并且去掉mask
@@ -128,12 +128,7 @@ class IndexList extends React.Component {
         ArticleModel.fetchList("", (data) => {
             console.log("[IndexList] fetch from Server：", data)
             this.setState({list : data}, function() {
-                // 取消mask效果
-                let mask = document.querySelector(".loader")
-                mask.style.transition = "0.5s"
-                mask.style.opacity = "0"                
-                document.querySelector(".spans").classList.add("hidden")
-                document.querySelector(".loader").classList.add("hidden")   
+                cancelMask()
             })
         }, (err) => {
             console.log(err)
