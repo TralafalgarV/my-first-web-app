@@ -93,18 +93,19 @@ function _upload(_api, _formdata, _onSuccess, _onError) {
     // Manual XHR & FormData
     let oReq = new XMLHttpRequest();
     oReq.open("POST", _api);
+    // oReq.setRequestHeader("Content-type", "multipart/form-data")    
     oReq.onload = (e) => {
         let ret = JSON.parse(oReq.responseText)
         if (oReq.status == 200) {
             _onSuccess(ret);
         } else {
-            let err = ret;
+            let err = ret
             if (err.message) alert(err.message)
             //_onError(err);
         }
     };
     // oReq.upload.onprogress = updateProgress;
-    oReq.send(_formdata);
+    oReq.send(_formdata)
 }
 
 let ArticleModel = {

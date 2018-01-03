@@ -10,6 +10,7 @@ var MongoStore = require('connect-mongo')(session);
 // 解析cookie req.cookie
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
+// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname))
 //导入文件
 require('./db')

@@ -142,11 +142,17 @@ class Create extends React.Component {
         reader.readAsDataURL(img)
         reader.onload = function(e) {
             // 上传图片
-            ArticleModel.fetchImg(e.target.result, function(res) {
+            ArticleModel.fetchImg({img: e.target.result}, function(res) {
                 console.log("success")
+                // 将图片更新到 markdown
                 _this.setState({
-                    content: _this.state.content + `![图片描述][1]\r[1]: ${e.target.result}`
-                }) 
+                    content: _this.state.content + `![图片描述][1]\r[1]: ${e.target.result}` + "\r"
+                })
+                
+                // 将图片以 markdown 形式在编辑栏显示 
+                document.querySelector("#myEditor").value += `![图片描述][1]\r[1]: ${e.target.result}` + "\r"
+
+                // _this.forceUpdate()
             }, function(res) {
                 console.log("fail")
             })
