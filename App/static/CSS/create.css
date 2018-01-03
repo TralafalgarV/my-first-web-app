@@ -112,7 +112,7 @@ textarea.form-control {
     /* margin-top: 31px; */
     border-left: 1px solid #CCC;
     background-color: #f6f6f6;
-    top: 0;
+    top: 1rem;
     bottom: 0;
     z-index: 100;
     overflow: auto;
@@ -172,6 +172,21 @@ textarea.form-control {
     border: none
 }
 
+/***********************tool bar**********************/
+.toolBar {
+    display: block;
+    width: 100%;
+    height: 1rem;
+
+}
+
+.add-img {
+    font-size: 0.6rem;
+    font-weight: 200;
+    cursor: pointer;
+    /* width: 1rem; */
+    height: 1rem;
+}
 
 /************************footer***********************/
 

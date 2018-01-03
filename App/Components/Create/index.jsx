@@ -22,6 +22,8 @@ class Create extends React.Component {
             author: 'unknown',
             pageTitle: '发表文章'
         }
+
+        this.uploadImg = this.uploadImg.bind(this)
     }
 
     componentDidMount() {
@@ -118,6 +120,40 @@ class Create extends React.Component {
         }, 1000 * 60)
     }
 
+    // 上传照片,并翻译为markdown语句显示出来
+    uploadImg(e) {
+        let _this = this
+        console.log("图片信息：", e.target.files[0])
+        let img = e.target.files[0]
+
+        // 判断是否为图片
+        if (!img) {
+            console.log("[Create] uploadImg error ")
+            return
+        }
+
+        // 判断图片格式
+        if (!(img.type.indexOf('image') == 0) && img.type && /\.(?:jpg|png|gif)$/.test(img.name)) {
+            console.log("[Create] img type error ")
+            return
+        }
+
+        let reader = new FileReader()
+        reader.readAsDataURL(img)
+        reader.onload = function(e) {
+            // 上传图片
+            ArticleModel.fetchImg(e.target.result, function(res) {
+                console.log("success")
+                _this.setState({
+                    content: _this.state.content + `![图片描述][1]\r[1]: ${e.target.result}`
+                }) 
+            }, function(res) {
+                console.log("fail")
+            })
+        }
+
+    }
+
     render() {
         console.log("[Create] render " + location.hash)     
         return (
@@ -130,12 +166,20 @@ class Create extends React.Component {
                         }}/>
                     </div>
                     <div className="editor liveMode" style={{width: "100%"}}>
-                        <button type="button" className="btn" value="Hide MD" style={{position:"absolute", right:"0px", top:"0px", margin:"12px", padding:"0px 3px", backgroundColor:"#0894ec", color:"#FFF"}} onClick={(e) => {
+                        <div className="toolBar">
+                            {/* 用来替换按钮的图片 */}
+                            <img className="add-img" title="点击添加图片" src="" alt="点击添加图片" src="" onClick={() => {document.querySelector(".file").click()}}/>
+                            {/* 原来按钮的样式 */}
+                            <input className="file" type="file" style={{height:"0", width:"0", zIndex: "-1", position: "absolute", left:"0"}} onChange={(e) => {
+                                this.uploadImg(e) // 在这个地方上传img，并转成markdown语句显示出来
+                            }}/>
+                        </div>
+                        <button type="button" className="btn mk-ctl-btn" value="Hide MD" style={{position:"absolute", right:"0px", top:"0px", padding:"0px 3px", height:"1rem", backgroundColor:"#0894ec", color:"#FFF"}} onClick={(e) => {
                             this.hideMarkdown(e)
                         }}>Hide Markdown</button>                        
                         <div className="wmd">
                             <textarea id="myEditor" className="mono form-control wmd-input" placeholder="正文内容：" style={{backgroundPosition: "right top", backgroundRepeat: "no-repeat", opacity: "1", height: "444px"}} onChange={(e) => {
-                                this.handleChangeVal(e, "content")    
+                                this.handleChangeVal(e, "content")
                             }} onFocus={() => {
                                 ClassOperation.AddClass(".liveMode", "liveMode-focus")                                
                             }} onBlur={() => {

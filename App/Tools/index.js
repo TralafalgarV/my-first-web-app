@@ -1,5 +1,6 @@
 import { UserModel } from '../Model/dataModel'
 
+// 计算时间差
 let dateDiff = function (hisTime) {
     var now = new Date().getTime(),
         diffValue = now - hisTime,
@@ -88,8 +89,8 @@ const getMusicAlbumUrl = function(albumId) {
 //     getAuthority: getAuthority,
 // }
 
+// 取消mask效果
 const cancelMask = function() {
-    // 取消mask效果
     let mask = document.querySelector(".loader")
     mask.style.transition = "0.5s"
     mask.style.opacity = "0"

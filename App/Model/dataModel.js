@@ -1,5 +1,5 @@
-// const API = 'http://localhost:4545/'
-const API = 'http://47.96.183.75/'
+const API = 'http://localhost:4545/'
+// const API = 'http://47.96.183.75/'
 
 const USER_LOGIN = 'userLogin'
 // 引入 whatwg-fetch 模块，解决fetch兼容性问题
@@ -41,7 +41,7 @@ function _request(_method, _api, _params, _onSuccess, _onError) {
     .then((data) => {
         _onSuccess(data)
     }).catch((err) => {
-        console.log("[Model] _onSuccess missed: " ,err)
+        console.log("[Model] catch error: " ,err)
         if (err.state === 401) {
             alert("登陆过期，清重新登录")
             location.hash = "login"
@@ -49,7 +49,7 @@ function _request(_method, _api, _params, _onSuccess, _onError) {
         }
         if (err.response) {
             err.response.json().then((data) => {
-                console.log(data)
+                console.log("[Model] respone error",data)
                 if (data.message) {
                     alert(data.message)
                 }
@@ -59,6 +59,7 @@ function _request(_method, _api, _params, _onSuccess, _onError) {
 }
 
 let Tools = {
+    // 检查响应数据
     checkStates : function (response) {
         if (response.ok) {
             return response
@@ -86,6 +87,26 @@ let Tools = {
     }
 }
 
+// Upload Image
+function _upload(_api, _formdata, _onSuccess, _onError) {
+
+    // Manual XHR & FormData
+    let oReq = new XMLHttpRequest();
+    oReq.open("POST", _api);
+    oReq.onload = (e) => {
+        let ret = JSON.parse(oReq.responseText)
+        if (oReq.status == 200) {
+            _onSuccess(ret);
+        } else {
+            let err = ret;
+            if (err.message) alert(err.message)
+            //_onError(err);
+        }
+    };
+    // oReq.upload.onprogress = updateProgress;
+    oReq.send(_formdata);
+}
+
 let ArticleModel = {
     fetchList:(_params, _success, _error) => {
         _request('GET', `${API}article/fetchList`, _params, _success, _error)
@@ -101,7 +122,10 @@ let ArticleModel = {
     },
     delete: (_id, _success, _error) => {
         _request('GET', `${API}article/delete/${_id}`, null, _success, _error)
-    },      
+    },
+    fetchImg: (_params, _success, _error) => {
+        _upload(`${API}article/fetchImg`, _params, _success, _error)
+    }, 
 }
 
 let UserModel = {

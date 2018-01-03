@@ -90,4 +90,10 @@ router.get('/delete/:id', function(req, res) {
     })
 })
 
+
+// 文章图片上传处理
+router.post('/fetchImg', function(req, res) {
+    console.log(req.body)
+    res.send(JSON.stringify(null))
+})
 module.exports = router
