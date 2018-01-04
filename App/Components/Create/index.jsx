@@ -78,6 +78,7 @@ class Create extends React.Component {
             login: this.state.login,
             author: JSON.parse(userInfo).username,  //作者需要根据登录信息来判断
             createTime: Date.now(),
+            imgs:[]
         }) 
 
         // 将数据更新到数据库
@@ -115,7 +116,7 @@ class Create extends React.Component {
 
     // 定时保存功能：键入时开始；5min 一次保存
     saveContent() {
-        setInterval(()=>{
+        setInterval(() => {
             console.log("save")
         }, 1000 * 60)
     }
@@ -138,26 +139,36 @@ class Create extends React.Component {
             return
         }
 
+        // 读取图片，并在 markdown 中预览
         let reader = new FileReader()
         reader.readAsDataURL(img)
         reader.onload = function(e) {
-            // 上传图片
-            ArticleModel.fetchImg({img: e.target.result}, function(res) {
-                console.log("success")
-                // 将图片更新到 markdown
-                _this.setState({
-                    content: _this.state.content + `![图片描述][1]\r[1]: ${e.target.result}` + "\r"
-                })
-                
-                // 将图片以 markdown 形式在编辑栏显示 
-                document.querySelector("#myEditor").value += `![图片描述][1]\r[1]: ${e.target.result}` + "\r"
-
-                // _this.forceUpdate()
-            }, function(res) {
-                console.log("fail")
+            // 将图片更新到 markdown
+            _this.setState({
+                content: _this.state.content + `![图片描述]( ${e.target.result})` + "\r"
             })
+            
+            // 将图片以 markdown 形式在编辑栏显示 
+            document.querySelector("#myEditor").value += `![图片描述]( ${e.target.result})` + "\r"
         }
 
+        // // 上传图片
+        let formData = new FormData()
+        formData.append('token',"articleId")        
+        formData.append("imgData", img)
+        ArticleModel.fetchImg(formData, function(res) {
+            console.log(res)
+        }, function() {
+            console.log("error")
+        })
+
+        // ArticleModel.fetchImg({img: e.target.result}, function(res) {
+        //     console.log("success")
+
+        //     // _this.forceUpdate()
+        // }, function(res) {
+        //     console.log("fail")
+        // })
     }
 
     render() {
@@ -176,7 +187,7 @@ class Create extends React.Component {
                             {/* 用来替换按钮的图片 */}
                             <img className="add-img" title="点击添加图片" src="" alt="点击添加图片" src="" onClick={() => {document.querySelector(".file").click()}}/>
                             {/* 原来按钮的样式 */}
-                            <input className="file" type="file" style={{height:"0", width:"0", zIndex: "-1", position: "absolute", left:"0"}} onChange={(e) => {
+                            <input className="file" name="file" type="file" style={{height:"0", width:"0", zIndex: "-1", position: "absolute", left:"0"}} onChange={(e) => {
                                 this.uploadImg(e) // 在这个地方上传img，并转成markdown语句显示出来
                             }}/>
                         </div>

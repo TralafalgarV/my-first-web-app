@@ -36,6 +36,7 @@ build/Release
 node_modules/
 jspm_packages/
 build/
+App/Server/img
 
 # Typescript v1 declaration files
 typings/
