@@ -14,7 +14,7 @@ mongoose.model('Article', new mongoose.Schema({
     author: {type: String, isRequired: true},
     createTime: {type: Number, isRequired: true},    
     user: {type: ObjectId, ref: 'User'},
-    imgs: {type: Array, default: []},
+    imgs: {type: Object, default: []},
     comments:[{//评论的一个数组
         user: {type: ObjectId, ref: 'User'},//评论人
         author: {type: String, isRequired: true},

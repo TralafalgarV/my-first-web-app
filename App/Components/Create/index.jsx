@@ -121,7 +121,13 @@ class Create extends React.Component {
         }, 1000 * 60)
     }
 
-    // 上传照片,并翻译为markdown语句显示出来
+    /**
+     * 图片上传存储
+     * +-- 前端：将图片包装成 FormData 数据发给后端
+     * +-- 后端：通过 formidable 中间件，解析收到的 FormData 数据
+     *     +-- 通过 fs 的createReadStream、createWriteStream将图片存在服务器
+     *     +-- 返回图片的 url 方便前端转换成 markdown 语法
+     */
     uploadImg(e) {
         let _this = this
         console.log("图片信息：", e.target.files[0])
@@ -139,25 +145,26 @@ class Create extends React.Component {
             return
         }
 
-        // 读取图片，并在 markdown 中预览
-        let reader = new FileReader()
-        reader.readAsDataURL(img)
-        reader.onload = function(e) {
-            // 将图片更新到 markdown
-            _this.setState({
-                content: _this.state.content + `![图片描述]( ${e.target.result})` + "\r"
-            })
-            
-            // 将图片以 markdown 形式在编辑栏显示 
-            document.querySelector("#myEditor").value += `![图片描述]( ${e.target.result})` + "\r"
-        }
+        // // 读取图片，并在 markdown 中预览
+        // let reader = new FileReader()
+        // reader.readAsDataURL(img)
+        // reader.onload = function(e) {
+        // }
 
         // // 上传图片
         let formData = new FormData()
         formData.append('token',"articleId")        
         formData.append("imgData", img)
         ArticleModel.fetchImg(formData, function(res) {
-            console.log(res)
+            if (!res) {
+                console.log("error!!!")
+            }
+            // 将图片更新到 markdown
+            _this.setState({
+                content: _this.state.content + `![图片描述]( ${res.path})` + "\r"
+            })
+            // 将图片以 markdown 形式在编辑栏显示 
+            document.querySelector("#myEditor").value += `![图片描述]( ${res.path})` + "\r"                  
         }, function() {
             console.log("error")
         })
@@ -185,7 +192,7 @@ class Create extends React.Component {
                     <div className="editor liveMode" style={{width: "100%"}}>
                         <div className="toolBar">
                             {/* 用来替换按钮的图片 */}
-                            <img className="add-img" title="点击添加图片" src="" alt="点击添加图片" src="" onClick={() => {document.querySelector(".file").click()}}/>
+                            <img className="add-img" title="点击添加图片" src="../../Static/create-icon/img.png" alt="点击添加图片" onClick={() => {document.querySelector(".file").click()}}/>
                             {/* 原来按钮的样式 */}
                             <input className="file" name="file" type="file" style={{height:"0", width:"0", zIndex: "-1", position: "absolute", left:"0"}} onChange={(e) => {
                                 this.uploadImg(e) // 在这个地方上传img，并转成markdown语句显示出来

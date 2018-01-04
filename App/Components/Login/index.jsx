@@ -21,7 +21,7 @@ class Login extends React.Component {
         localStorage.clear()
 
         // 取消加载mask
-        cancelMask()     
+        cancelMask()
     }
 
     changeLoginFlag(e) {

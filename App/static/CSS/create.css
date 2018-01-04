@@ -484,7 +484,8 @@ samp {
 
 .fmt img {
     padding: 3px;
-    border: 1px solid #ddd
+    border: 1px solid #ddd;
+    display: block;
 }
 
 .fmt img.emoji {
