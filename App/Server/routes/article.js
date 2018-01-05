@@ -1,8 +1,9 @@
 var express = require('express')
 var router = express.Router()
 var fs = require('fs')
-var formidable = require("formidable");
-var API = 'http://localhost:4545'
+var formidable = require("formidable")
+import ServerCfg from '../serverConfig'
+var API = ServerCfg.realUrl
 
 // var DBPATH = 'mongoDB.json'
 
