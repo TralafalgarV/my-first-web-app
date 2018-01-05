@@ -1,12 +1,13 @@
 body{
-    button{
-        width: 100px;
-        height: 30px;
-        border: 1px solid #ddd;
-        color: blue; 
-
-        &:hover {
-            color: white;
-        }
+    .page-me {
+        position: relative;
+        height: 500px;
+        
+        button{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }        
     }
 }

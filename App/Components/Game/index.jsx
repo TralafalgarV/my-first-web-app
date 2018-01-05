@@ -1,9 +1,12 @@
 // 游戏
 
 import React from 'react'
+import { Link } from 'react-router'
 import { render } from 'react-dom'
 import { createStore } from 'redux'
 import "../../Static/CSS/game.less"
+import { ArticleModel, UserModel } from '../../Model/dataModel'
+import { ClassOperation, getAuthority, cancelMask } from '../../Tools'
 // 创建 Redux store 来存放应用的状态。
 // API 是 { subscribe, dispatch, getState }。
 let store = createStore(counter)
@@ -48,20 +51,64 @@ class Game extends React.Component {
         }
     }
 
+    // render() {
+    //     console.log("[Game] render " + location.hash)        
+    //     return (
+    //         <div>
+    //             <span>{store.getState()}</span>
+    //             <button className="inc" type="button" onClick={() => {
+    //                 // 组件通过dispatch发出action
+    //                 // 改变内部 state 惟一方法是 dispatch 一个 action。
+    //                 // action 可以被序列化，用日记记录和储存下来，后期还可以以回放的方式执行
+    //                 store.dispatch({ type: 'INCREMENT' })
+    //             }}> Increment </button>
+    //             <button className="dec" type="button" onClick={() => {
+    //                 store.dispatch({ type: 'DECREMENT' })
+    //             }}> Decrement </button>
+    //         </div>
+    //     )
+    // }
+    componentDidMount() {
+        // this.fetchData()
+        cancelMask()
+    }
+
+    // 获取当前usr的article
+    fetchData() {
+        // req: {usrname: ****, ....}
+        let req = {
+
+        }
+        // res: {usrname: ***, articles: ***}
+        ArticleModel.fetchUsrArticle(req, function(res) {
+
+        }, function(err) {
+            console.log("ERROR:", err)
+        })
+    }
+
+    // 文章列表
+    indexList() {
+        let articles = [1, 2, 3, 4]  // 当前登录用户发过的文章
+        return articles.map(function(ele, index) {
+            return (
+                <li key={index}>
+                    <Link to={'/indexList/'} style={{display: "block"}}>
+                        {ele}
+                    </Link>
+                </li>
+            )
+        })
+    }
+
     render() {
-        console.log("[Game] render " + location.hash)        
+        let _this = this
         return (
-            <div>
-                <span>{store.getState()}</span>
-                <button className="inc" type="button" onClick={() => {
-                    // 组件通过dispatch发出action
-                    // 改变内部 state 惟一方法是 dispatch 一个 action。
-                    // action 可以被序列化，用日记记录和储存下来，后期还可以以回放的方式执行
-                    store.dispatch({ type: 'INCREMENT' })
-                }}> Increment </button>
-                <button className="dec" type="button" onClick={() => {
-                    store.dispatch({ type: 'DECREMENT' })
-                }}> Decrement </button>
+            <div className="page-me">
+                <button><Link to="/login">退出</Link></button>
+                <ul>
+                    {_this.indexList()}
+                </ul>
             </div>
         )
     }
