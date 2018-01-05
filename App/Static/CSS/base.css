@@ -964,7 +964,7 @@ a:active {
   font-size: 1.1rem;
   margin-top: 0.5rem;
   width: 20%;
-  height: 2.8rem;
+  /* height: 2.8rem; */
   color: #929292;
   /* text-align: center; */
   vertical-align: middle;
@@ -976,7 +976,7 @@ a:active {
 }
 .bar-tab .tab-item.active,
 .bar-tab .tab-item:active {
-  color: #0894ec;
+  color: #009a61;
 }
 .bar-tab .tab-item .badge {
   position: absolute;

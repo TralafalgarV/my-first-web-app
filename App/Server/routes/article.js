@@ -112,7 +112,7 @@ router.post('/fetchImg', function (req, res) {
     form.uploadDir = './static/upload/img/'  // 二进制文件存储目录
     form.parse(req, function (err, fields, files) {
         var imgDataPath = './static/upload/img/' + fields.token + files.imgData.name
-        fs.createReadStream(files.imgData.path).pipe(fs.createWriteStream(imgDataPath));
+        fs.createReadStream(files.imgData.path).pipe(fs.createWriteStream(imgDataPath))
         imgDataPath = imgDataPath.substring(1)
 
         // 返回给前端图片信息

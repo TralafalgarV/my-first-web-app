@@ -26,7 +26,7 @@ let nav = () => {
     return (
         <nav className="bar bar-tab">
             <div className="tab-item">
-                <img src="" alt="Logo" style={{marginLeft:"1rem"}}/>
+                <img src={require("../Static/logo/1.svg")} alt="Logo" style={{marginLeft:"1rem", width:"2rem", height:"1.5rem"}}/>
             </div>
             <Link className="tab-item" activeClassName="active" to="/indexlist">
                 <span className="tab-label">Index</span>

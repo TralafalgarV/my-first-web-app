@@ -5,7 +5,6 @@ import {ArticleModel, UserModel} from '../../Model/dataModel'
 import { ClassOperation, getAuthority, cancelMask } from '../../Tools'
 import Markdown from '../Markdown'
 import "../../Static/CSS/create.css"
-import ADDIMG from "../../Static/create-icon/img.png"
 
 class Create extends React.Component {
     constructor(props) {
@@ -193,13 +192,17 @@ class Create extends React.Component {
                     <div className="editor liveMode" style={{width: "100%"}}>
                         <div className="toolBar">
                             {/* 用来替换按钮的图片 */}
-                            <img className="add-img" title="点击添加图片" src={ADDIMG} alt="点击添加图片" onClick={() => {document.querySelector(".file").click()}}/>
+                            <img className="add-img" title="点击添加图片" src={require("../../Static/create-icon/img.png")} alt="点击添加图片" onClick={() => {document.querySelector(".file").click()}} onMouseEnter={(e) => {
+                                e.target.src = require("../../Static/create-icon/img-click.png")
+                            }} onMouseLeave={(e) => {
+                                e.target.src = require("../../Static/create-icon/img.png")
+                            }}/>
                             {/* 原来按钮的样式 */}
                             <input className="file" name="file" type="file" style={{height:"0", width:"0", zIndex: "-1", position: "absolute", left:"0"}} onChange={(e) => {
                                 this.uploadImg(e) // 在这个地方上传img，并转成markdown语句显示出来
                             }}/>
                         </div>
-                        <button type="button" className="btn mk-ctl-btn" value="Hide MD" style={{position:"absolute", right:"0px", top:"0px", padding:"0px 3px", height:"1rem", backgroundColor:"#0894ec", color:"#FFF"}} onClick={(e) => {
+                        <button type="button" className="btn mk-ctl-btn" value="Hide MD" style={{position:"absolute", right:"0px", top:"0px", padding:"0px 3px", height:"1rem", backgroundColor:"#008151", color:"#FFF"}} onClick={(e) => {
                             this.hideMarkdown(e)
                         }}>Hide Markdown</button>                        
                         <div className="wmd">

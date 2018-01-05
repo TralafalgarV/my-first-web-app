@@ -186,6 +186,7 @@ textarea.form-control {
     cursor: pointer;
     /* width: 1rem; */
     height: 1rem;
+    margin-left: 2px;
 }
 
 /************************footer***********************/
@@ -327,8 +328,8 @@ fieldset[disabled] .btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #0894ec;
-    border-color: #4F84C4
+    background-color: #009a61;
+    border-color: #008151;
 }
 
 .btn-primary:hover,
