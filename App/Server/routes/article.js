@@ -120,7 +120,7 @@ router.post('/fetchImg', function (req, res) {
         // 返回给前端图片信息
         var imgInfo = {
             name: files.imgData.name,
-            path: API + imgDataPath
+            path: API + files.imgData.name
         }
         res.send(imgInfo)
         // // 图片路径更新到数据库
