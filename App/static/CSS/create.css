@@ -376,7 +376,8 @@ samp {
 
 .fmt {
     line-height: 1.6;
-    word-wrap: break-word
+    word-wrap: break-word;
+    padding: 0.5rem;
 }
 
 .fmt h1 {

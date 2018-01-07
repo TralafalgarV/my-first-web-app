@@ -60,6 +60,7 @@
 
 /**************************** ArticleDetail样式 **************************/
 .ad {
+    margin-top: 1rem;
     font-family: -apple-system,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft Yahei",sans-serif;    
 }
 .ad-title {
@@ -79,7 +80,7 @@
 
 .ad-author {
     font-size: .8rem;
-    margin: 0.2rem;
+    margin: 0.5rem;
     color: #666;
     text-align: center; 
 }

@@ -7,7 +7,7 @@
  */
 import React, { Component } from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
-import { dateDiff } from '../../Tools'
+import { dateDiff, cancelMask } from '../../Tools'
 import '../../Static/CSS/create.css'
 import '../../Static/CSS/articleDetail.css'
 import AVATARPATH from '../../Static/avatar/eg_cute.gif'
@@ -54,7 +54,10 @@ class ArticleDetail extends Component {
                 content: article.content,
                 comments: article.comments,
                 _id: article._id,
-            })           
+            })
+            
+            // 取消mask效果
+            cancelMask()
         }, (err) => {
             console.log("[ERROR] fetchArticle: ", err)
         })

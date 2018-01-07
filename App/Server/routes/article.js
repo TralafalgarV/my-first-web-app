@@ -113,6 +113,7 @@ router.post('/fetchImg', function (req, res) {
     // 临时目录
     form.uploadDir = './static/upload/img/'  // 二进制文件存储目录
     form.parse(req, function (err, fields, files) {
+        // 由于nginx的配置问题，暂时将图片的存储位置改为 /data/static/upload/img/ 目录
         var imgDataPath = '/data/static/upload/img/' + fields.token + files.imgData.name
         fs.createReadStream(files.imgData.path).pipe(fs.createWriteStream(imgDataPath))
         imgDataPath = imgDataPath.substring(1)
