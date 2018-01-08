@@ -3,6 +3,7 @@ var router = express.Router()
 var fs = require('fs')
 var formidable = require("formidable")
 var serverCfg = require('../serverConfig')
+
 var API = serverCfg.realUrl
 // var API = serverCfg.testUrl
 
@@ -140,6 +141,40 @@ router.post('/fetchImg', function (req, res) {
                 throw err
             }
         })
+    })
+})
+
+router.post('/fetchUsrArticle', function (req, res) {
+    // let req = {
+    //     usrname: ...
+    // }
+    let usrName = req.body.usrname
+    if (!usrName) {
+        console.log("[ERROR] fetchUsrArticle req is error")
+        res.send("usrName is undefined")
+    }
+
+    // 1：升序； -1：降序
+    var orderObj = {
+        'createTime': -1
+    }
+
+    // 从数据库中找到所有文章，并按照降序排列
+    Model('Article').find({"author":usrName}).sort(orderObj).exec(function(err, collection) {
+        if (err) {
+            throw err
+        }
+        var articleList = []
+        collection.forEach(function(item) {
+            articleList.push({
+                _id: item._id,
+                title: item.title,
+                content: item.content,
+                createTime: item.createTime,
+                author: item.author,
+            })
+        })
+        res.send(articleList) // 数据类型为 object        
     })
 })
 

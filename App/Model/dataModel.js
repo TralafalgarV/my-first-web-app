@@ -127,7 +127,7 @@ let ArticleModel = {
         _upload(`${API}article/fetchImg`, _params, _success, _error)
     }, 
     fetchUsrArticle:(_params, _success, _error) => {
-        _request('GET', `${API}article/fetchUsrArticle`, _params, _success, _error)
+        _request('POST', `${API}article/fetchUsrArticle`, _params, _success, _error)
     },    
 }
 

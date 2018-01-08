@@ -1,0 +1,49 @@
+body{
+
+    .me-pageTitle {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .page-me {
+        position: relative;
+        height: 500px;
+        
+        button{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }        
+    }
+
+    li {
+        margin: 1rem;
+        list-style: none;
+
+        .me-list {
+            .me-title {
+                font-size: 1.2rem;
+                font-weight: 600;
+                margin-bottom: 0.3rem;
+            }
+        }
+
+        .me-content {
+            > div {
+                display: inline-block;
+
+            }
+
+            .me-author {
+
+            }
+
+            .me-time {
+                margin-left: 0.6rem;
+                font-size: 0.6rem;
+            }
+        }
+    }
+}

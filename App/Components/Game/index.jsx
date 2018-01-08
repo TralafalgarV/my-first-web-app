@@ -4,9 +4,9 @@ import React from 'react'
 import { Link } from 'react-router'
 import { render } from 'react-dom'
 import { createStore } from 'redux'
-import "../../Static/CSS/game.less"
+import "../../Static/CSS/me.less"
 import { ArticleModel, UserModel } from '../../Model/dataModel'
-import { ClassOperation, getAuthority, cancelMask } from '../../Tools'
+import { ClassOperation, getAuthority, cancelMask, dateDiff } from '../../Tools'
 // 创建 Redux store 来存放应用的状态。
 // API 是 { subscribe, dispatch, getState }。
 let store = createStore(counter)
@@ -49,6 +49,13 @@ class Game extends React.Component {
             list: [],
             defaultTop: null,
         }
+
+        // 获取登录用户数据，若没有登录则跳转
+        let usrInfo = UserModel.fetchLogin()
+        if (!usrInfo) {
+            // 跳转到登录界面
+            location.hash = "/login"
+        }
     }
 
     // render() {
@@ -69,33 +76,52 @@ class Game extends React.Component {
     //     )
     // }
     componentDidMount() {
-        // this.fetchData()
+        this.fetchData()
         cancelMask()
     }
 
     // 获取当前usr的article
     fetchData() {
+        let _this = this
         // req: {usrname: ****, ....}
         let req = {
-
+            usrname: JSON.parse(UserModel.fetchLogin()).username
         }
         // res: {usrname: ***, articles: ***}
         ArticleModel.fetchUsrArticle(req, function(res) {
-
+            console.log("[Me] fetchUsrArticle", res)
+            _this.setState({
+                list: res
+            })
         }, function(err) {
             console.log("ERROR:", err)
         })
     }
 
     // 文章列表
+    /**
+     * {
+            _id: item._id,
+            title: item.title,
+            content: item.content,
+            createTime: item.createTime,
+            author: item.author,
+        }
+     */
     indexList() {
-        let articles = [1, 2, 3, 4]  // 当前登录用户发过的文章
+        let articles = this.state.list  // 当前登录用户发过的文章
         return articles.map(function(ele, index) {
             return (
                 <li key={index}>
-                    <Link to={'/indexList/'} style={{display: "block"}}>
-                        {ele}
-                    </Link>
+                    <Link to={'/indexList/'+ele._id} style={{display:'block'}}>                    
+                        <div className="me-list">
+                            <div className="me-title">{ele.title}</div>
+                            <div className="me-content">
+                                <div className="me-author">{ele.author}</div>
+                                <div className="me-time"><span className="icon icon-clock"></span>{dateDiff(ele.createTime)}</div>
+                            </div>
+                        </div>
+                    </Link>                    
                 </li>
             )
         })
@@ -105,6 +131,7 @@ class Game extends React.Component {
         let _this = this
         return (
             <div className="page-me">
+                <h3 className="me-pageTitle">文章列表</h3>
                 <button><Link to="/login">退出</Link></button>
                 <ul>
                     {_this.indexList()}
