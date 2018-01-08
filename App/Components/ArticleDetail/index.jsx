@@ -129,7 +129,7 @@ class ArticleDetail extends Component {
                         <Markdown content={this.state.content}/>
                     </article>
                 </section>
-                <section>
+                <section style={{marginBottom: "2rem"}}>
                     <div className="ad-comments">
                         <ul>
                             {this.articleComments()}

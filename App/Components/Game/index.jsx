@@ -83,9 +83,14 @@ class Game extends React.Component {
     // 获取当前usr的article
     fetchData() {
         let _this = this
+        let usrName = JSON.parse(UserModel.fetchLogin()).username
+        if (!usrName) {
+            console.log("[ERROR] Me Page fetchData usrName error")
+            return
+        }
         // req: {usrname: ****, ....}
         let req = {
-            usrname: JSON.parse(UserModel.fetchLogin()).username
+            usrname: usrName
         }
         // res: {usrname: ***, articles: ***}
         ArticleModel.fetchUsrArticle(req, function(res) {
