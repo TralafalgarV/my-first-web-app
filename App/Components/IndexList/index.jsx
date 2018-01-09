@@ -187,7 +187,7 @@ class IndexList extends React.Component {
                     <Link to={'/indexList/'+item._id} style={{display:'block'}}>                    
                         <div className="list">
                             <div className=""><h4>{item.title}</h4></div>
-                            <div className="" style={{marginTop:'10px', position: "relative"}}>
+                            <div className="" style={{marginTop:'5px', position: "relative"}}>
                                 <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
                                     <img src={AVATARPATH} style={{marginRight:'0.3rem', height:'1rem', display:'inline-block'}}  alt="图片"/>
                                 </div>
