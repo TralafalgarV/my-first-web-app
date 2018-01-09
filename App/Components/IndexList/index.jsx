@@ -21,7 +21,7 @@ import showdown from 'showdown'
 let Styles = {
     pStyle:{
         margin:"0.2rem 0",
-        fontSize:"20px"
+        fontSize:"0.9rem"
     },
     listBlock:{
         margin:0,
@@ -137,8 +137,8 @@ class IndexList extends React.Component {
 
     // 限制文章显示字数
     wordControl(word) {
-        if(word.length > 65){
-           word = word.substring(0, 65) + '...'
+        if(word.length > 30){
+           word = word.substring(0, 30) + '...'
         }
         return word
     }
@@ -192,8 +192,8 @@ class IndexList extends React.Component {
                                     <img src={AVATARPATH} style={{marginRight:'0.3rem', height:'1rem', display:'inline-block'}}  alt="图片"/>
                                 </div>
                                 <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
-                                    <div style={{display:'inline-block', fontSize:'16px', fontWeight:600, marginRight:'0.3rem'}}>{item.author}</div>
-                                    <div style={{display:'inline-block', fontSize:'13px', marginRight:"3px"}}><span className="icon icon-clock"></span>{dateDiff(item.createTime)}</div>
+                                    <div style={{display:'inline-block', fontSize:'0.8rem', fontWeight:600, marginRight:'0.3rem'}}>{item.author}</div>
+                                    <div style={{display:'inline-block', fontSize:'0.6rem', marginRight:"3px"}}><span className="icon icon-clock"></span>{dateDiff(item.createTime)}</div>
                                 </div>
                             </div>
                             <div className=""><p style={Styles.pStyle}>{_this.wordControl(str)}</p></div>

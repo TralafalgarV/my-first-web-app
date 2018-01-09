@@ -1,9 +1,7 @@
 .create-container {
     margin-right: auto;
     margin-left: auto;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 25px;
+    padding: 1rem;
 }
 
 .create-container:after {
@@ -202,7 +200,7 @@ textarea.form-control {
 }
 
 .publish-footer .operations {
-    padding: 10px 15px;
+    padding: 0.6rem 0.8rem;
 }
 
 .clearfix:before,
@@ -282,8 +280,8 @@ input::-moz-focus-inner {
     background-image: none;
     border: 1px solid transparent;
     white-space: nowrap;
-    padding: 6px 12px;
-    font-size: 14px;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.5rem;
     line-height: 1.42858;
     border-radius: 4px;
     -webkit-user-select: none;

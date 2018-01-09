@@ -12,7 +12,7 @@ import 'react-perf-tool/lib/styles.css'
 // [优化] 对象字面量会导致 render 触发重新渲染
 const navStyle = {
     position: "relative",
-    height: "50px",
+    height: "3rem",
     width: "100%",
     top: "0px",
     zIndex: '2001'
