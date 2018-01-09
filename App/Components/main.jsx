@@ -37,7 +37,7 @@ let nav = () => {
             <Link className="tab-item" activeClassName="active" to="/music">
                 <span className="tab-label">Music</span>
             </Link>
-            <Link className="tab-item" activeClassName="active" to="/game">
+            <Link className="tab-item" activeClassName="active" to="/me">
                 <span className="tab-label">Me</span>
                 {/* <div className="multi-drop-menu"><span>Me</span>
                     <ul>
@@ -65,7 +65,7 @@ App
  +--- IndexList(优先加载页面)---ArticleList
  +--- Create
  +--- Music
- +--- Game
+ +--- Me
  */
 class App extends React.Component {
     constructor(props) {

@@ -46,12 +46,12 @@ const MusicPlayer = {
     },
 }
 
-const Game = {
-    path: 'game',
+const Me = {
+    path: 'me',
     getComponent(nextState, cb) {
         require.ensure([], (require) => {
-            return cb(null, require('../Components/Game'))
-        }, 'game')
+            return cb(null, require('../Components/Me'))
+        }, 'me')
     },
 }
 
@@ -77,7 +77,7 @@ module.exports = {
     IndexList: IndexList,
     Create: Create,
     Music: Music,
-    Game: Game,
+    Me: Me,
     ArticleDetail: ArticleDetail,
     Login: Login,
     MusicPlayer: MusicPlayer,

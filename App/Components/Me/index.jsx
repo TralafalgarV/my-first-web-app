@@ -42,7 +42,7 @@ store.subscribe(() =>
     console.log("action dispatch or state tree changed",store.getState())
 )
 
-class Game extends React.Component {
+class Me extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -59,7 +59,7 @@ class Game extends React.Component {
     }
 
     // render() {
-    //     console.log("[Game] render " + location.hash)        
+    //     console.log("[Me] render " + location.hash)        
     //     return (
     //         <div>
     //             <span>{store.getState()}</span>
@@ -118,7 +118,8 @@ class Game extends React.Component {
         return articles.map(function(ele, index) {
             return (
                 <li key={index}>
-                    <Link to={'/indexList/'+ele._id} style={{display:'block'}}>                    
+                    <Link to={'/indexList/'+ele._id} style={{display:'block'}}>
+                        <div className="me-list-num">{index + 1}</div>                   
                         <div className="me-list">
                             <div className="me-title">{ele.title}</div>
                             <div className="me-content">
@@ -137,13 +138,13 @@ class Game extends React.Component {
         return (
             <div className="page-me">
                 <h3 className="me-pageTitle">文章列表</h3>
-                <button><Link to="/login">退出</Link></button>
                 <ul>
                     {_this.indexList()}
                 </ul>
+                <button className="quit-btn"><Link to="/login">退出</Link></button>
             </div>
         )
     }
 }
 
-module.exports = Game
+module.exports = Me

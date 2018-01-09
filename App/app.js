@@ -13,7 +13,7 @@ import {
     IndexList,
     Create,
     Music,
-    Game,
+    Me,
     ArticleDetail,
     Login,
     MusicPlayer
@@ -29,7 +29,7 @@ App
  +---> IndexList 作为首页进行加载
  |     +---> ArticleDetail 显示详情
  +---> Create
- +---> Game
+ +---> Me
  +---> ArticleDetail
  */
 const rootRoute = {
@@ -49,7 +49,7 @@ const rootRoute = {
                 IndexList,
                 Create,
                 Music,
-                Game,
+                Me,
                 ArticleDetail,
                 Login,
                 MusicPlayer

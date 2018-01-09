@@ -123,6 +123,15 @@ user.post('/register', function (req, res) {
 //     authority: object
 //     username?: string
 // }
+
+/* 用户注册 */
+/**
+ *  user = {
+        username,
+        email,
+        password,
+    }
+ */
 user.post('/login', function (req, res) {
     console.log("user login: ", req.body)
     var user = req.body

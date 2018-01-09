@@ -1,9 +1,9 @@
 body{
-
     .me-pageTitle {
         display: block;
         position: relative;
-        margin-top: 1rem;
+        margin: 1rem 0;
+        text-align: center;
     }
 
     .page-me {
@@ -11,36 +11,73 @@ body{
         top: 0;
         bottom: 0;
         left: 0;
-        right: 0;
+        right: 0;      
         
-        button{
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }        
+        > ul {
+            max-height: 13rem;
+            overflow-y: scroll;
+            margin: 0.5rem;
+            // padding: 0.5rem;
+            border-radius: 10px;
+            border: 1px solid #66afe9;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+        }
+
+        .quit-btn {
+            width: 400px;
+            margin: 0 auto;
+            padding: 9px 18px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            background: #42c02e;
+            cursor: pointer;
+            outline: none;
+            display: block;
+            clear: both;
+
+            > a {
+                color: #FFF;
+            }
+        }
     }
 
+
     li {
+        position: relative;
         margin: 0.5rem 1rem;
         list-style: none;
+        border-bottom: 1px solid #47474720;
+
+        .me-list-num {
+            position: absolute;
+            display: inline-block;
+            color: #005041;
+            bottom: 0.5rem;
+            font-size: 1rem;
+        }
 
         .me-list {
+            display: inline-block;
+            margin-left: 1rem;
+            padding-bottom: 2px;
+
             .me-title {
                 font-size: 0.8rem;
                 font-weight: 600;
                 margin-bottom: 0.3rem;
+                color: #006741;
+            }
+
+            .me-author {
+                font-size: 0.8rem;
             }
         }
 
         .me-content {
             > div {
                 display: inline-block;
-
-            }
-
-            .me-author {
-
             }
 
             .me-time {
