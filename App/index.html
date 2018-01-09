@@ -168,7 +168,7 @@
     canvas.height = document.documentElement.clientHeight;
 
     context.fillStyle = "rgba(0, 0, 0, 0.08)";
-    context.strokeStyle = "rgba(0, 0, 0, 0.25)";
+    context.strokeStyle = "rgba(0, 0, 0, 0.10)";
     context.lineWidth = 0.5;
 
     // 存放所有圆的数组，这里用balls
@@ -197,7 +197,8 @@
     }
     
     // 圆的数量
-    var num = 20;
+    var num = (414 >= canvas.width ? 10 : 20);
+    console.log("Point Num :", num)
     for (var i = 0; i < num; i++) {
         createBall();
     }

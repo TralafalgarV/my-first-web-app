@@ -9,7 +9,7 @@ import React, { Component } from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
 import { dateDiff, cancelMask } from '../../Tools'
 import '../../Static/CSS/create.css'
-import '../../Static/CSS/articleDetail.css'
+import '../../Static/CSS/articleDetail.less'
 import AVATARPATH from '../../Static/avatar/eg_cute.gif'
 import Markdown from '../Markdown'
 
@@ -129,7 +129,7 @@ class ArticleDetail extends Component {
                         <Markdown content={this.state.content}/>
                     </article>
                 </section>
-                <section style={{marginBottom: "2rem"}}>
+                <section style={{marginBottom: "3rem"}}>
                     <div className="ad-comments">
                         <ul>
                             {this.articleComments()}
@@ -137,10 +137,10 @@ class ArticleDetail extends Component {
                     </div>
                 </section>
                 <div className="comment row no-gutter" style={{margin:'none',zIndex:'2002'}}>
-                    <input type="text" style={{border:'none'}} ref={(node) => {
+                    <input type="text" style={{border:'none', height: "2rem"}} ref={(node) => {
                         this.comment = node
                     }} className="col-75 comment-input" placeholder="说点什么吧" onChange={this.checkLogin}/>
-                    <a onClick={()=>{this.handleComment()}} className="button col-25 button-fill button-big">评论</a>
+                    <a onClick={()=>{this.handleComment()}} className="col-25">评论</a>
                 </div>
             </div>
         )
