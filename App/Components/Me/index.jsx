@@ -83,14 +83,14 @@ class Me extends React.Component {
     // 获取当前usr的article
     fetchData() {
         let _this = this
-        let usrName = JSON.parse(UserModel.fetchLogin()).username
-        if (!usrName) {
-            console.log("[ERROR] Me Page fetchData usrName error")
+        let usrInfo = JSON.parse(UserModel.fetchLogin())
+        if (!usrInfo) {
+            console.log("[ERROR] Me Page fetchData usrInfo error")
             return
         }
         // req: {usrname: ****, ....}
         let req = {
-            usrname: usrName
+            usrname: usrInfo.username
         }
         // res: {usrname: ***, articles: ***}
         ArticleModel.fetchUsrArticle(req, function(res) {

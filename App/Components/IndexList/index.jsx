@@ -82,6 +82,16 @@ class IndexList extends React.Component {
         this.delArticle = this.delArticle.bind(this)
     }
 
+    componentWillMount() {
+        this._isMounted = true
+
+        // 更新文章数据
+        this.fetchData()
+}
+    componentWillUnmount() {
+            this._isMounted = false
+    }
+
     componentDidMount() {
         let _this = this
         let indexListSlider = document.querySelector(".indexList")
@@ -105,9 +115,6 @@ class IndexList extends React.Component {
             indexListSlider.addEventListener("mouseup", function(e) {
             }, false)               
         }
-
-        // 更新文章数据
-        this.fetchData()
            
         // 初始化slider  
         let indexListComponent = this
@@ -127,9 +134,14 @@ class IndexList extends React.Component {
     fetchData() {
         ArticleModel.fetchList("", (data) => {
             console.log("[IndexList] fetch from Server：", data)
-            this.setState({list : data}, function() {
-                cancelMask()
-            })
+            
+            // React异步请求数据出现setState(...): Can only update a mounted or mounting component...
+            // Just set a _isMounted property to true in componentDidMount and set it to false in componentWillUnmount, and use this variable to check your component's status.
+            if (this._isMounted) {
+                this.setState({list : data}, function() {
+                    cancelMask()
+                })
+            }
         }, (err) => {
             console.log(err)
         })        

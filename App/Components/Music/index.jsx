@@ -66,6 +66,7 @@ class Music extends React.Component {
         deg -= 60
 
         galleryNode.style.transition = "0.4s"
+        galleryNode.style.transform = "translateZ(0)"
         galleryNode.style.transform = "rotateY(" + deg + "deg)"
         if (deg < -360) {
             window.requestAnimationFrame(this.resetDeg)
@@ -80,8 +81,11 @@ class Music extends React.Component {
         window.requestAnimationFrame(this.rotateGallery)
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.fetchData()
+    }
+
+    componentDidMount() {
         // setInternal 中传入的回调函数，需要绑定当前运行环境
         this.timer = setInterval(this.rotateGallery, 1500)
         // 取消加载mask
