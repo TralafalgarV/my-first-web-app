@@ -123,6 +123,9 @@ let ArticleModel = {
     delete: (_id, _success, _error) => {
         _request('GET', `${API}article/delete/${_id}`, null, _success, _error)
     },
+    delCommet: (_params, _success, _error) => {
+        _request('GET', `${API}article/delete`, _params, _success, _error)
+    },    
     fetchImg: (_params, _success, _error) => {
         _upload(`${API}article/fetchImg`, _params, _success, _error)
     }, 

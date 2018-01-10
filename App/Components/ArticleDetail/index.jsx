@@ -7,7 +7,7 @@
  */
 import React, { Component } from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
-import { dateDiff, cancelMask } from '../../Tools'
+import { dateDiff, cancelMask, getAuthority } from '../../Tools'
 import '../../Static/CSS/create.css'
 import '../../Static/CSS/articleDetail.less'
 import AVATARPATH from '../../Static/avatar/eg_cute.gif'
@@ -63,11 +63,37 @@ class ArticleDetail extends Component {
         })
     }
 
+    // 删除评论
+    delComment(e, item) {
+        let _this = this
+        let options = {
+            dataType: "comment",
+            atricleId:this.state._id,
+            commentId: item._id
+        }
+        e.stopPropagation()
+        console.log("Comment Id: ", item._id, "will be deleted")
+        ArticleModel.delCommet(options, function(data) {
+            console.log("The Comment has been deleted")
+            // 删除后刷新list
+            _this.fetchData()
+        }, function(err) {
+            if (err) {
+                console.log("Delete: ", err)
+            }
+        })        
+    }
     // 显示文章评论
     articleComments() {
         let _this = this
         let comments = this.state.comments
-        console.log("[ArticleDetail] Article Comments:", comments.length)
+        // 获取当前登录用户的权限
+        let authority = getAuthority()
+        // 获取当前用户登录信息
+        let usrInfo = JSON.parse(UserModel.fetchLogin())
+        if (!usrInfo) {
+            console.log("登录信息为空")
+        }
         return comments.map(function(item, index) {
             return (
                 <li className="row" key={index}>
@@ -76,11 +102,27 @@ class ArticleDetail extends Component {
                     </div>
                     <div className="col-85 comment-list">
                         <div>
-                            <div style={{fontWeight:'bold', fontSize:'15px', display: "inline-block"}}>{item.author}</div>
-                            <div style={{fontSize:'13px', display: "inline-block"}}><span className="icon icon-clock">{dateDiff(item.createTime)}</span></div>
+                            <div style={{fontWeight:'bold', fontSize:'0.85rem', display: "inline-block"}}>{item.author}</div>
+                            <div style={{fontSize:'0.7rem', display: "inline-block"}}><span className="icon icon-clock">{dateDiff(item.createTime)}</span></div>
                         </div>
-                        <p className="col-85" style={{margin:'0.2rem 0', fontSize:'18px'}}>{item.content}</p>
+                        <p className="col-85" style={{margin:'0.2rem 0', fontSize:'0.85rem'}}>{item.content}</p>
                     </div>
+                    {
+                        authority.delComment == true && usrInfo.username == item.author ? 
+                        <button className="delButton button"
+                        style={{
+                            position: "absolute",
+                            marginRight: "0.5rem",
+                            right: "0",
+                            top: "50%",
+                            display: "inline-block",
+                            zIndex: "3000",
+                            transform: "translateY(-50%)",
+                        }}
+                        onClick={(e) => {
+                            _this.delComment(e, item)
+                        }}>DEL</button> : null 
+                    }                    
                 </li>                
             )
         })
@@ -131,9 +173,7 @@ class ArticleDetail extends Component {
                 </section>
                 <section style={{marginBottom: "3rem"}}>
                     <div className="ad-comments">
-                        <ul>
-                            {this.articleComments()}
-                        </ul>
+                        <ul>{this.articleComments()}</ul>
                     </div>
                 </section>
                 <div className="comment row no-gutter" style={{margin:'none',zIndex:'2002'}}>

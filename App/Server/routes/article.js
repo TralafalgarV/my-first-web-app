@@ -14,8 +14,6 @@ const log = function() {
 }
 
 router.get('/fetchArticle/:id', function(req, res) {
-    console.log("fetchArticle: ",req.params.id)
-
     Model('Article').findById(req.params.id).exec(function(err, collection) {
         console.log("fetchArticle: ", collection)
         res.send(JSON.stringify(collection))
@@ -78,6 +76,78 @@ router.post('/comment', function (req, res) {
         }
     })        
 })
+
+/*
+let options = {
+    docName: "comment| article",  // 删除哪种数据
+    atricleId:this.state._id,     // 文章Id
+    commentId: item._id           // 评论Id
+}
+*/
+// 删除操作
+router.get('/delete', function (req, res) {
+    let options = req.query
+    if (!options) {
+        throw "[Delete] options is null"
+        return 
+    }
+    switch (options.dataType) {
+        case "comment":
+            delComment(options, res)
+            break;
+        case "article":
+            delArticle(options.atricleId, res)
+            break;
+        default:
+            break;
+    }
+})
+
+// 评论删除
+function delComment(options, res) {
+    Model('Article').findById(options.atricleId).exec(function (err, collection) {
+        if (err || collection == null) {
+            throw err
+        } else {
+            console.log("Find it: ", collection)
+        }
+
+        // 文章Id和commentId 删除评论
+        Model('Article').update({_id: options.atricleId}, {
+            $pull: {comments:{_id: options.commentId}}}, function(err, newDoc) {
+            if(err) {
+                console.log("del comment fail")
+                res.send({title: 2, content: '删除评论失败'})
+            } else {
+                console.log("del comment success")
+                res.send({title: 1, content: '删除评论成功'})
+            }
+        })         
+    })
+}
+
+// 文章删除
+function delArticle(id, res) {
+    Model('Article').findById(id).exec(function (err, collection) {
+        if (err || collection == null) {
+            throw err
+        } else {
+            console.log("Find it: ", collection)
+        }
+
+        Model('Article').deleteOne({
+            "_id": id
+        }, function (err) {
+            if (!err) {
+                res.send(collection)
+                console.log("Article delete successful")
+            } else {
+                res.send(err)
+                console.log("Article delete failed")                
+            }
+        })
+    })
+}
 
 router.get('/delete/:id', function (req, res) {
     Model('Article').findById(req.params.id).exec(function (err, collection) {

@@ -156,9 +156,14 @@ class IndexList extends React.Component {
     // 删除操作
     delArticle(e, item) {
         let _this = this
+        let options = {
+            dataType: "article",
+            atricleId:item._id,
+            commentId: null
+        }        
         e.stopPropagation()
         console.log("Article Id: ", item._id, "will be deleted")
-        ArticleModel.delete(item._id, function(data) {
+        ArticleModel.delCommet(options, function(data) {
             console.log("The article id", data._id, "has been deleted")
             // 删除后刷新list
             _this.fetchData()
@@ -182,6 +187,11 @@ class IndexList extends React.Component {
             let date = new Date()
             // 获取当前登录用户的权限
             let authority = getAuthority()
+            // 获取当前用户登录信息
+            let usrInfo = JSON.parse(UserModel.fetchLogin())
+            if (!usrInfo) {
+                console.log("登录信息为空")
+            }            
             return (
                 <li className="" key={index}>
                     <Link to={'/indexList/'+item._id} style={{display:'block'}}>                    
@@ -200,7 +210,7 @@ class IndexList extends React.Component {
                         </div>
                     </Link>
                     {
-                        authority.delArticle == true ? 
+                        authority.delArticle == true && usrInfo.username == item.author ? 
                         <button className="delButton button"
                         style={{
                             position: "absolute",
