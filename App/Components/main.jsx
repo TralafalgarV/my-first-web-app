@@ -27,7 +27,7 @@ let nav = () => {
         <nav className="bar bar-tab">
             <div className="tab-item">
                 <img src={require("../Static/logo/1.svg")} alt="Logo" style={{marginLeft:"1.75rem", width:"2rem"}} onClick={() => {
-                    document.querySelector(".gitUrl").touchStart()
+                    document.querySelector(".gitUrl").click()
                 }}/>
                 <a href="https://github.com/TralafalgarV/MyWebApp" target="_blank" className="gitUrl" style={{height:"0", width:"0", zIndex: "-1", position: "absolute", left:"0"}}></a>
             </div>
