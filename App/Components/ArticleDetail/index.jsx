@@ -176,14 +176,17 @@ class ArticleDetail extends Component {
         }
         return(
             <div className="ad">            
-                <header className="ad-title">{this.state.title}</header>
+                <header className="ad-title">{this.state.title}
+                {
+                    this.state.author == userInfo.username ?
+                    <Link to={path}>
+                        <button id="edit-btn">Edit</button>
+                    </Link> : null
+                } 
+                </header>
                 <section>
-                    <div className="ad-author">{this.state.author}</div>
-                    {this.state.author == userInfo.username ?
-                    <Link to={path} style={{display:'block'}} >
-                        <button>Edit</button>
-                    </Link> : null}
-
+                    <div className="ad-author">{this.state.author}                   
+                    </div>
                     <article className="ad-article">
                         <Markdown content={this.state.content}/>
                     </article>

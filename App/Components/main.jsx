@@ -32,16 +32,16 @@ let nav = () => {
                 <a href="https://github.com/TralafalgarV/MyWebApp" target="_blank" className="gitUrl" style={{height:"0", width:"0", zIndex: "-1", position: "absolute", left:"0"}}></a>
             </div>
             <Link className="tab-item" activeClassName="active" to="/indexlist">
-                <span className="tab-label">Index</span>
+                <span className="tab-label">首页</span>
             </Link>
             <Link className="tab-item" activeClassName="active" to="/create">
-                <span className="tab-label">Create</span>
+                <span className="tab-label">撰写</span>
             </Link>
             <Link className="tab-item" activeClassName="active" to="/music">
-                <span className="tab-label">Music</span>
+                <span className="tab-label">音乐</span>
             </Link>
             <Link className="tab-item" activeClassName="active" to="/me">
-                <span className="tab-label">Me</span>
+                <span className="tab-label">我</span>
                 {/* <div className="multi-drop-menu"><span>Me</span>
                     <ul>
                         <li><Link to="/login">Logout</Link></li>

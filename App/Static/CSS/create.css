@@ -106,11 +106,11 @@ textarea.form-control {
 .editor-preview {
     position: absolute;
     padding: 6px 12px;
-    padding-top: 31px;
+    padding-top: 1rem;
     /* margin-top: 31px; */
-    border-left: 1px solid #CCC;
+    border: 1px solid #CCC;
     background-color: #f6f6f6;
-    top: 1rem;
+    top: 1.5rem;
     bottom: 0;
     z-index: 100;
     overflow: auto;
@@ -157,7 +157,7 @@ textarea.form-control {
 }
 
 .editor .wmd-input.mono.form-control {
-    padding-top: 31px;
+    padding-top: 1rem;
     resize: none;
     -moz-tab-size: 4;
     -o-tab-size: 4;
@@ -167,14 +167,14 @@ textarea.form-control {
 .wmd .wmd-input {
     height: 100%;
     min-height: 420px;
-    border: none
+    /* border: none */
 }
 
 /***********************tool bar**********************/
 .toolBar {
     display: block;
     width: 100%;
-    height: 1rem;
+    height: 1.5rem;
 
 }
 
@@ -183,10 +183,19 @@ textarea.form-control {
     font-weight: 200;
     cursor: pointer;
     /* width: 1rem; */
-    height: 1rem;
+    height: 1.5rem;
     margin-left: 2px;
 }
 
+#mk-ctl-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0 3px;
+    height: 1.5rem;
+    background-color: #009A61;
+    color: #FFF;
+}
 /************************footer***********************/
 
 .publish-footer {

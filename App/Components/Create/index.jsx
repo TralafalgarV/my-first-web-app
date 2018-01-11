@@ -231,7 +231,7 @@ class Create extends React.Component {
                                 this.uploadImg(e) // 在这个地方上传img，并转成markdown语句显示出来
                             }}/>
                         </div>
-                        <button type="button" className="btn mk-ctl-btn" value="Hide MD" style={{position:"absolute", right:"0px", top:"0px", padding:"0px 3px", height:"1rem", backgroundColor:"#008151", color:"#FFF"}} onClick={(e) => {
+                        <button type="button" id="mk-ctl-btn" className="btn mk-ctl-btn" value="Hide MD" onClick={(e) => {
                             this.hideMarkdown(e)
                         }}>Hide Markdown</button>                        
                         <div className="wmd">

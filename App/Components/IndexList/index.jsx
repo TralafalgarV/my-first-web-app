@@ -47,8 +47,8 @@ class Slider {
 
     //消除滑块动画时间
     setTransition(time) {
-        this.firstChild.style.webkitTransition='all '+time+'s';
-        this.firstChild.style.transition='all '+time+'s'
+        this.firstChild.style.webkitTransition = 'all '+ time + 's'
+        this.firstChild.style.transition = 'all '+ time + 's'
     }
 
     // 下拉操作
@@ -56,7 +56,7 @@ class Slider {
         if (this.firstChild.scrollTop <= 0) {
             if (this.diff > 0) {
                 // e.preventDefault() 
-                this.firstChild.style.height = this.diff/2 + "px"
+                this.firstChild.style.height = this.diff / 2 + "px"
             }
         }
     }
@@ -95,6 +95,7 @@ class IndexList extends React.Component {
     componentDidMount() {
         let _this = this
         let indexListSlider = document.querySelector(".indexList")
+        indexListSlider.style.transform = "translateZ(0)"
         if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
             // 绑定移动端下拉事件
             indexListSlider.addEventListener("touchstart", function(e) {
@@ -134,7 +135,7 @@ class IndexList extends React.Component {
     fetchData() {
         ArticleModel.fetchList("", (data) => {
             console.log("[IndexList] fetch from Server：", data)
-            
+
             // React异步请求数据出现setState(...): Can only update a mounted or mounting component...
             // Just set a _isMounted property to true in componentDidMount and set it to false in componentWillUnmount, and use this variable to check your component's status.
             if (this._isMounted) {
@@ -244,9 +245,9 @@ class IndexList extends React.Component {
     
     // 下拉开始记录Y值
     touchStart(e) {
-
         // this.slider.stateLock = "touchStart"
         this.slider.setTransition(0)
+
         this.slider.touchStartY = e.touches[0].pageY
         this.slider.firstChild.firstChild.innerHTML = '下拉加载更多数据'
         
