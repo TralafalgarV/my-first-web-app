@@ -22,6 +22,49 @@ body{
             border-radius: 10px;
             border: 1px solid #66afe9;
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+        
+            li {
+                position: relative;
+                margin: 0.5rem 1rem;
+                list-style: none;
+                border-bottom: 1px solid #9AB9D1;
+        
+                .me-list-num {
+                    position: absolute;
+                    display: inline-block;
+                    color: #005041;
+                    bottom: 0.5rem;
+                    font-size: 1rem;
+                }
+        
+                .me-list {
+                    display: inline-block;
+                    margin-left: 1rem;
+                    padding-bottom: 2px;
+        
+                    .me-title {
+                        font-size: 1rem;
+                        font-weight: 600;
+                        margin-bottom: 0.3rem;
+                        color: #006741;
+                    }
+        
+                    .me-author {
+                        font-size: 0.8rem;
+                    }
+                }
+        
+                .me-content {
+                    > div {
+                        display: inline-block;
+                    }
+        
+                    .me-time {
+                        margin-left: 0.6rem;
+                        font-size: 0.6rem;
+                    }
+                }
+            }            
         }
 
         .quit-btn {
@@ -45,46 +88,5 @@ body{
     }
 
 
-    li {
-        position: relative;
-        margin: 0.5rem 1rem;
-        list-style: none;
-        border-bottom: 1px solid #47474720;
 
-        .me-list-num {
-            position: absolute;
-            display: inline-block;
-            color: #005041;
-            bottom: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .me-list {
-            display: inline-block;
-            margin-left: 1rem;
-            padding-bottom: 2px;
-
-            .me-title {
-                font-size: 1rem;
-                font-weight: 600;
-                margin-bottom: 0.3rem;
-                color: #006741;
-            }
-
-            .me-author {
-                font-size: 0.8rem;
-            }
-        }
-
-        .me-content {
-            > div {
-                display: inline-block;
-            }
-
-            .me-time {
-                margin-left: 0.6rem;
-                font-size: 0.6rem;
-            }
-        }
-    }
 }

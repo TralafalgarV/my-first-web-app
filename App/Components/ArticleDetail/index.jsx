@@ -6,6 +6,7 @@
  * 4. 在 indexList 页面绑定点击事件，点击文章后，改变 location 跳转到对应页面
  */
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
 import { dateDiff, cancelMask, getAuthority } from '../../Tools'
 import '../../Static/CSS/create.css'
@@ -25,15 +26,23 @@ class ArticleDetail extends Component {
         super(props)
 
         this.state = {
+            _id: "",            
             title: "",
             author: "",
             content: "",
             comments:[]
         }
+
+        // 获取登录信息
+        this.userinfo = UserModel.fetchLogin()
+        if (!this.userinfo) {
+            console.log("[ArticleDetial] 此用户文登录")
+            // location.hash = "/login"
+        }        
     }
 
-    // 组件渲染完成之后，进行数据获取
-    componentDidMount() {
+    // 组件初始化时只调用，以后组件更新不调用，整个生命周期只调用一次，此时可以修改state。
+    componentWillMount() {
         this.fetchData()
     }
 
@@ -48,13 +57,15 @@ class ArticleDetail extends Component {
     fetchData() {
         ArticleModel.fetchArticle(this.getArticleId(), (article) => {
             console.log("[ArticleDetail] fetchArticle: ", article)
-            this.setState({
-                title: article.title,
-                author: article.author,
-                content: article.content,
-                comments: article.comments,
-                _id: article._id,
-            })
+            if (article) {
+                this.setState({
+                    title: article.title,
+                    author: article.author,
+                    content: article.content,
+                    comments: article.comments,
+                    _id: article._id,
+                })                
+            }
             
             // 取消mask效果
             cancelMask()
@@ -89,11 +100,7 @@ class ArticleDetail extends Component {
         let comments = this.state.comments
         // 获取当前登录用户的权限
         let authority = getAuthority()
-        // 获取当前用户登录信息
-        let usrInfo = JSON.parse(UserModel.fetchLogin())
-        if (!usrInfo) {
-            console.log("登录信息为空")
-        }
+        let userInfo = JSON.parse(this.userinfo)
         return comments.map(function(item, index) {
             return (
                 <li className="row" key={index}>
@@ -108,7 +115,7 @@ class ArticleDetail extends Component {
                         <p className="col-85" style={{margin:'0.2rem 0', fontSize:'0.85rem'}}>{item.content}</p>
                     </div>
                     {
-                        authority.delComment == true && usrInfo.username == item.author ? 
+                        authority.delComment == true && userInfo.username == item.author ? 
                         <button className="delButton button"
                         style={{
                             position: "absolute",
@@ -135,18 +142,12 @@ class ArticleDetail extends Component {
         }
         // let userInfo = UserModel.fetchLogin()
         // console.log(JSON.parse(userInfo).content)
-
-        // 获取登录信息
-        let userinfo = UserModel.fetchLogin()
-        if (!userinfo) {
-            console.log("评论前请先登录")
-            location.hash = "/login"
-        }
+        
         // 更新评论
         let params = {
             _id: this.state._id,
             comments: {
-                author: JSON.parse(userinfo).username,
+                author: JSON.parse(this.userinfo).username,
                 content: this.comment.value,
                 createTime: Date.now()
             },
@@ -154,19 +155,35 @@ class ArticleDetail extends Component {
 
         ArticleModel.comment(params, (data) => {
             this.comment.value = ''
-            this.componentDidMount()
+            // 评论后更新数据
+            this.fetchData()
         }, (err) => {
             console.log(err)
         })
     }
 
     render() {
-        console.log("[ArticleDetail] render " + location.hash)        
+        console.log("[ArticleDetail] render " + location.hash)
+        let data = this.state
+        let path = {
+            pathname: "/create",
+            state: this.state
+        }
+
+        let userInfo = JSON.parse(this.userinfo)
+        if (!userInfo) {
+            userInfo = {}
+        }
         return(
             <div className="ad">            
                 <header className="ad-title">{this.state.title}</header>
                 <section>
                     <div className="ad-author">{this.state.author}</div>
+                    {this.state.author == userInfo.username ?
+                    <Link to={path} style={{display:'block'}} >
+                        <button>Edit</button>
+                    </Link> : null}
+
                     <article className="ad-article">
                         <Markdown content={this.state.content}/>
                     </article>

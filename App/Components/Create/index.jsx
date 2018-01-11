@@ -16,6 +16,7 @@ class Create extends React.Component {
             location.hash = "/login"
         }
         this.state = {
+            _id: "",            
             login: login,
             title: '',
             content: '',
@@ -24,9 +25,35 @@ class Create extends React.Component {
         }
 
         this.uploadImg = this.uploadImg.bind(this)
+        this.isEdited = false
+    }
+
+    componentWillMount() {
+        console.log("Data from ArticleDetail router", this.props.location.state)
+        // 路由过来的数据
+        let state = this.props.location.state
+        if (state) {
+            this.isEdited = true
+            this.setState({
+                title: state.title,
+                author: state.author,
+                content: state.content,
+                pageTitle: '修改文章',
+                _id: state._id
+            })
+        }
     }
 
     componentDidMount() {
+        if (this.isEdited) {
+            document.querySelector("#myEditor").value += this.state.content
+            document.querySelector("#ad-title").value += this.state.title
+            // 
+            this.setState({
+                content: this.props.location.state.content
+            })
+        }
+
         // 取消加载mask
         cancelMask()
     }
@@ -46,7 +73,7 @@ class Create extends React.Component {
     handlePublish(e) {
         let title = this.state.title
         let content = this.state.content
-        let info = []
+        let info = {}
 
         // 内容检测
         if('' == title) {
@@ -71,15 +98,17 @@ class Create extends React.Component {
         }
 
         // 更新文章列表
-        info.push({
-            title: title,
-            content: content,
-            backup: null,
-            login: this.state.login,
-            author: JSON.parse(userInfo).username,  //作者需要根据登录信息来判断
-            createTime: Date.now(),
-            imgs:[]
-        }) 
+        info = {
+            _id: (this.isEdited) ? this.state._id : "",
+            data: {
+                title: title,
+                content: content,
+                login: this.state.login,
+                author: JSON.parse(userInfo).username,  //作者需要根据登录信息来判断
+                createTime: Date.now(),
+                imgs:[]
+            }
+        }
 
         // 将数据更新到数据库
         ArticleModel.publish(info, () => {
@@ -185,7 +214,7 @@ class Create extends React.Component {
                 <div className="create-container">
                     <div className="form-group">
                         <label htmlFor="title" className="sr-only">标题</label>
-                        <input type="text" name="title" required="" data-error="" autoComplete="off" className="form-control tagClose input-lg" placeholder="文章标题：" onChange={(e) => {
+                        <input id="ad-title" type="text" name="title" required="" data-error="" autoComplete="off" className="form-control tagClose input-lg" placeholder="文章标题：" onChange={(e) => {
                             this.handleChangeVal(e, "title")
                         }}/>
                     </div>
@@ -232,7 +261,7 @@ class Create extends React.Component {
                                     }}>[舍弃]</a>
                                     <button title="" type="button" className="btn btn-primary ml10" data-text="发布问题" onClick={(e) => {
                                         this.handlePublish(e);
-                                    }}>发布文章</button>
+                                    }}>{this.state.pageTitle}</button>
                                 </div>
                             </div>
                         </div>

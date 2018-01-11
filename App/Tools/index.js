@@ -65,7 +65,7 @@ const ClassOperation = {
 // 获取当前用户的权限
 const getAuthority = function() {
     let userinfo = UserModel.fetchLogin()
-    let authority = (userinfo) ? JSON.parse(userinfo).authority : {createArticle: true, delArticle: false, delComment: false}
+    let authority = (userinfo) ? JSON.parse(userinfo).authority : {createArticle: false, delArticle: false, delComment: false}
 
     if (!userinfo) {
         console.log("UserInfo is null, return defined")

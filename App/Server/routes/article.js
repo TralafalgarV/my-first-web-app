@@ -44,13 +44,56 @@ router.get('/fetchList', function (req, res) {
 })
 
 // 将client发送的数据存到MongoDB数据库中
+/*
+info = {
+    _id: this.state._id,
+    data: {
+        title: title,
+        content: content,
+        login: this.state.login,
+        author: JSON.parse(userInfo).username,  //作者需要根据登录信息来判断
+        createTime: Date.now(),
+        imgs:[]
+    }
+}
+*/
 router.post('/publish', function (req, res) {
-    let data = req.body
+    console.log("[article] publish a article...", req.body)
+    let info = req.body
 
-    console.log("[article] publish a new article...", data)
-    Model('Article').create(data, function(err, doc) {
+    // _id有效，按照edit操作处理
+    if (info._id) {
+        console.log("the article need to update", info._id)
+        Model('Article').findById(info._id).exec(function (err, collection) {
+            if (err || collection == null) {
+                throw err
+            } else {
+                console.log("[publish] Find the article: ", collection)
+            }
+
+            // 更新文章内容
+            Model('Article').update({_id: info._id}, {
+                $set: {
+                    title: info.data.title, 
+                    content: info.data.content,
+                    createTime: info.data.createTime
+                }}, function(err, newDoc) {
+                    if(err) {
+                        console.log("article update fail")
+                        res.send({title: 2, content: '文章更新失败'})
+                    } else {
+                        console.log("article update success", newDoc)
+                        res.send({title: 1, content: '文章更新成功'})
+                    }
+            })            
+        })
+        // 文章更新后，直接返回
+        return 
+    }
+    // _id无效，则按照发布新文章处理
+    Model('Article').create(info.data, function(err, doc) {
         if (err) {
-            res.send(err)
+            res.send("[publish] error ", err)
         } else {
             if (doc) {
                 res.send({title: 1, content: '发表成功'})

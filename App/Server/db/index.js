@@ -30,7 +30,7 @@ mongoose.model('User', new mongoose.Schema({
     email: {type: String, isRequired: true},
     token: {type: String, isRequired: true},
     list: {type: Object, default: []},
-    authority: {type: Object, default: {createArticle: true, delArticle: false, delComment: true}},
+    authority: {type: Object, default: {createArticle: true, delArticle: true, delComment: true}},
     avatar: {type: String, default: 'http://www.qdaily.com/images/missing_face.png'}//头像
 }))
 
