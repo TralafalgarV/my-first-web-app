@@ -38,7 +38,9 @@ class ArticleDetail extends Component {
         if (!this.userinfo) {
             console.log("[ArticleDetial] 此用户文登录")
             // location.hash = "/login"
-        }        
+        }
+        
+        this.replyComment = this.replyComment.bind(this)
     }
 
     // 组件初始化时只调用，以后组件更新不调用，整个生命周期只调用一次，此时可以修改state。
@@ -94,6 +96,37 @@ class ArticleDetail extends Component {
             }
         })        
     }
+
+    // // 显示评论的回复
+    // commentReply() {
+    //     let _this = this
+    //     let replyArr = [1,2,3]
+    //     return replyArr.map(function(item, index) {
+    //         return (
+    //             <ul id="ad-comment-reply-list">
+    //                 <li>
+    //                     <div id="reply-avatar">
+    //                         <img className="comment-avatar" src={AVATARPATH} alt="无"/>
+    //                     </div>
+    //                     <div id="reply-content" className="col-85">
+    //                         <div >
+    //                             <div style={{fontWeight:'bold', fontSize:'0.85rem', display: "inline-block"}}>{"wangwei"}</div>
+    //                             <div style={{fontSize:'0.7rem', display: "inline-block"}}><span className="icon icon-clock">{dateDiff('')}</span></div>
+    //                         </div>
+    //                         <p className="col-85" style={{margin: "0", padding: "0.2rem 0px", fontSize: "0.85rem", width:"94%"}}>{"reply"}</p>                                                        
+    //                     </div> 
+    //                 </li>                         
+    //             </ul>
+    //         )
+    //     })
+    // }
+
+    replyComment(e, author) {
+        var commentInput = document.querySelector(".comment-input")
+        commentInput.value = "回复 "+ author + " : "
+        commentInput.focus()  // 获取焦点
+    }
+
     // 显示文章评论
     articleComments() {
         let _this = this
@@ -110,26 +143,23 @@ class ArticleDetail extends Component {
                     <div className="col-85 comment-list">
                         <div>
                             <div style={{fontWeight:'bold', fontSize:'0.85rem', display: "inline-block"}}>{item.author}</div>
-                            <div style={{fontSize:'0.7rem', display: "inline-block"}}><span className="icon icon-clock">{dateDiff(item.createTime)}</span></div>
+                            <div style={{fontSize:'0.7rem', float: "right"}}><span className="icon icon-clock">{dateDiff(item.createTime)}</span></div>
                         </div>
-                        <p className="col-85" style={{margin:'0.2rem 0', fontSize:'0.85rem'}}>{item.content}</p>
+                        <p className="col-85" style={{margin: "0", padding:'0.2rem 0'}}>{item.content}</p>
                     </div>
-                    {
-                        authority.delComment == true && userInfo.username == item.author ? 
-                        <button className="delButton button"
-                        style={{
-                            position: "absolute",
-                            marginRight: "0.5rem",
-                            right: "0",
-                            top: "50%",
-                            display: "inline-block",
-                            zIndex: "3000",
-                            transform: "translateY(-50%)",
-                        }}
-                        onClick={(e) => {
-                            _this.delComment(e, item)
-                        }}>DEL</button> : null 
-                    }                    
+                    <div className="comment-ctl">
+                        <div id="comment-reply" onClick={(e) => {
+                            _this.replyComment(e, item.author)
+                        }}>回复</div>
+                        <div id="comment-star" onClick={(e) => {
+                        }}>点赞</div>
+                        {
+                            authority.delComment == true && userInfo.username == item.author ? 
+                            <div id="comment-del" onClick={(e) => {
+                                _this.delComment(e, item)
+                            }}>删除</div> : null 
+                        }                                             
+                    </div>                
                 </li>                
             )
         })

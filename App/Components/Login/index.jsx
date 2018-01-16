@@ -188,8 +188,8 @@ class Login extends React.Component {
                 </div>
                 <div className="content-block">
                     <div className="row">
-                        <div className="col-100"><a onClick={()=>{this.userLogin()}} className="button button-big button-fill button-success">登录</a></div>
-                        <div className="col-100"><a id="register" ref="register" onClick={(e)=>this.changeRegisterFlag(e)}  className="button button-big button-fill button-register">注册</a></div>
+                        <div className="col-50"><a onClick={()=>{this.userLogin()}} className="button button-big button-fill button-success">登录</a></div>
+                        <div className="col-50"><a id="register" ref="register" onClick={(e)=>this.changeRegisterFlag(e)}  className="button button-big button-fill button-register">注册</a></div>
                     </div>
                 </div>
             </div>

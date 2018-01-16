@@ -115,6 +115,7 @@
     > ul {
         > li {
             position: relative;
+            margin-top: 0.2rem;
         } 
     }
 }
@@ -166,14 +167,58 @@
     width: 2rem;
 }
 .comment-list{
-    border-bottom: 1px solid #9AB9D1;
     padding: 0.3rem 0;
+    > div {
+        padding: 0 0 0.2rem 0;
+    }
 }
 
 .comment-list > div > div {
     margin-right: .5rem;
 }
 
+.comment-ctl {
+    display: block;
+    clear: both;
+
+    > div {
+        display: inline-block;
+        margin-left: 0.5rem;
+        cursor: pointer;
+    }
+
+    #comment-reply {
+        margin-left: 1rem; 
+    }
+
+    #comment-del:hover {
+        color: red;
+    }
+
+    margin-bottom: 0.2rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid #9AB9D1;
+}
+/************************ replay ****************************/
+#ad-comment-reply-list {
+    list-style-type: none;
+    
+    li {
+        padding: 0.3rem 0;
+    }
+
+    #reply-content {
+        margin-left: 0.5rem;
+
+        div {
+            margin-right: 0.5rem;
+        }
+    }
+    
+    #reply-avatar, #reply-content {
+        display: inline-block;
+    }
+}
 
 
 
