@@ -30,6 +30,7 @@ class ArticleDetail extends Component {
             title: "",
             author: "",
             content: "",
+            thumbUp: 0,
             comments:[]
         }
 
@@ -41,6 +42,7 @@ class ArticleDetail extends Component {
         }
         
         this.replyComment = this.replyComment.bind(this)
+        this.clickThumbUp = this.clickThumbUp.bind(this)
     }
 
     // 组件初始化时只调用，以后组件更新不调用，整个生命周期只调用一次，此时可以修改state。
@@ -65,6 +67,7 @@ class ArticleDetail extends Component {
                     author: article.author,
                     content: article.content,
                     comments: article.comments,
+                    thumbUp: article.thumbUp,
                     _id: article._id,
                 })                
             }
@@ -97,34 +100,19 @@ class ArticleDetail extends Component {
         })        
     }
 
-    // // 显示评论的回复
-    // commentReply() {
-    //     let _this = this
-    //     let replyArr = [1,2,3]
-    //     return replyArr.map(function(item, index) {
-    //         return (
-    //             <ul id="ad-comment-reply-list">
-    //                 <li>
-    //                     <div id="reply-avatar">
-    //                         <img className="comment-avatar" src={AVATARPATH} alt="无"/>
-    //                     </div>
-    //                     <div id="reply-content" className="col-85">
-    //                         <div >
-    //                             <div style={{fontWeight:'bold', fontSize:'0.85rem', display: "inline-block"}}>{"wangwei"}</div>
-    //                             <div style={{fontSize:'0.7rem', display: "inline-block"}}><span className="icon icon-clock">{dateDiff('')}</span></div>
-    //                         </div>
-    //                         <p className="col-85" style={{margin: "0", padding: "0.2rem 0px", fontSize: "0.85rem", width:"94%"}}>{"reply"}</p>                                                        
-    //                     </div> 
-    //                 </li>                         
-    //             </ul>
-    //         )
-    //     })
-    // }
-
+    // 回复评论
     replyComment(e, author) {
         var commentInput = document.querySelector(".comment-input")
         commentInput.value = "回复 "+ author + " : "
         commentInput.focus()  // 获取焦点
+    }
+
+    // 点赞功能
+    clickThumbUp(e) {
+        this.setState({
+            thumbUp: this.state.thumbUp + 1
+        })
+        console.log(this.state.thumbUp)
     }
 
     // 显示文章评论
@@ -136,8 +124,8 @@ class ArticleDetail extends Component {
         let userInfo = JSON.parse(this.userinfo)
         return comments.map(function(item, index) {
             return (
-                <li className="row" key={index}>
-                    <div className="col-15" style={{padding:'0.3rem 0', width:"1.5rem"}}>
+                <li className="row no-gutter" key={index}>
+                    <div className="col-15" style={{padding:'0.3rem 0', width:"2.5rem"}}>
                         <img className="comment-avatar" src={AVATARPATH} alt="无"/>
                     </div>
                     <div className="col-85 comment-list">
@@ -151,8 +139,9 @@ class ArticleDetail extends Component {
                         <div id="comment-reply" onClick={(e) => {
                             _this.replyComment(e, item.author)
                         }}>回复</div>
-                        <div id="comment-star" onClick={(e) => {
-                        }}>点赞</div>
+                        {/* <div id="comment-thumbUp" onClick={(e) => {
+                            _this.clickThumbUp(e)
+                        }}>点赞: <span id="comment-thumbUp-count">{_this.state.thumbUp || 0}</span></div> */}
                         {
                             authority.delComment == true && userInfo.username == item.author ? 
                             <div id="comment-del" onClick={(e) => {
@@ -179,6 +168,7 @@ class ArticleDetail extends Component {
             comments: {
                 author: JSON.parse(this.userinfo).username,
                 content: this.comment.value,
+                thumbUp: this.state.thumbUp,
                 createTime: Date.now()
             },
         }

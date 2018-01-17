@@ -106,6 +106,7 @@
 .row {
     /* border-bottom: .5px solid grey; */
     list-style-type: none;
+    // margin: 0px;
 }
 
 .ad-comments {
@@ -183,21 +184,32 @@
 
     > div {
         display: inline-block;
-        margin-left: 0.5rem;
+        margin-right: 0.5rem;
         cursor: pointer;
+        color: #006741;
     }
 
     #comment-reply {
-        margin-left: 1rem; 
+        // margin-left: 1rem; 
     }
+    #comment-reply:hover {
+        // color: #42c02e;
+    } 
 
     #comment-del:hover {
         color: red;
     }
 
+    #comment-thumbUp {
+        width: 3rem;
+    }
+    #comment-thumbUp:hover {
+        color: #66afe9;
+    }
+
     margin-bottom: 0.2rem;
     padding-bottom: 0.2rem;
-    border-bottom: 1px solid #9AB9D1;
+    border-bottom: 1px solid #dfdfdf;
 }
 /************************ replay ****************************/
 #ad-comment-reply-list {
