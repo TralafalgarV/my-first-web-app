@@ -5,6 +5,32 @@ import {MusicModel} from '../../Model/dataModel'
 import { getMusicAlbumUrl } from '../../Tools'
 import VinylPath from '../../Static/cover/vinyl.png'
 
+const MUSICCTL = {
+    FORWARD: Symbol('forward'),
+    BACK: Symbol('back'),
+    STOP: Symbol('stop'),
+    PLAY: Symbol('play')
+}
+
+/**
+ * log修饰器
+ * 
+ * @param {any} target 修饰的类
+ * @param {any} name 修饰的属性名
+ * @param {any} descriptor 该属性的描述对象
+ * @returns 
+ */
+function log(target, name, descriptor) {
+    var oldValue = descriptor.value
+  
+    descriptor.value = function() {
+      console.log(`Calling ${name} with`, arguments)
+      return oldValue.apply(null, arguments)
+    }
+  
+    return descriptor
+}
+
 class MusicPlayer extends React.Component {
     constructor(props) {
         super(props) 
@@ -19,7 +45,7 @@ class MusicPlayer extends React.Component {
             } ,
             index: 0           
         }
-
+    
         // 绑定播放器运行环境
         this.ctlHandle = this.ctlHandle.bind(this)
     }
@@ -58,7 +84,7 @@ class MusicPlayer extends React.Component {
         let musicList = this.props.location.state.musicList
 
         switch (cmd) {
-            case "forwards":
+            case MUSICCTL.FORWARD:
                 // 计算下一首歌曲的index
                 if (musicList.length == curIndex + 1) {
                     curIndex = 0
@@ -66,7 +92,7 @@ class MusicPlayer extends React.Component {
                     curIndex = curIndex + 1
                 }                
                 break;
-            case "back":
+            case MUSICCTL.BACK:
                 // 计算上一首歌曲的index
                 if (curIndex == 0) {
                     curIndex = musicList.length - 1
@@ -92,17 +118,17 @@ class MusicPlayer extends React.Component {
     // 播放器相关函数
     ctlHandle(btnType) {
         switch (btnType) {
-            case "control-back":
+            case MUSICCTL.BACK:
                 console.log("[Music] control-back")
-                this.musicController("back")
+                this.musicController(MUSICCTL.BACK)
                 break
-            case "control-play":
+            case MUSICCTL.PLAY:
                 console.log("[Music] click control-play")
                 this.play()
                 break
-            case "control-forwards":
+            case MUSICCTL.FORWARD:
                 console.log("[Music] control-forwards")
-                this.musicController("forwards")
+                this.musicController(MUSICCTL.FORWARD)
                 break
             default:
                 break
@@ -130,9 +156,9 @@ class MusicPlayer extends React.Component {
                                 <h3 className="artist-name">{this.state.curMusic.artistName}</h3>                                
                             </div>
                             <div className="music-player-controls">
-                                <div className="control-back" onClick={() => this.ctlHandle("control-back")}></div>
-                                <div className="control-play" onClick={() => this.ctlHandle("control-play")} ref={(node) => this.playNode = node}></div>
-                                <div className="control-forwards" onClick={() => this.ctlHandle("control-forwards")}></div>
+                                <div className="control-back" onClick={() => this.ctlHandle(MUSICCTL.BACK)}></div>
+                                <div className="control-play" onClick={() => this.ctlHandle(MUSICCTL.PLAY)} ref={(node) => this.playNode = node}></div>
+                                <div className="control-forwards" onClick={() => this.ctlHandle(MUSICCTL.FORWARD)}></div>
                                 <audio ref={(node) => {this.audio = node}}>
                                     <source src={this.state.curMusic.musicUrl} type="audio/mpeg" />
                                 </audio>

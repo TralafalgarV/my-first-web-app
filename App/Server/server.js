@@ -45,13 +45,18 @@ global.API = 'http://localhost:4545'
  * 后面的中间件将得不到被执行的机会
  */
 app.all('*', function(req, res, next) {
-    console.log("[server] all: ", req.url)
     res.header("Access-Control-Allow-Origin", "*")
-    //
-    res.header("Access-Control-Allow-Headers", "content-type")
-    //
+    res.header("Access-Control-Allow-Headers", "X-Requested-With")
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS")
+    res.header("X-Powered-By", ' 3.2.1')
+        //这段仅仅为了方便返回json而已
     res.header("Content-Type", "application/json;charset=utf-8")
-    next()
+    if(req.method == 'OPTIONS') {
+        //让options请求快速返回
+        res.sendStatus(200)
+    } else { 
+        next()
+    }
 })
 
 app.use(bodyParser.json())
