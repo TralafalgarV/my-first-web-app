@@ -2,7 +2,7 @@
 
 import React from 'react'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
-import { ClassOperation, getAuthority, cancelMask } from '../../Tools'
+import { ClassOperation, GetAuthority, DancelMask } from '../../Tools'
 import Markdown from '../Markdown'
 import "../../Static/CSS/create.css"
 
@@ -55,7 +55,7 @@ class Create extends React.Component {
         }
 
         // 取消加载mask
-        cancelMask()
+        DancelMask()
     }
 
     // 更新文章信息

@@ -1,7 +1,7 @@
 import { UserModel } from '../Model/dataModel'
 
 // 计算时间差
-let dateDiff = function (hisTime) {
+let DateDiff = function (hisTime) {
     var now = new Date().getTime(),
         diffValue = now - hisTime,
         result = '',
@@ -63,7 +63,7 @@ const ClassOperation = {
 }
 
 // 获取当前用户的权限
-const getAuthority = function() {
+const GetAuthority = function() {
     let userinfo = UserModel.fetchLogin()
     let authority = (userinfo) ? JSON.parse(userinfo).authority : {createArticle: false, delArticle: false, delComment: false}
 
@@ -76,7 +76,7 @@ const getAuthority = function() {
 }
 
 // 获取音乐专辑封面
-const getMusicAlbumUrl = function(albumId) {
+const GetMusicAlbumUrl = function(albumId) {
     if (!albumId) {
         console.log("albumId error", albumId)
     }
@@ -84,13 +84,13 @@ const getMusicAlbumUrl = function(albumId) {
 }
 
 // const Tools = {
-//     dateDiff: dateDiff,
+//     DateDiff: dateDiff,
 //     ClassOperation: ClassOperation,
-//     getAuthority: getAuthority,
+//     GetAuthority: GetAuthority,
 // }
 
 // 取消mask效果
-const cancelMask = function() {
+const DancelMask = function() {
     let mask = document.querySelector(".loader")
     mask.style.transition = "0.5s"
     mask.style.opacity = "0"
@@ -99,4 +99,26 @@ const cancelMask = function() {
     document.querySelector(".loader").classList.add("hidden") 
 }
 
-export {dateDiff, ClassOperation, getAuthority, getMusicAlbumUrl, cancelMask}
+// 跨浏览器事件处理
+const EventUtil = {
+    addHandler: function(element, event, handler) {
+        if (element.addEventListener) {  // DOM2 级事件
+            element.addEventListener(event, handler, false)
+        } else if (element.attachEvent) { // IE8以下
+            element.attachEvent("on" + event, handler)
+        } else {  // DOM0 级事件
+            element["on" + event] = handler
+        }
+    },
+
+    removeHandler: function(element, event, handler) {
+        if (element.addEventListener) {
+            element.removeEventListener(event, handler, false)
+        } else if (element.attachEvent) {
+            element.detachEvent("on" + event, handler)
+        } else {
+            element["on" + event] = null
+        }        
+    }
+}
+export {DateDiff, ClassOperation, GetAuthority, GetMusicAlbumUrl, DancelMask, EventUtil}

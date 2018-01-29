@@ -7,7 +7,7 @@ import { is } from 'immutable'
 // import Perf from 'react-addons-perf'        // 性能检测模块
 import '../Static/CSS/articleDetail.less'
 // Import styles if they don't get loaded already
-import 'react-perf-tool/lib/styles.css'
+// import 'react-perf-tool/lib/styles.css'
 
 // [优化] 对象字面量会导致 render 触发重新渲染
 const navStyle = {
@@ -26,7 +26,7 @@ let nav = () => {
     return (
         <nav className="bar bar-tab">
             <div className="tab-item">
-                <img src={require("../Static/logo/1.svg")} alt="Logo" style={{marginLeft:"1.75rem", width:"2rem"}} onClick={() => {
+                <img id="logo" src={require("../Static/logo/1.svg")} alt="Logo" onClick={() => {
                     document.querySelector(".gitUrl").click()
                 }}/>
                 <a href="https://github.com/TralafalgarV/MyWebApp" target="_blank" className="gitUrl" style={{height:"0", width:"0", zIndex: "-1", position: "absolute", left:"0"}}></a>

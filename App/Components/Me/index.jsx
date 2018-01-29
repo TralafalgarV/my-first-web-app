@@ -6,7 +6,7 @@ import { render } from 'react-dom'
 import { createStore } from 'redux'
 import "../../Static/CSS/me.less"
 import { ArticleModel, UserModel } from '../../Model/dataModel'
-import { ClassOperation, getAuthority, cancelMask, dateDiff } from '../../Tools'
+import { ClassOperation, GetAuthority, DancelMask, DateDiff } from '../../Tools'
 // 创建 Redux store 来存放应用的状态。
 // API 是 { subscribe, dispatch, getState }。
 let store = createStore(counter)
@@ -77,7 +77,7 @@ class Me extends React.Component {
     // }
     componentDidMount() {
         this.fetchData()
-        cancelMask()
+        DancelMask()
     }
 
     // 获取当前usr的article
@@ -124,7 +124,7 @@ class Me extends React.Component {
                             <div className="me-title">{ele.title}</div>
                             <div className="me-content">
                                 <div className="me-author">{ele.author}</div>
-                                <div className="me-time"><span className="icon icon-clock"></span>{dateDiff(ele.createTime)}</div>
+                                <div className="me-time"><span className="icon icon-clock"></span>{DateDiff(ele.createTime)}</div>
                             </div>
                         </div>
                     </Link>                    

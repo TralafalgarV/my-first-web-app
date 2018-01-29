@@ -14,7 +14,7 @@ import {
 import ArticleDetail from '../ArticleDetail'
 import '../../Static/CSS/indexList.css'
 import { ArticleModel, UserModel } from '../../Model/dataModel'
-import { dateDiff, getAuthority, cancelMask } from '../../Tools'
+import { DateDiff, GetAuthority, DancelMask, EventUtil } from '../../Tools'
 import AVATARPATH from '../../Static/avatar/eg_cute.gif'
 import showdown from 'showdown'
 
@@ -41,7 +41,6 @@ class Slider {
         this.dom = document.querySelector(container)
         this.firstChild = this.dom.firstChild
         this.offset = offset
-        this.timer = null
         this.callback = callback
     }
 
@@ -98,15 +97,15 @@ class IndexList extends React.Component {
         indexListSlider.style.transform = "translateZ(0)"
         if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
             // 绑定移动端下拉事件
-            indexListSlider.addEventListener("touchstart", function(e) {
+            EventUtil.addHandler(indexListSlider, "touchstart", function(e) {
                 _this.touchStart(e)
-            }, false)
-            indexListSlider.addEventListener("touchmove", function(e) {
+            })
+            EventUtil.addHandler(indexListSlider, "touchmove", function(e) {
                 _this.touchMove(e)
-            }, false)        
-            indexListSlider.addEventListener("touchend", function(e) {
+            })
+            EventUtil.addHandler(indexListSlider, "touchend", function(e) {
                 _this.touchEnd(e)
-            }, false)            
+            })                                   
         } else {
             // 绑定PC端下拉事件
             indexListSlider.addEventListener("mousedown", function(e) {
@@ -127,7 +126,7 @@ class IndexList extends React.Component {
                 // 调用indexList组件的fetchData()方法更新文章数据
                 indexListComponent.fetchData()
                 // console.log("setTimeout", _this)           
-            }, 2000)
+            }, 1500)
         })     
     }
 
@@ -140,7 +139,7 @@ class IndexList extends React.Component {
             // Just set a _isMounted property to true in componentDidMount and set it to false in componentWillUnmount, and use this variable to check your component's status.
             if (this._isMounted) {
                 this.setState({list : data}, function() {
-                    cancelMask()
+                    DancelMask()
                 })
             }
         }, (err) => {
@@ -170,16 +169,30 @@ class IndexList extends React.Component {
     delArticle(e, item) {
         let _this = this
         let options = {
-            dataType: "article",
+            dataType: "article",  //删除文章
             atricleId:item._id,
             commentId: null
         }        
-        e.stopPropagation()
-        console.log("Article Id: ", item._id, "will be deleted")
+        let articleList = this.state.list
+        if (articleList) {
+            articleList.forEach(function(ele, index) {
+                if (ele._id == item._id) {
+                    let articleDel = articleList.splice(index, 1)
+                    console.log("The article id", articleDel._id, "has been deleted from state arr")                    
+                    _this.setState({
+                        list: articleList
+                    })
+                }
+            })
+        }
+
+        e.stopPropagation() 
+
         ArticleModel.delCommet(options, function(data) {
             console.log("The article id", data._id, "has been deleted")
             // 删除后刷新list
-            _this.fetchData()
+            // _this.fetchData()
+
         }, function(err) {
             if (err) {
                 console.log("Delete: ", err)
@@ -199,7 +212,7 @@ class IndexList extends React.Component {
 
             let date = new Date()
             // 获取当前登录用户的权限
-            let authority = getAuthority()
+            let authority = GetAuthority()
             // 获取当前用户登录信息
             let usrInfo = JSON.parse(UserModel.fetchLogin())
             if (!usrInfo) {
@@ -216,7 +229,7 @@ class IndexList extends React.Component {
                                 </div>
                                 <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
                                     <div style={{display:'inline-block', fontSize:'0.8rem', fontWeight:600, marginRight:'0.3rem'}}>{item.author}</div>
-                                    <div style={{display:'inline-block', fontSize:'0.6rem', marginRight:"3px"}}><span className="icon icon-clock"></span>{dateDiff(item.createTime)}</div>
+                                    <div style={{display:'inline-block', fontSize:'0.6rem', marginRight:"3px"}}><span className="icon icon-clock"></span>{DateDiff(item.createTime)}</div>
                                 </div>
                             </div>
                             <div className=""><p style={Styles.pStyle}>{_this.wordControl(str)}</p></div>

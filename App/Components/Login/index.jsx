@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { UserModel } from '../../Model/dataModel'
-import { getAuthority, cancelMask } from '../../Tools'
+import { GetAuthority, DancelMask } from '../../Tools'
 // 登录组件
 class Login extends React.Component {
     constructor(props) {
@@ -21,7 +21,7 @@ class Login extends React.Component {
         localStorage.clear()
 
         // 取消加载mask
-        cancelMask()
+        DancelMask()
     }
 
     changeLoginFlag(e) {

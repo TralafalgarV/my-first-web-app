@@ -8,7 +8,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import {ArticleModel, UserModel} from '../../Model/dataModel'
-import { dateDiff, cancelMask, getAuthority } from '../../Tools'
+import { DateDiff, DancelMask, GetAuthority } from '../../Tools'
 import '../../Static/CSS/create.css'
 import '../../Static/CSS/articleDetail.less'
 import AVATARPATH from '../../Static/avatar/eg_cute.gif'
@@ -73,7 +73,7 @@ class ArticleDetail extends Component {
             }
             
             // 取消mask效果
-            cancelMask()
+            DancelMask()
         }, (err) => {
             console.log("[ERROR] fetchArticle: ", err)
         })
@@ -87,12 +87,26 @@ class ArticleDetail extends Component {
             atricleId:this.state._id,
             commentId: item._id
         }
+
+        let commentList = this.state.comments
+        if (commentList) {
+            commentList.forEach(function(ele, index) {
+                if (ele._id == item._id) {
+                    let commentDel = commentList.splice(index, 1)
+                    console.log("The comment id", commentDel._id, "has been deleted from state arr")                    
+                    _this.setState({
+                        comments: commentList
+                    })
+                }
+            })
+        }
+
         e.stopPropagation()
-        console.log("Comment Id: ", item._id, "will be deleted")
+
         ArticleModel.delCommet(options, function(data) {
             console.log("The Comment has been deleted")
             // 删除后刷新list
-            _this.fetchData()
+            // _this.fetchData()
         }, function(err) {
             if (err) {
                 console.log("Delete: ", err)
@@ -120,7 +134,7 @@ class ArticleDetail extends Component {
         let _this = this
         let comments = this.state.comments
         // 获取当前登录用户的权限
-        let authority = getAuthority()
+        let authority = GetAuthority()
         let userInfo = JSON.parse(this.userinfo)
         return comments.map(function(item, index) {
             return (
@@ -131,7 +145,7 @@ class ArticleDetail extends Component {
                     <div className="col-85 comment-list">
                         <div>
                             <div style={{fontWeight:'bold', fontSize:'0.85rem', display: "inline-block"}}>{item.author}</div>
-                            <div style={{fontSize:'0.7rem', float: "right"}}><span className="icon icon-clock">{dateDiff(item.createTime)}</span></div>
+                            <div style={{fontSize:'0.7rem', float: "right"}}><span className="icon icon-clock">{DateDiff(item.createTime)}</span></div>
                         </div>
                         <p className="col-85" style={{margin: "0", padding:'0.2rem 0'}}>{item.content}</p>
                     </div>
@@ -159,8 +173,6 @@ class ArticleDetail extends Component {
         if (this.comment.value == '') {
             alert("评论不能为空")
         }
-        // let userInfo = UserModel.fetchLogin()
-        // console.log(JSON.parse(userInfo).content)
         
         // 更新评论
         let params = {

@@ -2,7 +2,7 @@ import React from 'react'
 import {render} from 'react-dom'
 import '../../Static/CSS/musicPlayer.less'
 import {MusicModel} from '../../Model/dataModel'
-import { getMusicAlbumUrl } from '../../Tools'
+import { GetMusicAlbumUrl } from '../../Tools'
 import VinylPath from '../../Static/cover/vinyl.png'
 
 const MUSICCTL = {
@@ -138,7 +138,7 @@ class MusicPlayer extends React.Component {
     render() {
         let _this = this
         // 获取当前歌曲封面的url
-        let albumUrl = getMusicAlbumUrl(this.state.curMusic.albumId)
+        let albumUrl = GetMusicAlbumUrl(this.state.curMusic.albumId)
         return (
             <div>
                 <div className="music-player-container is-playing">
