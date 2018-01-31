@@ -28,44 +28,44 @@ npm run dev
 ```
 |-- build                       //打包文件
 |-- App                         //**主目录 
-|   |--Component				//组件目录
-|      |--ArticleDetail			//文章详情
-|      |--Create				//发表文章
-|      |--IndexList				//文章列表
-|      |--Login					//登录注册
+|   |--Component                //组件目录
+|      |--ArticleDetail         //文章详情
+|      |--Create                //发表文章
+|      |--IndexList             //文章列表
+|      |--Login                 //登录注册
 |      |--Markdown              //Markdown组件
-|      |--Me					//个人页面
+|      |--Me                    //个人页面
 |      |--Music                 //音乐界面
-|      |--main.jsx				//主文件
-|   |--Model        			//数据交互模型
+|      |--main.jsx              //主文件
+|   |--Model                    //数据交互模型
 |      |--dataModel.js			
-|   |--Config					//路由配置
-|      |--route-config.js		//配置文件  两种（按需加载和非按需加载）
-|   |--Server     				//Node文件跟目录	
-|   |  |--db  					//数据库配置	
+|   |--Config                   //路由配置
+|      |--route-config.js       //配置文件  两种（按需加载和非按需加载）
+|   |--Server                   //Node文件跟目录	
+|   |  |--db                    //数据库配置	
 |   |     |--index.js
 |   |  |--routes                //express路由
 |   |     |--article.js         //管理文章的路由部分 
 |   |     |--music.js           //管理音乐的路由部分 
-|   |     |--user.js 			//管理用户的路由部分
-|   |  |--upload  				//上传的图片
-|   |  |--server.js				//node主文件
+|   |     |--user.js            //管理用户的路由部分
+|   |  |--upload                //上传的图片
+|   |  |--server.js             //node主文件
 |   |  |--settings.js           //连接数据库配置文件
-|   |--Static					//静态文件目录
-|      |--avatar				//头像图片
-|      |--cover				    //唱片封面
+|   |--Static                   //静态文件目录
+|      |--avatar                //头像图片
+|      |--cover                 //唱片封面
 |      |--create-icon           //撰写页面的功能图标
 |      |--music-icon            //音乐页面的功能图标
-|      |--CSS					//css文件
-|      |--logo					//logo图标
-|   |--Tools					//工具函数模块
+|      |--CSS                   //css文件
+|      |--logo                  //logo图标
+|   |--Tools                    //工具函数模块
 |      |--index.js              //时间转换、权限读取、去除遮罩、跨浏览器事件封装等
-|   |--app.js					//react主文件
-|   |--index.html				//html模板
-|-- .babelrc				// babel解析配置
-|-- .gitignore				//git上传忽视配置
+|   |--app.js                   //react主文件
+|   |--index.html               //html模板
+|-- .babelrc                    //babel解析配置
+|-- .gitignore                  //git上传忽视配置
 |-- package.json			
-|-- webpack.config.js		//webpack 普通版本配置文件
+|-- webpack.config.js           //webpack 普通版本配置文件
 |-- wepack-production.config.js //生产环境打包配置
 ```
 

@@ -14,14 +14,16 @@ const log = function() {
 }
 
 router.get('/fetchArticle/:id', function(req, res) {
+    log(req.cookies)
     Model('Article').findById(req.params.id).exec(function(err, collection) {
-        console.log("fetchArticle: ", collection)
+        log("fetchArticle: ", collection)
         res.send(JSON.stringify(collection))
     })
 })
 
 // 从文件中读取数据并发送到client
 router.get('/fetchList', function (req, res) {
+    log(req.cookies)
     // 1：升序； -1：降序
     var orderObj = {
         'createTime': -1
@@ -58,17 +60,17 @@ info = {
 }
 */
 router.post('/publish', function (req, res) {
-    console.log("[article] publish a article...", req.body)
+    log("[article] publish a article...", req.body)
     let info = req.body
 
     // _id有效，按照edit操作处理
     if (info._id) {
-        console.log("the article need to update", info._id)
+        log("the article need to update", info._id)
         Model('Article').findById(info._id).exec(function (err, collection) {
             if (err || collection == null) {
                 throw err
             } else {
-                console.log("[publish] Find the article: ", collection)
+                log("[publish] Find the article: ", collection)
             }
 
             // 更新文章内容
@@ -79,10 +81,10 @@ router.post('/publish', function (req, res) {
                     createTime: info.data.createTime
                 }}, function(err, newDoc) {
                     if(err) {
-                        console.log("article update fail")
+                        log("article update fail")
                         res.send({title: 2, content: '文章更新失败'})
                     } else {
-                        console.log("article update success", newDoc)
+                        log("article update success", newDoc)
                         res.send({title: 1, content: '文章更新成功'})
                     }
             })            
@@ -107,12 +109,12 @@ router.post('/comment', function (req, res) {
     var info = req.body
     var articleId = info._id
     var comment = info.comments
-    console.log("[comments] comments data: ", info)
+    log("[comments] comments data: ", info)
     // 根据文章Id更新评论
     Model('Article').update({_id: articleId}, {
         $push: {comments:{author: comment.author, content: comment.content, createTime: comment.createTime}}}, function(err, newDoc) {
         if(err) {
-            console.log("comment fail")
+            log("comment fail")
             res.send({title: 2, content: '评论失败'})
         } else {
             res.send({title: 1, content: '评论成功'})
@@ -152,17 +154,17 @@ function delComment(options, res) {
         if (err || collection == null) {
             throw err
         } else {
-            console.log("Find it: ", collection)
+            log("Find it: ", collection)
         }
 
         // 文章Id和commentId 删除评论
         Model('Article').update({_id: options.atricleId}, {
             $pull: {comments:{_id: options.commentId}}}, function(err, newDoc) {
             if(err) {
-                console.log("del comment fail")
+                log("del comment fail")
                 res.send({title: 2, content: '删除评论失败'})
             } else {
-                console.log("del comment success")
+                log("del comment success")
                 res.send({title: 1, content: '删除评论成功'})
             }
         })         
@@ -175,7 +177,7 @@ function delArticle(id, res) {
         if (err || collection == null) {
             throw err
         } else {
-            console.log("Find it: ", collection)
+            log("Find it: ", collection)
         }
 
         Model('Article').deleteOne({
@@ -183,10 +185,10 @@ function delArticle(id, res) {
         }, function (err) {
             if (!err) {
                 res.send(collection)
-                console.log("Article delete successful")
+                log("Article delete successful")
             } else {
                 res.send(err)
-                console.log("Article delete failed")                
+                log("Article delete failed")                
             }
         })
     })
@@ -197,7 +199,7 @@ router.get('/delete/:id', function (req, res) {
         if (err || collection == null) {
             return handleError("Collection: ", collection, err)
         } else {
-            console.log("Find it: ", collection)
+            log("Find it: ", collection)
         }
 
         Model('Article').deleteOne({
@@ -205,10 +207,10 @@ router.get('/delete/:id', function (req, res) {
         }, function (err) {
             if (!err) {
                 res.send(collection)
-                console.log("Article delete successful")
+                log("Article delete successful")
             } else {
                 res.send(err)
-                console.log("Article delete failed")                
+                log("Article delete failed")                
             }
         })
     })
@@ -263,7 +265,7 @@ router.post('/fetchUsrArticle', function (req, res) {
     // }
     let usrName = req.body.usrname
     if (!usrName) {
-        console.log("[ERROR] fetchUsrArticle req is error")
+        log("[ERROR] fetchUsrArticle req is error")
         res.send("usrName is undefined")
     }
 

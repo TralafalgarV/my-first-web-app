@@ -24,7 +24,8 @@ function _request(_method, _api, _params, _onSuccess, _onError) {
         method: _method,
         mode: "cors",
         headers: {                                // headers 后面有s啊！！！
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            credentials: "include"
         },
         body: (_method.toLowerCase() == 'get')
             ? null

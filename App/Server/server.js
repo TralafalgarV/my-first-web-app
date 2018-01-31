@@ -23,6 +23,14 @@ var music = require('./routes/music')
 //dev-API
 global.API = 'http://localhost:4545'
 
+// 按照上面的解释，设置 session 的可选参数
+app.use(session({
+    secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串
+    cookie: { maxAge: 600 * 1000, httpOnly:false },
+    resave: false, //添加 resave 选项  
+    saveUninitialized: true, //添加 saveUninitialized 选项      
+}))
+
 /**
  * 中间件（middleware）就是处理http请求的函数，
  * 它的最大特点就是，一个中间件处理完成，再传递给下一个中间件
@@ -46,10 +54,11 @@ global.API = 'http://localhost:4545'
  */
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*")
-    res.header("Access-Control-Allow-Headers", "X-Requested-With")
+    res.header("Access-Control-Allow-Headers", "X-Requested-With,content-type,credentials")
     res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS")
+    res.header("Access-Control-Allow-Credentials", "true")    
     res.header("X-Powered-By", ' 3.2.1')
-        //这段仅仅为了方便返回json而已
+    //这段仅仅为了方便返回json而已
     res.header("Content-Type", "application/json;charset=utf-8")
     if(req.method == 'OPTIONS') {
         //让options请求快速返回
