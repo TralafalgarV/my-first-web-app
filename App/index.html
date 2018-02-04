@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1.0, user-scalable=no, minimal-ui"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Coder Freedom</title>
     <style>
@@ -160,6 +160,10 @@
     <div id="app"></div>
 </body>
 <script>
+    document.querySelector("#app").addEventListener('touchmove', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    });    
     //先获取canvas的上下文环境并设置一些共用的属性
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");

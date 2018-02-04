@@ -61,6 +61,7 @@
     "formidable": "^1.0.17",
     "nodemon": "^1.11.0",
     "pinkie-promise": "^2.0.1",
-    "showdown": "^1.8.1"
+    "showdown": "^1.8.1",
+    "ws": "^4.0.0"
   }
 }

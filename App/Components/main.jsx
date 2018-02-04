@@ -40,6 +40,9 @@ let nav = () => {
             <Link className="tab-item" activeClassName="active" to="/music">
                 <span className="tab-label">音乐</span>
             </Link>
+            {/* <Link className="tab-item" activeClassName="active" to="/weather">
+                <span className="tab-label">天气</span>
+            </Link>              */}
             <Link className="tab-item" activeClassName="active" to="/me">
                 <span className="tab-label">我</span>
                 {/* <div className="multi-drop-menu"><span>Me</span>
@@ -57,7 +60,7 @@ let nav = () => {
                         </li>
                     </ul>                   
                 </div> */}                                 
-            </Link>                        
+            </Link>                                
         </nav>
     )
 }

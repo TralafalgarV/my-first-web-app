@@ -183,7 +183,7 @@ class Music extends React.Component {
                     <ul>
                         {this.musicListHandle()}
                     </ul>
-                </div>                
+                </div>
             </div>           
         )
     }

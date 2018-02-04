@@ -14,7 +14,6 @@ const log = function() {
 }
 
 router.get('/fetchArticle/:id', function(req, res) {
-    log(req.cookies)
     Model('Article').findById(req.params.id).exec(function(err, collection) {
         log("fetchArticle: ", collection)
         res.send(JSON.stringify(collection))
@@ -23,7 +22,7 @@ router.get('/fetchArticle/:id', function(req, res) {
 
 // 从文件中读取数据并发送到client
 router.get('/fetchList', function (req, res) {
-    log(req.cookies)
+    log("[Cookies]:", req.cookies)
     // 1：升序； -1：降序
     var orderObj = {
         'createTime': -1
@@ -42,6 +41,7 @@ router.get('/fetchList', function (req, res) {
             })
         })
         res.send(articleList) // 数据类型为 object
+        // res.redirect('/login')
     })
 })
 

@@ -15,6 +15,8 @@ app.use(express.static(__dirname))
 //导入文件
 require('./db')
 var mongoose = require('mongoose')
+//导入websocket
+require('./routes/ws')
 
 var article = require('./routes/article')
 var user = require('./routes/user')
