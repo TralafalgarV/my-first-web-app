@@ -68,7 +68,10 @@ class Login extends React.Component {
     tabGroupHandler(e) {
         let ele = e || window.event
         let target = ele.target || ele.srcElement
-        let [signupContent, loginContent] = this.tabContentDom.children
+        let signupContent = this.tabContentDom.children[0]
+        let loginContent = this.tabContentDom.children[1]
+        let signupGroupDom = this.tabGroupDom.children[0]
+        let loginGroupDom = this.tabGroupDom.children[1]
         
         function setOpacity(ele, opacity) {  
             if (ele.style.opacity != undefined) {  
@@ -102,16 +105,16 @@ class Login extends React.Component {
         e.preventDefault()
 
         if (target.classList.contains("login")) {            
-            this.tabGroupDom.childNodes[1].classList.add("active")
-            this.tabGroupDom.childNodes[0].classList.remove("active")
+            loginGroupDom.classList.add("active")
+            signupGroupDom.classList.remove("active")
             // login
             console.log(loginContent)
             signupContent.style.display = "none"
             loginContent.style.display = "block"
             // fadein(loginContent, 100, 1000)
         } else if (target.classList.contains("signup")) {
-            this.tabGroupDom.childNodes[0].classList.add("active")
-            this.tabGroupDom.childNodes[1].classList.remove("active")
+            signupGroupDom.classList.add("active")
+            loginGroupDom.classList.remove("active")
             // signup
             console.log(signupContent)
             loginContent.style.display = "none"
