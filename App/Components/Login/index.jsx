@@ -1,18 +1,24 @@
 import React, { Component } from 'react'
 import { UserModel } from '../../Model/dataModel'
 import { GetAuthority, DancelMask } from '../../Tools'
+import '../../Static/CSS/login'
 // 登录组件
 class Login extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            loginFlag: true,
             username: '',
             email: '',
             password: '',
             rpassword: '',
         }
+
+        this.tabContentHandler = this.tabContentHandler.bind(this)
+        this.tabGroupHandler = this.tabGroupHandler.bind(this)
+        this.userLogin = this.userLogin.bind(this)
+        this.userRegister = this.userRegister.bind(this)
+        this.changeHandler = this.changeHandler.bind(this)
     }
 
     componentDidMount() {
@@ -24,17 +30,97 @@ class Login extends React.Component {
         DancelMask()
     }
 
-    changeLoginFlag(e) {
-        e.stopPropagation();
-        this.setState({
-            loginFlag: true
-        })
+    // tab-content 元素事件处理
+    tabContentHandler(e) {
+        let ele = e || window.event
+        let target = ele.target || ele.srcElement
+        // 获取同一父元素下，位于前面的子元素
+        let bortherLabel = target.offsetParent.childNodes[0]
+
+        if (target.nodeName.toLowerCase() == "input") {
+            // 此处应为
+            if (ele.type === "keyup") {
+                console.log()
+                if (target.value == "") {
+                    bortherLabel.classList.remove("active")
+                } else {
+                    bortherLabel.classList.add("active")
+                }
+            } else if (ele.type === "blur") {
+                console.log("blur")
+                if (target.value == "") {
+                    bortherLabel.classList.remove("active")                    
+                } else {
+                    
+                }
+            } else if (ele.type === "focus") {
+                console.log("focus")                
+                if (target.value == "") {
+                    bortherLabel.classList.remove("highlight")                    
+                } else {
+                    bortherLabel.classList.add("highlight")                    
+                }
+            }
+        }
     }
-    changeRegisterFlag(e) {
-        e.stopPropagation();
-        this.setState({
-            loginFlag: false
-        })
+
+    // tab-group 元素事件处理
+    tabGroupHandler(e) {
+        let ele = e || window.event
+        let target = ele.target || ele.srcElement
+        let [signupContent, loginContent] = this.tabContentDom.children
+        
+        function setOpacity(ele, opacity) {  
+            if (ele.style.opacity != undefined) {  
+                ///兼容FF和GG和新版本IE  
+                ele.style.opacity = opacity / 100;  
+          
+            } else {  
+                ///兼容老版本ie  
+                ele.style.filter = "alpha(opacity=" + opacity + ")";  
+            }  
+        }  
+
+        function fadein(ele, opacity, speed) {  
+            if (ele) {  
+                var v = ele.style.filter.replace("alpha(opacity=", "").replace(")", "") || ele.style.opacity;  
+                v < 1 && (v = v * 100);  
+                var count = speed / 1000;  
+                var avg = count < 2 ? (opacity / count) : (opacity / count - 1);  
+                var timer = null;  
+                timer = setInterval(function() {  
+                    if (v < opacity) {  
+                        v += avg;  
+                        setOpacity(ele, v);  
+                    } else {  
+                        clearInterval(timer);  
+                    }  
+                }, 500);  
+            }  
+        } 
+
+        e.preventDefault()
+
+        if (target.classList.contains("login")) {            
+            this.tabGroupDom.childNodes[1].classList.add("active")
+            this.tabGroupDom.childNodes[0].classList.remove("active")
+            // login
+            console.log(loginContent)
+            signupContent.style.display = "none"
+            loginContent.style.display = "block"
+            // fadein(loginContent, 100, 1000)
+        } else if (target.classList.contains("signup")) {
+            this.tabGroupDom.childNodes[0].classList.add("active")
+            this.tabGroupDom.childNodes[1].classList.remove("active")
+            // signup
+            console.log(signupContent)
+            loginContent.style.display = "none"
+            signupContent.style.display = "block"
+            // fadein(signupContent, 100, 1000)            
+        } else {
+            console.log("ERROR")
+        }
+
     }
 
     userRegister() {
@@ -80,7 +166,7 @@ class Login extends React.Component {
         // console.log(userInfo);
         UserModel.register(userInfo, (data) => {
             if (data.registerState == true) {
-                console.log("注册成功", data)
+                console.log("注册成功")
                 UserModel.storeLogin(JSON.stringify({
                     content: data.content,
                     username: data.username,
@@ -98,7 +184,7 @@ class Login extends React.Component {
         })
     }
 
-    handleChangeVal(e, key) {
+    changeHandler(e, key) {
         let val = e.target.value
         switch(key) {
             case 'username':
@@ -117,11 +203,11 @@ class Login extends React.Component {
     }
 
     userLogin() {
-        let username = this.username.value
-        let password = this.password.value
+        let username = this.state.username
+        let password = this.state.password
         let userInfo = {
-            username: username,
-            password: password
+            username,
+            password
         }
         UserModel.login(userInfo, (data) => {
             console.log("[Login] userLogin return data: ", data)
@@ -156,108 +242,82 @@ class Login extends React.Component {
     }
 
     render() {
-        console.log("[Login] render " + location.hash)      
-        let loginTemplate = this.state.loginFlag ? (
-            <div className="content" style={{position: "relative"}}>
-                <div className="list-block">
-                    <ul>
-                        <li>
-                            <div className="item-content">
-                                <div className="item-media"><i className="icon icon-form-name"></i></div>
-                                <div className="item-inner">
-                                    <div className="item-title label">用户名</div>
-                                    <div className="item-input">
-                                        <input type="text" ref={(e) => {this.username = e}} placeholder="Your name" />
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="item-content">
-                                <div className="item-media"><i className="icon icon-form-password"></i></div>
-                                <div className="item-inner">
-                                    <div className="item-title label">密码</div>
-                                    <div className="item-input">
-                                        <input type="password" ref={(e) => {this.password = e}} placeholder="Password" className="" />
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-
-                </div>
-                <div className="content-block">
-                    <div className="row">
-                        <div className="col-50"><a onClick={()=>{this.userLogin()}} className="button button-big button-fill button-success">登录</a></div>
-                        <div className="col-50"><a id="register" ref="register" onClick={(e)=>this.changeRegisterFlag(e)}  className="button button-big button-fill button-register">注册</a></div>
-                    </div>
-                </div>
-            </div>
-        ) : (
-            <div className="content" style={{position: "relative"}}>
-                <form action="" onClick={(e)=>{e.stopPropagation()}}>
-                <div className="list-block">
-                        <ul>
-                            <li>
-                                <div className="item-content">
-                                    <div className="item-media"><i className="icon icon-form-name"></i></div>
-                                    <div className="item-inner">
-                                        <div className="item-title label">用户名</div>
-                                        <div className="item-input">
-                                            <input type="text" name="username" value={this.state.username} onChange={(e)=>{this.handleChangeVal(e,'username')}} ref="username" placeholder="Your name" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="item-content">
-                                    <div className="item-media"><i className="icon icon-form-email"></i></div>
-                                    <div className="item-inner">
-                                        <div className="item-title label">邮箱</div>
-                                        <div className="item-input">
-                                            <input type="email" name="email" ref="email" value={this.state.email} onChange={(e)=>{this.handleChangeVal(e,'email')}} placeholder="E-mail" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="item-content">
-                                    <div className="item-media"><i className="icon icon-form-password"></i></div>
-                                    <div className="item-inner">
-                                        <div className="item-title label">密码</div>
-                                        <div className="item-input">
-                                            <input type="password" ref="password" name="password" placeholder="Password" value={this.state.password} onChange={(e)=>{this.handleChangeVal(e,'password')}} className="" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="item-content">
-                                    <div className="item-media"><i className="icon icon-form-password"></i></div>
-                                    <div className="item-inner">
-                                        <div className="item-title label">确认密码</div>
-                                        <div className="item-input">
-                                            <input type="password" ref="rpassword" name="rpassword" placeholder="Password" value={this.state.rpassword} onChange={(e)=>{this.handleChangeVal(e,'rpassword')}} className="" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                </div>
-                <div className="content-block">
-                    <div className="row">
-                        <div className="col-50"><a onClick={()=>{this.formReset()}} className="button button-big button-fill button-danger">重置</a></div>
-                        <div className="col-50"><a onClick={()=>{this.userRegister()}} className="button button-big button-fill button-success" type="submit">注册</a></div>
-                    </div>
-                </div>
-                </form>
-
-            </div>
-        )
+        console.log("[Login] render " + location.hash)
         return (
-            <main>
-                {loginTemplate}
-            </main>
+            <div className="form">
+                <ul className="tab-group" ref={(ele) => {this.tabGroupDom = ele}} onClick={(e) => {this.tabGroupHandler(e)}}>
+                    <li className="tab active"><a className="signup" href="#signup">Sign Up</a></li>
+                    <li className="tab"><a className="login" href="#login">Log In</a></li>
+                </ul>
+
+                <div className="tab-content" ref={(ele) => {this.tabContentDom = ele}} onKeyUp={(e) => this.tabContentHandler(e)}>
+                    <div className="signup">
+                        <h1>注册</h1>
+
+                        <form action="" onClick={(e)=>{e.preventDefault()} /* 取消表单默认submit */}>
+
+                            <div className="top-row">
+                                <div className="field-wrap">
+                                    <label htmlFor="">
+                                        用户名<span className="req">*</span>
+                                    </label>
+                                    <input type="text" name="1" id="1" onChange={(e) => {this.changeHandler(e, "username")}} autoComplete="off" required/>
+                                </div>
+                            </div>
+
+                            <div className="field-wrap">
+                                <label htmlFor="">
+                                    邮箱<span className="req">*</span>
+                                </label>
+                                <input type="email" name="2" id="2" onChange={(e) => {this.changeHandler(e, "email")}} autoComplete="off" required/>
+                            </div>
+
+                            <div className="field-wrap">
+                                <label htmlFor="">
+                                    密码<span className="req">*</span>
+                                </label>
+                                <input type="password" name="3" id="3" onChange={(e) => {this.changeHandler(e, "password")}} autoComplete="off" required/>
+                            </div>
+
+                            <div className="field-wrap">
+                                <label htmlFor="">
+                                    确认密码<span className="req">*</span>
+                                </label>
+                                <input type="password" name="6" id="6" onChange={(e) => {this.changeHandler(e, "rpassword")}} autoComplete="off" required/>
+                            </div>                                                       
+
+                            <button type="submit" className="button button-block" onClick={()=>{this.userRegister()}}>Get Started</button>
+                        </form>
+                        
+                    </div> {/* <div id="signup"> */}
+
+                    <div className="login">
+                        <h1>欢迎回来</h1>
+
+                        <form action="" onClick={(e)=>{e.preventDefault()}/* 取消表单默认submit */}>
+
+                            <div className="field-wrap">
+                                <label htmlFor="">
+                                    用户名<span className="req">*</span>
+                                </label>
+                                <input type="text" name="4" id="4" onChange={(e) => {this.changeHandler(e, "username")}} autoComplete="off" required/>
+                            </div>
+
+                            <div className="field-wrap">
+                                <label htmlFor="">
+                                    密码<span className="req">*</span>
+                                </label>
+                                <input type="password" name="5" id="5" onChange={(e) => {this.changeHandler(e, "password")}} autoComplete="off" required/>
+                            </div>
+
+                            <p className="forgot"><a href="#">忘记密码?</a></p>
+
+                            <button className="button button-block" onClick={()=>{this.userLogin()}}>Log In</button>
+
+                        </form>
+                    </div>{/* <div className="login"> */}
+                </div>{/* <div className="tab-content"> */}
+            </div>
         )
     }
 }

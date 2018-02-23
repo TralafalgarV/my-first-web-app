@@ -160,10 +160,6 @@
     <div id="app"></div>
 </body>
 <script>
-    document.querySelector("#app").addEventListener('touchmove', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    });    
     //先获取canvas的上下文环境并设置一些共用的属性
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
