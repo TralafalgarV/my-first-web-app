@@ -223,7 +223,7 @@ class ArticleDetail extends Component {
                         <Markdown content={this.state.content}/>
                     </article>
                 </section>
-                <section style={{marginBottom: "3rem"}}>
+                <section style={{paddingBottom: "3rem"}}>
                     <div className="ad-comments">
                         <ul>{this.articleComments()}</ul>
                     </div>
@@ -239,5 +239,5 @@ class ArticleDetail extends Component {
     }
 }
 
-// 做按需加载必须使用这个方式到处,不能使用 export
+// 做按需加载必须使用这个方式导出,不能使用 export
 module.exports = ArticleDetail

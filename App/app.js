@@ -16,7 +16,8 @@ import {
     Me,
     ArticleDetail,
     Login,
-    MusicPlayer
+    MusicPlayer,
+    MusicSearch
 } from './Config/route-config'
 import '../App/Static/CSS/base.css'
 
@@ -52,7 +53,8 @@ const rootRoute = {
                 Me,
                 ArticleDetail,
                 Login,
-                MusicPlayer
+                MusicPlayer,
+                MusicSearch
             ]
         }
     ]

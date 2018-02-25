@@ -33,6 +33,7 @@ class Music extends React.Component {
         this.rotateGallery = this.rotateGallery.bind(this)
         this.resetDeg = this.resetDeg.bind(this)
         this.listHandle = this.listHandle.bind(this)
+        this.searchMusic = this.searchMusic.bind(this)
     }
 
     // 展示专辑封面
@@ -94,7 +95,7 @@ class Music extends React.Component {
 
     // 获取music相关数据
     fetchData() {
-        MusicModel.fetchList("", (data) => {
+        MusicModel.fetchList({option: "music-list"}, (data) => {
             // 更新state
             this.setState({
                 musicList: data
@@ -103,6 +104,20 @@ class Music extends React.Component {
         }, (err) => {
             console.log("music fail")
         })
+    }
+
+    // 歌曲搜索
+    searchMusic() {
+        let musicName = this.seaechDom.value
+        if (musicName != '') {
+            console.log(musicName)
+            hashHistory.push({
+                pathname:"/musicSearch",
+                state: {
+                    name: musicName
+                }
+            }) 
+        }
     }
 
     // 卸载钩子函数
@@ -144,6 +159,7 @@ class Music extends React.Component {
         let _this = this
         let musicList = this.state.musicList
         return musicList.map(function(ele, index) {
+            // hashHistory.push() 参数
             let path = {
                 pathname: "/musicPlayer",
                 state: {
@@ -175,6 +191,12 @@ class Music extends React.Component {
         console.log("[Music] render " + location.hash)
         return (
             <div style={{position: "relative"}}>
+                <div className="search">
+                    <input type="text" name="music-search" id="music-search" placeholder="搜索歌曲" ref={(dom) => {this.seaechDom = dom}}/>
+                    <button onClick={() => {
+                        this.searchMusic()
+                    }}>搜索</button>
+                </div>
                 <div className="mContainer">
                     <div className="mGallery" id="mGallery" ref={(node) => {this.galleryNode = node}}>{this.coverImages()}</div>
                     <div id="buttons">{this.listHandle()}</div>                
@@ -182,6 +204,7 @@ class Music extends React.Component {
                 <div className="music-list">
                     <ul>
                         {this.musicListHandle()}
+                        
                     </ul>
                 </div>
             </div>           

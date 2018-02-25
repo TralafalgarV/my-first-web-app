@@ -46,6 +46,15 @@ const MusicPlayer = {
     },
 }
 
+const MusicSearch = {
+    path: 'musicSearch',
+    getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+            return cb(null, require('../Components/Music/musicSearch'))
+        }, 'musicSearch')
+    },
+}
+
 const Me = {
     path: 'me',
     getComponent(nextState, cb) {
@@ -81,4 +90,5 @@ module.exports = {
     ArticleDetail: ArticleDetail,
     Login: Login,
     MusicPlayer: MusicPlayer,
+    MusicSearch: MusicSearch
 }

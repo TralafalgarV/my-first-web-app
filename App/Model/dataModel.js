@@ -74,7 +74,7 @@ let Tools = {
     parseJSON: function(response) {
         return response.json()
     },
-    _getSearchFromObject: function(param, key) {
+    _getSearchFromObject: function(param) {
         if(param == null) {
             return ''
         }
