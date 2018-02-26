@@ -5,7 +5,7 @@ import { render } from 'react-dom'
 import { Link, hashHistory } from 'react-router'
 import '../../Static/CSS/music.less'
 import { MusicModel } from '../../Model/dataModel'
-import { GetMusicAlbumUrl, DancelMask } from '../../Tools'
+import { DancelMask } from '../../Tools'
 
 // 获取所有本地封面图片路径
 // const requireCover = require.context("../../Static/cover", true, /[0-9]\.(png|jpg)/)
@@ -39,8 +39,11 @@ class Music extends React.Component {
     // 展示专辑封面
     coverImages() {
         let images = this.state.musicList.map(function(ele) {
-            return GetMusicAlbumUrl(ele.albumId)
+            return ele.albumUrl
         })
+
+        images = images.slice(-6) 
+
         return (
             images.map(function(item, index) {
                 return (
@@ -142,8 +145,9 @@ class Music extends React.Component {
     // 轮播导航栏
     listHandle() {
         let _this = this
+        let images = this.state.musicList.slice(-6)
         return (
-            this.state.musicList.map(function(item, index) {
+            images.map(function(item, index) {
                 return (
                     <div className="music-btn" key={index} onClick={function(e) {
                         _this.setGalleryImage(index)
@@ -193,19 +197,38 @@ class Music extends React.Component {
             <div style={{position: "relative"}}>
                 <div className="search">
                     <input type="text" name="music-search" id="music-search" placeholder="搜索歌曲" ref={(dom) => {this.seaechDom = dom}}/>
-                    <button onClick={() => {
+                    <span onClick={() => {
                         this.searchMusic()
-                    }}>搜索</button>
+                    }}>搜索</span>
                 </div>
                 <div className="mContainer">
                     <div className="mGallery" id="mGallery" ref={(node) => {this.galleryNode = node}}>{this.coverImages()}</div>
                     <div id="buttons">{this.listHandle()}</div>                
                 </div>
                 <div className="music-list">
-                    <ul>
-                        {this.musicListHandle()}
-                        
-                    </ul>
+                    <div className="music-main">
+                        <div className="music-container">
+                            <ul>{this.musicListHandle()}</ul>
+                        </div>
+                    </div>
+                    <div className="music-sub">
+                        <ul>
+                            <li>还没</li>
+                            <li>想好</li>
+                            <li>做</li>
+                            <li>什</li>
+                            <li>么</li>
+                        </ul>
+                    </div>
+                    <div className="music-extra">
+                        <ul>
+                            <li>这</li>
+                            <li>边</li>
+                            <li>也</li>
+                            <li>是</li>
+                            <li>！</li>
+                        </ul>                    
+                    </div>
                 </div>
             </div>           
         )
