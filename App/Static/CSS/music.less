@@ -57,6 +57,9 @@ ul {
         }
 
         @media screen and (max-width: 414px) {
+            .mContainer {
+                perspective: 750px;
+            }
             .gallery-pic {
                 width: 4.8rem;
                 height: 4.8rem;
@@ -70,8 +73,11 @@ ul {
     @count:~"@{num}";
     // 设置每个pic的初始位置，一定要一起写，不然前面的会被覆盖
     &:nth-child(@{count}) {
-        /* transformZ:相当于 相对于视点给元素增加了一个 旋转半径r，此时再旋转（rotate）元素时，元素会以原点为中心点，r为半径进行 环绕旋转 */    
-        transform:translate(-50%, -50%) rotateY(@num * 60deg ) translateZ(350px)
+        /* transformZ:相当于 相对于视点给元素增加了一个 旋转半径r，此时再旋转（rotate）元素时，元素会以原点为中心点，r为半径进行 环绕旋转 */            
+        transform:translate(-50%, -50%) rotateY(@num * 60deg ) translateZ(300px);
+        @media screen and (max-width: 414px) {
+            transform:translate(-50%, -50%) rotateY(@num * 60deg ) translateZ(150px);
+        }
     }
     .Circle(@num + 1)  //回调自身
 }
@@ -160,14 +166,14 @@ ul {
         float: left;
         margin: -2rem 0 0 -2rem;
         font-size: 1rem;
-        color: rgba(255, 87, 87, 0.8);
+        color: rgba(26, 177, 137, 1);
     }
 
     &:hover {
         /*水平、垂直、[模糊距离]、[阴影的尺寸]、[颜色]、[将外部阴影 (outset) 改为内部阴影]*/ 
         box-shadow: 1px 1px 1px #888; 
         cursor: pointer;
-        background-color: rgba(136, 136, 136, 0.2);  
+        background: rgba(26, 177, 137, 0.45);                    
     }
 
     /*阻止事件捕获*/ 
@@ -177,21 +183,16 @@ ul {
 
     header  {
         padding-top: 0.2rem;
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
 
     section {
+        font-size: 12px;
         & > * {
             display: inline-block;
             margin-right: 0.5rem;
             padding: 0.2rem 0;
         }
-    }
-}
-
-@media screen and (max-width: 414px) {
-    .music-list {
-        margin: 0;
     }
 }
 
@@ -201,17 +202,28 @@ ul {
     // left: 50%;
     // transform: translateX(-50%);
 
-    & + span {
-        border: 1px solid black;
+    & + button {
+        border: 0;
+        outline: none;
+        border-radius: 4px;
         margin-left: 0.5rem;
-        border-radius: 2px;
         padding: 2px 4px;
-        // font-size: 0.8rem;
+        // height: 1em;
+        font-size: 1em;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .1em;
+        // background: #1ab188;
+        background: rgba(26, 177, 137, 0.45);                    
+        color: #ffffff;
+        -webkit-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        -webkit-appearance: none;
     }
 
-    & + span:hover {
+    & + button:hover {
         cursor: pointer;
-        background-color: chocolate;
+        background: rgba(23, 155, 119, 0.45);        
     }
 }
 

@@ -97,7 +97,7 @@ class MusicSearch extends React.Component{
       return (
         <div className="ms">
             <ul>
-                <li key={"header"}>
+                <li key={"header"} style={{color: "rgb(26, 177, 137)"}}>
                     <header style={{width: "30%", display: "inline-block"}}>{"音乐"}</header>
                     <section style={{width: "70%", display: "inline-block"}}>
                         <span>{"歌手"}</span>

@@ -195,12 +195,12 @@ class Music extends React.Component {
         console.log("[Music] render " + location.hash)
         return (
             <div style={{position: "relative"}}>
-                <div className="search">
+                <form className="search" action="" onClick={(e)=>{e.preventDefault()}}>
                     <input type="text" name="music-search" id="music-search" placeholder="搜索歌曲" ref={(dom) => {this.seaechDom = dom}}/>
-                    <span onClick={() => {
+                    <button type="submit" onClick={() => {
                         this.searchMusic()
-                    }}>搜索</span>
-                </div>
+                    }}>搜索</button>
+                </form>
                 <div className="mContainer">
                     <div className="mGallery" id="mGallery" ref={(node) => {this.galleryNode = node}}>{this.coverImages()}</div>
                     <div id="buttons">{this.listHandle()}</div>                
