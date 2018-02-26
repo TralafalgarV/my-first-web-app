@@ -92,7 +92,8 @@ const addMusic = function(index, res) {
                 albumTitle: curMusic.albumName,
                 songTitle: curMusic.musicName,
                 musicUrl: curMusic.musicUrl,
-                albumUrl: curMusic.albumUrl
+                albumUrl: curMusic.albumUrl,
+                musicId: curMusic.musicId,
             }, function(err, doc) {
                 if (err) {
                     res.send("[Add Music] error ", err)            

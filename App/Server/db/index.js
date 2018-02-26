@@ -40,6 +40,7 @@ mongoose.model('Music', new mongoose.Schema({
     albumTitle: {type: String, isRequired: true},
     songTitle: {type: String, isRequired: true},
     musicUrl: {type: String, isRequired: true},
+    musicId: {type: String, isRequired: true},
     albumUrl: {type: String, isRequired: true},
     albumId: {type: Number, isRequired: true},
 }))

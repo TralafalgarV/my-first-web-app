@@ -160,7 +160,7 @@ class MusicPlayer extends React.Component {
                                 <div className="control-play" onClick={() => this.ctlHandle(MUSICCTL.PLAY)} ref={(node) => this.playNode = node}></div>
                                 <div className="control-forwards" onClick={() => this.ctlHandle(MUSICCTL.FORWARD)}></div>
                                 <audio ref={(node) => {this.audio = node}}>
-                                    <source src={this.state.curMusic.musicUrl} type="audio/mpeg" />
+                                    <source src={"http://music.163.com/song/media/outer/url?id=" +`${this.state.curMusic.musicId}`+".mp3"} type="audio/mpeg" />
                                 </audio>
                             </div>
                         </div>
