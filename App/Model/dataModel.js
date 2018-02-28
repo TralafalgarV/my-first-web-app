@@ -1,5 +1,5 @@
-// const API = 'http://localhost:4545/'
-const API = 'http://47.96.183.75/'
+const API = 'http://localhost:4545/'
+// const API = 'http://47.96.183.75/'
 
 const USER_LOGIN = 'userLogin'
 // 引入 whatwg-fetch 模块，解决fetch兼容性问题
@@ -18,7 +18,7 @@ import { win32 } from 'path';
 function _request(_method, _api, _params, _onSuccess, _onError) {
     console.log("[Model] _request: " + _api)
     if (_method == 'POST') {
-        console.log("[Model] post _params: ", _params)
+        // console.log("[Model] post _params: ", _params)
     }
     let _options = {
         method: _method,

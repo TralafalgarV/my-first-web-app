@@ -22,7 +22,6 @@ router.get('/fetchArticle/:id', function(req, res) {
 
 // 从文件中读取数据并发送到client
 router.get('/fetchList', function (req, res) {
-    log("[Cookies]:", req.cookies)
     // 1：升序； -1：降序
     var orderObj = {
         'createTime': -1

@@ -26,12 +26,12 @@ var music = require('./routes/music')
 global.API = 'http://localhost:4545'
 
 // 按照上面的解释，设置 session 的可选参数
-app.use(session({
-    secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串
-    cookie: { maxAge: 600 * 1000, httpOnly:false },
-    resave: false, //添加 resave 选项  
-    saveUninitialized: true, //添加 saveUninitialized 选项      
-}))
+// app.use(session({
+//     secret: 'recommand 128 bytes random string', // 建议使用 128 个字符的随机字符串
+//     cookie: { maxAge: 600 * 1000, httpOnly:false },
+//     resave: false, //添加 resave 选项  
+//     saveUninitialized: true, //添加 saveUninitialized 选项      
+// }))
 
 /**
  * 中间件（middleware）就是处理http请求的函数，

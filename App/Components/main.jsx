@@ -1,5 +1,6 @@
 import React from 'react'
 import {render} from 'react-dom'
+import { connect } from 'react-redux'
 import {Link} from 'react-router'
 // import pureRender from "pure-render-decorator"  // render 性能优化模块
 import { is } from 'immutable'
@@ -8,7 +9,6 @@ import { is } from 'immutable'
 import '../Static/CSS/articleDetail.less'
 // Import styles if they don't get loaded already
 // import 'react-perf-tool/lib/styles.css'
-
 // [优化] 对象字面量会导致 render 触发重新渲染
 const navStyle = {
     position: "relative",
@@ -73,7 +73,7 @@ App
  +--- Music
  +--- Me
  */
-class App extends React.Component {
+class PureApp extends React.Component {
     constructor(props) {
         super(props)
         this.state = {}
@@ -107,11 +107,20 @@ class App extends React.Component {
         return false
     }
 
+    componentDidMount() {
+        let audio = document.querySelector("#player")
+        // 获取 audio 并更新到 store 中
+        this.props.initAudio(audio)
+    }
+
     render() {
         console.log("[App] render " + location.hash)
         return (
             <div data-log="one">
-                <div style={navStyle}>{nav()}</div>                
+                <div style={navStyle}>{nav()}</div>
+                <audio id="player">
+                    <source id="playerSource" src="" type="audio/mpeg" />
+                </audio>
                 <div data-log="two">
                     {this.props.children}
                 </div>
@@ -120,4 +129,26 @@ class App extends React.Component {
         )
     }
 }
+
+// mapStateToProps：简单来说，就是把状态绑定到组件的属性当中。
+// 我们定义的state对象有哪些属性，在我们组件的props都可以查阅和获取
+function mapStateToProps(state) {
+    return {
+        audio: state.audio,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        initAudio: (audio) => {
+            dispatch({
+                type: "initAudio",
+                audio: audio
+            })
+        }
+    }
+}
+
+const App = connect(mapStateToProps, mapDispatchToProps)(PureApp)
+
 export default App

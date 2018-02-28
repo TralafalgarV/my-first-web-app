@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import {render} from 'react-dom'
+import { Provider } from "react-redux"
+import store from "./Components/Stroe"
 import {
     Router,
     Route,
@@ -65,7 +67,10 @@ let root = document.getElementById('app')
 // 你可能还注意到，Router组件有一个参数history，它的值hashHistory表示，路由的切换由URL的hash变化决定，
 // 即URL的#部分发生变化。举例来说，用户访问http://www.example.com/，实际会看到的是http://www.example.com/#/
 render(
-    <Router routes={rootRoute} history={hashHistory}/>, root)
+    <Provider store={store}>
+        <Router routes={rootRoute} history={hashHistory}/>
+    </Provider>
+    , root)
 
 /**
  * 补充：每个路由都有onEnter和onLeave 事件钩子函数，用户进入或离开该路由时触发。
