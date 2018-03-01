@@ -8,10 +8,10 @@ import {MusicModel} from '../../Model/dataModel'
 import VinylPath from '../../Static/cover/vinyl.png'
 
 const MUSICCTL = {
-    FORWARD: Symbol('forward'),
-    BACK: Symbol('back'),
-    STOP: Symbol('stop'),
-    PLAY: Symbol('play')
+    FORWARD: 'forward',
+    BACK: 'back',
+    STOP: 'stop',
+    PLAY: 'play'
 }
 
 /**
@@ -55,10 +55,14 @@ class Player extends React.Component {
     }
 
     componentDidMount() {
-        console.log("componentDidMount: ", this.props.location.state)
+        // console.log("componentDidMount: ", this.props.location.state)
         this.setState({
             curMusic: this.props.location.state.curMusic,
             index: this.props.location.state.index
+        }, function() {
+            // 将当前的音乐通过dispatch更新到store
+            let musicId = this.props.location.state.curMusic.musicId
+            this.props.actions.update("http://music.163.com/song/media/outer/url?id=" +`${musicId}`+".mp3", "init", this.state.curMusic)
         })
     }
 
@@ -71,13 +75,12 @@ class Player extends React.Component {
         // 音乐的播放开始
         if (this.playNode.classList.contains("control-pause")) {
             console.log("music play")            
-            // this.audio.play()
-            this.props.actions.start()                   
+            this.props.actions.update("", "Start")                             
         } else {
             // 结束音乐的播放
             console.log("music stop")
             // this.audio.pause()
-            this.props.actions.stop()                   
+            this.props.actions.update("", "Stop")                             
         }
     }
     
@@ -117,7 +120,8 @@ class Player extends React.Component {
         }, function() {  // setState是异步操作，导致 curMusic 没有及时更新
             // console.log(this.state.curMusic, this.state.index)
             // 修改source.src之后，需要重新加载audio元素
-            // this.audio.load()  // 这个很重要  
+            // this.audio.load()  // 这个很重要
+            this.props.actions.update("http://music.163.com/song/media/outer/url?id=" +`${this.state.curMusic.musicId}`+".mp3", cmd, this.state.curMusic)
         })            
     }
 
@@ -127,8 +131,7 @@ class Player extends React.Component {
         switch (btnType) {
             case MUSICCTL.BACK:
                 console.log("[Music] control-back")
-                this.musicController(MUSICCTL.BACK)
-                this.props.actions.back()                                   
+                this.musicController(MUSICCTL.BACK)                                  
                 break
             case MUSICCTL.PLAY:
                 console.log("[Music] click control-play")
@@ -137,7 +140,6 @@ class Player extends React.Component {
             case MUSICCTL.FORWARD:
                 console.log("[Music] control-forwards")
                 this.musicController(MUSICCTL.FORWARD)
-                this.props.actions.next()                                   
                 break
             default:
                 break
@@ -148,8 +150,6 @@ class Player extends React.Component {
         let _this = this
         // 获取当前歌曲封面的url
         let albumUrl = this.state.curMusic.albumUrl
-        // 将当前的音乐通过dispatch更新到store
-        this.props.actions.update(this.state.curMusic)
         return (
             <div>
                 <div className="music-player-container is-playing">
@@ -186,7 +186,7 @@ class Player extends React.Component {
 // 我们定义的state对象有哪些属性，在我们组件的props都可以查阅和获取
 function mapStateToProps(state) {
     return {
-        curMusic: state.curMusic,
+        curMusicUrl: state.curMusicUrl,
     }
 }
 
@@ -194,22 +194,12 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         actions: {
-            start: () => {
-                dispatch(startAction)
-            },
-            stop: () => {
-                dispatch(stopAction)
-            },
-            back: () => {
-                dispatch(backAction)
-            },
-            next: () => {
-                dispatch(nextAction)
-            },
-            update: (curMusic) => {
+            update: (curMusicUrl, option, musicInfo) => {
                 dispatch({
                     type: "update",
-                    curMusic: curMusic
+                    curMusicUrl: curMusicUrl,
+                    option: option,
+                    musicInfo: musicInfo,
                 })
             }                      
         }
@@ -217,10 +207,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 // action creator
-const startAction = {type: "start"}
-const stopAction = {type: "stop"}
-const backAction = {type: "back"}
-const nextAction = {type: "next"}
+
 
 const MusicPlayer = connect(mapStateToProps, mapDispatchToProps)(Player)
 

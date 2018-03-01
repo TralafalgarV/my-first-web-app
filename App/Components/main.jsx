@@ -7,7 +7,6 @@ import { is } from 'immutable'
 // import ReactPerfTool from 'react-perf-tool' // 性能检测模块
 // import Perf from 'react-addons-perf'        // 性能检测模块
 import '../Static/CSS/articleDetail.less'
-// Import styles if they don't get loaded already
 // import 'react-perf-tool/lib/styles.css'
 // [优化] 对象字面量会导致 render 触发重新渲染
 const navStyle = {
@@ -18,7 +17,6 @@ const navStyle = {
     zIndex: '2001'
 }
 
-// Link组件用于取代<a>元素，生成一个链接，允许用户点击后跳转到另一个路由
 // Link的to属性值，需要加‘/’，否则会触发两次route跳转
 // activeClassName 属性是 Link 被点击时，显示的样式
 let nav = () => {
@@ -65,7 +63,6 @@ let nav = () => {
     )
 }
 
-//  上面代码中，App组件的this.props.children属性就是子组件
 /**
 App
  +--- IndexList(优先加载页面)---ArticleList
@@ -76,9 +73,12 @@ App
 class PureApp extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {
+            curMusicUrl: ""
+        }
     }
 
+    // Called to determine whether the change in props and state should trigger a re-render.
     shouldComponentUpdate(nextProps={}, nextState={}) {
         console.log("[App] shouldComponentUpdate...")
 
@@ -107,10 +107,39 @@ class PureApp extends React.Component {
         return false
     }
 
+    // Called immediately after a compoment is mounted. Setting state here will trigger re-rendering.
     componentDidMount() {
+    }
+
+    // Called immediately after updating occurs. Not called for the initial render.
+    componentDidUpdate(preProps, preState) {
+        console.log("Music preProps: ", preProps.fuck.musicPlayerReducer.option)
+        console.log("Music newProps: ", this.props.fuck.musicPlayerReducer.option)
+        let option = this.props.fuck.musicPlayerReducer.option
         let audio = document.querySelector("#player")
-        // 获取 audio 并更新到 store 中
-        this.props.initAudio(audio)
+
+        if (option === "Start") {
+            audio.play()
+        } else if(option === "Stop") {
+            audio.pause()
+        }
+    }
+
+    // 1. 即使props未变化，React依然会调用这个方法；2. 可以在函数中调用setState，不会trigger这个方法
+    componentWillReceiveProps(nextProps) {
+        let curMusicUrl = nextProps.fuck.musicPlayerReducer.curMusicUrl
+        let option = nextProps.fuck.musicPlayerReducer.option
+
+        // 通过判断option类型，决定是否更新 music 数据
+        if (option === "forward" || option === "back" || option === "init") {
+            this.setState({
+                curMusicUrl: curMusicUrl
+            }, function() {
+                let audio = document.querySelector("#player")
+                audio.load()  // 这个很重要                
+                console.log("Reload music", audio)
+            })   
+        } 
     }
 
     render() {
@@ -119,7 +148,7 @@ class PureApp extends React.Component {
             <div data-log="one">
                 <div style={navStyle}>{nav()}</div>
                 <audio id="player">
-                    <source id="playerSource" src="" type="audio/mpeg" />
+                    <source id="playerSource" src={`${this.state.curMusicUrl}`} type="audio/mpeg" />
                 </audio>
                 <div data-log="two">
                     {this.props.children}
@@ -130,11 +159,11 @@ class PureApp extends React.Component {
     }
 }
 
-// mapStateToProps：简单来说，就是把状态绑定到组件的属性当中。
-// 我们定义的state对象有哪些属性，在我们组件的props都可以查阅和获取
+// mapStateToProps：简单来说，就是把 store 的 state 绑定到组件的 props 当中。
+// 定义的state对象有哪些属性，在我们组件的 props 都可以查阅和获取
 function mapStateToProps(state) {
     return {
-        audio: state.audio,
+        fuck: state,
     }
 }
 
@@ -149,6 +178,6 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-const App = connect(mapStateToProps, mapDispatchToProps)(PureApp)
+const App = connect(mapStateToProps)(PureApp)
 
 export default App

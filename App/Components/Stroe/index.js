@@ -12,26 +12,4 @@ const store = createStore(
     )
 )
 
-// 通过 state 变更通知，更改 audio 的 src 属性值
-// state: {
-//     musicPlayerReducer: {
-//         audio: ...,
-//         curMusic:...
-//     }
-// }
-store.subscribe(function() {
-    let state = store.getState()
-    console.log("subscribe: ", state)
-    let audio = state.musicPlayerReducer.audio
-    let curMusic = state.musicPlayerReducer.curMusic
-    if (curMusic) {
-        audio.children[0].src = "http://music.163.com/song/media/outer/url?id=" + curMusic.musicId + ".mp3"
-        audio.load()
-        audio.addEventListener("canplaythrough",function(){
-            // audio.play();
-         },false);         
-        console.log("State subscribe")        
-    }
-})
-
 module.exports = store
