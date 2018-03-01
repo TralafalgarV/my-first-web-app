@@ -1,7 +1,7 @@
 import React from 'react'
 import {render} from 'react-dom'
 import { connect } from 'react-redux'
-import {Link} from 'react-router'
+import { Link, hashHistory } from 'react-router'
 // import pureRender from "pure-render-decorator"  // render 性能优化模块
 import { is } from 'immutable'
 // import ReactPerfTool from 'react-perf-tool' // 性能检测模块
@@ -17,52 +17,6 @@ const navStyle = {
     zIndex: '2001'
 }
 
-// Link的to属性值，需要加‘/’，否则会触发两次route跳转
-// activeClassName 属性是 Link 被点击时，显示的样式
-let nav = () => {
-    console.log("[App] nav display")
-    return (
-        <nav className="bar bar-tab">
-            <div className="tab-item">
-                <img id="logo" src={require("../Static/logo/1.svg")} alt="Logo" onClick={() => {
-                    document.querySelector(".gitUrl").click()
-                }}/>
-                <a href="https://github.com/TralafalgarV/MyWebApp" target="_blank" className="gitUrl" style={{height:"0", width:"0", zIndex: "-1", position: "absolute", left:"0"}}></a>
-            </div>
-            <Link className="tab-item" activeClassName="active" to="/indexlist">
-                <span className="tab-label">首页</span>
-            </Link>
-            <Link className="tab-item" activeClassName="active" to="/create">
-                <span className="tab-label">撰写</span>
-            </Link>
-            <Link className="tab-item" activeClassName="active" to="/music">
-                <span className="tab-label">音乐</span>
-            </Link>
-            {/* <Link className="tab-item" activeClassName="active" to="/weather">
-                <span className="tab-label">天气</span>
-            </Link>              */}
-            <Link className="tab-item" activeClassName="active" to="/me">
-                <span className="tab-label">我</span>
-                {/* <div className="multi-drop-menu"><span>Me</span>
-                    <ul>
-                        <li><Link to="/login">Logout</Link></li>
-                            <li><a href="#">二级菜单：2</a></li>
-                            <li><a href="#">二级菜单：3</a></li>
-                            <li><a href="#">二级菜单：4</a>
-                            <ul>
-                                <li><a href="#">三级菜单：1</a></li>
-                                <li><a href="#">三级菜单：2</a></li>
-                                <li><a href="#">三级菜单：3</a></li>
-                                <li><a href="#">三级菜单：4</a></li>
-                            </ul>                            
-                        </li>
-                    </ul>                   
-                </div> */}                                 
-            </Link>                                
-        </nav>
-    )
-}
-
 /**
 App
  +--- IndexList(优先加载页面)---ArticleList
@@ -74,38 +28,41 @@ class PureApp extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            curMusicUrl: ""
+            curMusicUrl: "",
+            musicInit: false
         }
+
+        this.nav = this.nav.bind(this)
     }
 
     // Called to determine whether the change in props and state should trigger a re-render.
-    shouldComponentUpdate(nextProps={}, nextState={}) {
-        console.log("[App] shouldComponentUpdate...")
+    // shouldComponentUpdate(nextProps={}, nextState={}) {
+    //     console.log("[App] shouldComponentUpdate...", nextProps)
 
-        const thisProps = this.props || {}
-        const thisState = this.state || {}
+    //     const thisProps = this.props || {}
+    //     const thisState = this.state || {}
 
-        if (Object.keys(thisProps).length !== Object.keys(nextProps).length ||
-            Object.keys(thisState).length !== Object.keys(nextState).length) {
-            return true
-        }
+    //     if (Object.keys(thisProps).length !== Object.keys(nextProps).length ||
+    //         Object.keys(thisState).length !== Object.keys(nextState).length) {
+    //         return true
+    //     }
 
-        for (const key in nextProps) {
-            if (!is(thisProps[key], nextProps[key])) {
-                console.log("[App] shouldComponentUpdate: nextProps update")                
-                return true 
-            }
-        }
+    //     for (const key in nextProps) {
+    //         if (!is(thisProps[key], nextProps[key])) {
+    //             console.log("[App] shouldComponentUpdate: nextProps update")                
+    //             return true 
+    //         }
+    //     }
 
-        for (const key in nextState) {
-            if (!is(thisState[key], nextState[key])) {
-                console.log("[App] shouldComponentUpdate: nextState update")                
-                return true 
-            }
-        }
-        console.log("[App] shouldComponentUpdate: false")
-        return false
-    }
+    //     for (const key in nextState) {
+    //         if (!is(thisState[key], nextState[key])) {
+    //             console.log("[App] shouldComponentUpdate: nextState update")                
+    //             return true 
+    //         }
+    //     }
+    //     console.log("[App] shouldComponentUpdate: false")
+    //     return false
+    // }
 
     // Called immediately after a compoment is mounted. Setting state here will trigger re-rendering.
     componentDidMount() {
@@ -130,23 +87,95 @@ class PureApp extends React.Component {
         let curMusicUrl = nextProps.fuck.musicPlayerReducer.curMusicUrl
         let option = nextProps.fuck.musicPlayerReducer.option
 
-        // 通过判断option类型，决定是否更新 music 数据
-        if (option === "forward" || option === "back" || option === "init") {
+        if (nextProps.fuck.musicPlayerReducer.curMusicUrl !== this.state.curMusicUrl) {  
             this.setState({
                 curMusicUrl: curMusicUrl
             }, function() {
                 let audio = document.querySelector("#player")
-                audio.load()  // 这个很重要                
-                console.log("Reload music", audio)
-            })   
-        } 
+                audio.load()  // 这个很重要 
+            })                         
+        }
+
+        // 通过判断option类型，决定是否更新 music 数据
+        // if (option === "forward" || option === "back" || option === "init") {
+        //     this.setState({
+        //         curMusicUrl: curMusicUrl
+        //     }, function() {
+        //         let audio = document.querySelector("#player")
+        //         if (nextProps.fuck.musicPlayerReducer.curMusicUrl !== this.state.curMusicUrl) {                    
+        //             audio.load()  // 这个很重要                
+        //             console.log("Reload music", audio)
+        //         } else {
+        //             console.log("Same Music Url")
+        //         }
+        //     })   
+        // } 
+    }
+
+    // Link的to属性值，需要加‘/’，否则会触发两次route跳转
+    // activeClassName 属性是 Link 被点击时，显示的样式
+    nav() {
+        let _this = this
+        console.log("[App] nav display")
+        return (
+            <nav className="bar bar-tab">
+                <div className="tab-item">
+                    <img id="logo" src={require("../Static/logo/1.svg")} alt="Logo" onClick={() => {
+                        document.querySelector(".gitUrl").click()
+                    }}/>
+                    <a href="https://github.com/TralafalgarV/MyWebApp" target="_blank" className="gitUrl" style={{height:"0", width:"0", zIndex: "-1", position: "absolute", left:"0"}}></a>
+                </div>
+                <Link className="tab-item" activeClassName="active" to="/indexlist">
+                    <span className="tab-label">首页</span>
+                </Link>
+                <Link className="tab-item" activeClassName="active" to="/create">
+                    <span className="tab-label">撰写</span>
+                </Link>
+                <Link className="tab-item" activeClassName="active" to="/music">
+                    <span className="tab-label">音乐</span>
+                </Link>
+                <Link className="tab-item" activeClassName="active" to="/me">
+                    <span className="tab-label">我</span>
+                    {/* <div className="multi-drop-menu"><span>Me</span>
+                        <ul>
+                            <li><Link to="/login">Logout</Link></li>
+                                <li><a href="#">二级菜单：2</a></li>
+                                <li><a href="#">二级菜单：3</a></li>
+                                <li><a href="#">二级菜单：4</a>
+                                <ul>
+                                    <li><a href="#">三级菜单：1</a></li>
+                                    <li><a href="#">三级菜单：2</a></li>
+                                    <li><a href="#">三级菜单：3</a></li>
+                                    <li><a href="#">三级菜单：4</a></li>
+                                </ul>                            
+                            </li>
+                        </ul>                   
+                    </div> */}                                 
+                </Link>      
+                    <span className="tab-item" onClick={() => {
+                        let data = _this.props.fuck.musicPlayerReducer
+                        if (data) {
+                            let path = {
+                                pathname: "/musicPlayer",
+                                state: {
+                                    curMusic: data.curMusic,
+                                    musicList: data.musicList,
+                                    index: data.index
+                                }
+                            }                    
+                            hashHistory.push(path)
+                            console.log("click", data)                            
+                        }
+                    }}>CurMusic</span>        
+            </nav>
+        )
     }
 
     render() {
         console.log("[App] render " + location.hash)
         return (
             <div data-log="one">
-                <div style={navStyle}>{nav()}</div>
+                <div style={navStyle}>{this.nav()}</div>
                 <audio id="player">
                     <source id="playerSource" src={`${this.state.curMusicUrl}`} type="audio/mpeg" />
                 </audio>

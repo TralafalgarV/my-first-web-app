@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import {bindActionCreators} from 'redux';
 import '../../Static/CSS/musicPlayer.less'
 import {MusicModel} from '../../Model/dataModel'
-// import { GetMusicAlbumUrl } from '../../Tools'
+import { DancelMask } from '../../Tools'
 import VinylPath from '../../Static/cover/vinyl.png'
 
 const MUSICCTL = {
@@ -39,34 +39,40 @@ class Player extends React.Component {
     constructor(props) {
         super(props) 
 
+        console.log("11111111", this.props.location.state)
+
         this.state = {
-            curMusic: {
-            //     artistName: "菠萝赛东",
-            //     albumTitle: "未知",
-            //     songTitle: "我的一个道姑朋友",
-            //     musicUrl: "http://ws.stream.qqmusic.qq.com/200138786.m4a?fromtag=46",
-            //     albumId: 0,
-            } ,
-            index: 0           
+            curMusic: this.props.location.state.curMusic,
+            index: this.props.location.state.index           
         }
     
         // 绑定播放器运行环境
         this.ctlHandle = this.ctlHandle.bind(this)
     }
 
-    componentDidMount() {
-        // console.log("componentDidMount: ", this.props.location.state)
+    componentWillMount() {
+        console.log("Music will mount")
         this.setState({
             curMusic: this.props.location.state.curMusic,
             index: this.props.location.state.index
         }, function() {
             // 将当前的音乐通过dispatch更新到store
-            let musicId = this.props.location.state.curMusic.musicId
-            this.props.actions.update("http://music.163.com/song/media/outer/url?id=" +`${musicId}`+".mp3", "init", this.state.curMusic)
+            this.updateOption("init")
         })
+
+        DancelMask()
     }
 
 /************************ 播放器操作函数 *************************/
+    // 通过 option 触发不同的 dispatch
+    updateOption(option) {
+        this.props.actions.update("http://music.163.com/song/media/outer/url?id=" +`${this.state.curMusic.musicId}`+".mp3", 
+        option,  
+        this.state.curMusic,
+        this.props.location.state.musicList,
+        this.props.location.state.index)
+    }
+
     play() {
         // 给play按钮添加播放样式
         this.playNode.classList.toggle("control-pause")
@@ -75,12 +81,12 @@ class Player extends React.Component {
         // 音乐的播放开始
         if (this.playNode.classList.contains("control-pause")) {
             console.log("music play")            
-            this.props.actions.update("", "Start")                             
+            this.updateOption("Start")     
         } else {
             // 结束音乐的播放
             console.log("music stop")
             // this.audio.pause()
-            this.props.actions.update("", "Stop")                             
+            this.updateOption("Stop")
         }
     }
     
@@ -121,8 +127,8 @@ class Player extends React.Component {
             // console.log(this.state.curMusic, this.state.index)
             // 修改source.src之后，需要重新加载audio元素
             // this.audio.load()  // 这个很重要
-            this.props.actions.update("http://music.163.com/song/media/outer/url?id=" +`${this.state.curMusic.musicId}`+".mp3", cmd, this.state.curMusic)
-        })            
+            this.updateOption(cmd)
+        })
     }
 
     // 播放器相关函数
@@ -187,6 +193,9 @@ class Player extends React.Component {
 function mapStateToProps(state) {
     return {
         curMusicUrl: state.curMusicUrl,
+        curMusic: state.curMusic,
+        musicList: state.musicList,
+        index: state.index
     }
 }
 
@@ -194,12 +203,14 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         actions: {
-            update: (curMusicUrl, option, musicInfo) => {
+            update: (curMusicUrl, option, curMusic, musicList, index) => {
                 dispatch({
                     type: "update",
                     curMusicUrl: curMusicUrl,
                     option: option,
-                    musicInfo: musicInfo,
+                    curMusic: curMusic,
+                    musicList: musicList,
+                    index: index
                 })
             }                      
         }
@@ -207,7 +218,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 // action creator
+let updateAction = function() {
+    return {
 
+    }
+}
 
 const MusicPlayer = connect(mapStateToProps, mapDispatchToProps)(Player)
 

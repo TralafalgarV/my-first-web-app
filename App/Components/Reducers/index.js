@@ -8,7 +8,9 @@ function musicPlayerReducer(state = {}, action) {
             return Object.assign({}, state, {
                 curMusicUrl: action.curMusicUrl, 
                 option: action.option,
-                curMusic: action.curMusic
+                curMusic: action.curMusic,
+                musicList: action.musicList,
+                index: action.index
             });            
         default:
             return state;

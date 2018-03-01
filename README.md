@@ -36,6 +36,8 @@ npm run dev
 |      |--Markdown              //Markdown组件
 |      |--Me                    //个人页面
 |      |--Music                 //音乐界面
+|      |--Reducer               //Reducer
+|      |--Store                 //Store
 |      |--main.jsx              //主文件
 |   |--Model                    //数据交互模型
 |      |--dataModel.js			
@@ -212,9 +214,9 @@ Route可以向绑定的组件传递7个属性：**children**，**history**，**l
 import React from 'react'
 import { render } from 'react-dom'
 
-const About = React.createClass({/*...*/})
-const Inbox = React.createClass({/*...*/})
-const Home = React.createClass({/*...*/})
+const IndexList = React.createClass({/*...*/})
+const Login = React.createClass({/*...*/})
+const Me = React.createClass({/*...*/})
 
 const App = React.createClass({
   getInitialState() {
@@ -234,17 +236,17 @@ const App = React.createClass({
   render() {
     let Child
     switch (this.state.route) {
-      case '/about': Child = About; break;
-      case '/inbox': Child = Inbox; break;
-      default:      Child = Home;
+      case '/login': Child = Login; break;
+      case '/me': Child = Me; break;
+      default:      Child = IndexList;
     }
 
     return (
       <div>
         <h1>App</h1>
         <ul>
-          <li><a href="#/about">About</a></li>
-          <li><a href="#/inbox">Inbox</a></li>
+          <li><a href="#/login">Login</a></li>
+          <li><a href="#/me">Me</a></li>
         </ul>
         <Child/>
       </div>
@@ -272,8 +274,8 @@ const App = React.createClass({
         <h1>App</h1>
         {/* 把 <a> 变成 <Link> */}
         <ul>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/inbox">Inbox</Link></li>
+          <li><Link to="/login">Login</Link></li>
+          <li><Link to="/me">Me</Link></li>
         </ul>
 
         {/*
@@ -291,8 +293,8 @@ const App = React.createClass({
 React.render((
   <Router>
     <Route path="/" component={App}>
-      <Route path="about" component={About} />
-      <Route path="inbox" component={Inbox} />
+      <Route path="login" component={Login} />
+      <Route path="me" component={Me} />
     </Route>
   </Router>
 ), document.body)
@@ -305,8 +307,8 @@ const routes = {
   path: '/',
   component: App,
   childRoutes: [
-    { path: 'about', component: About },
-    { path: 'inbox', component: Inbox },
+    { path: 'login', component: Login },
+    { path: 'me', component: Me },
   ]
 }
 
@@ -323,47 +325,68 @@ React.render(<Router routes={routes} />, document.body)
 ##### 实例代码
 
 ```
-const news = (location, cb) => {
-    require.ensure([], require => {
-        cb(null, require('../Component/news').default)
-    },'chooseProducts')
+const IndexList = {
+    path: 'indexlist',
+    getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+            return cb(null, require('../Components/IndexList'))
+        }, 'indexlist')
+    }
 }
 
-const videos = (location, cb) => {
-    require.ensure([], require => {
-        cb(null, require('../Component/videos').default)
-    },'helpCenter')
+const Create = {
+    path: 'create',
+    getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+            return cb(null, require('../Components/Create'))
+        }, 'create')
+    },
 }
 
-const books = (location, cb) => {
-    require.ensure([], require => {
-        cb(null, require('../Component/books').default)
-    },'saleRecord')
+const Music = {
+    path: 'music',
+    getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+            return cb(null, require('../Components/Music'))
+        }, 'music')
+    },
 }
 
-const RouteConfig = (
-    <Router history={history}>
-        <Route path="/" component={Roots}>
-            <IndexRoute component={index} />
-            <Route path="index" component={index} />
-            <Route path="news" getComponent={news} />
-            <Route path="books" getComponent={books} />
-            <Redirect from='*' to='/'  />
-        </Route>
-    </Router>
-);
+const rootRoute = {
+    component: require('./Components/main').default,
+    childRoutes: [
+        {
+            path: '/', 
+            indexRoute: {
+                getComponent(nextState, cb) {
+                    require.ensure([], (require) => {
+                        cb(null, require('./Components/IndexList'))
+                    })
+                }
+            },
+            childRoutes: [
+                IndexList,
+                Create,
+                Music,
+                Me,
+                ArticleDetail,
+                Login,
+                MusicPlayer,
+                MusicSearch
+            ]
+        }
+    ]
+}
 ```
 
 ##### webpack配置chunkFilename
 
 ```
-...
 output:{
         path:'./build',
         filename:'bundle.js',
         chunkFilename:'js/[name].[chunkhash:5].js'
     },
-...
 ```
 
 ## Redux
@@ -408,9 +431,8 @@ Redux 是 JavaScript 状态容器，提供可预测化的状态管理。
 
 ```
 const RootReducer = combineReducers({
-     video,
-     books,
-     news
+     musicPlayerReducer,
+     ...
 })
 ```
 
@@ -441,22 +463,24 @@ connect将组件与redux关联起来，Provider将store传给组件。组件通�
 Demo中的代码：
 ```
 function mapStateToProps(state) {
-  const {indexList, me, giveStar, uploadAvatarEnd} = state;
-  return {
-    indexList: indexList.list,
-    me: me,
-    giveStar: giveStar,
-    uploadAvatarEnd: uploadAvatarEnd
-  };
+    return {
+        fuck: state,
+    }
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch),
-  }
+    return {
+        initAudio: (audioInfo) => {
+            dispatch({
+                type: "initAudio",
+                audioInfo: audioInfo
+            })
+        }
+    }
 }
 
-const indexList = connect(mapStateToProps, mapDispatchToProps)(IndexListCase)
+const App = connect(mapStateToProps)(PureApp)
+
 ```
 在这里盗用一张图
 ![](https://github.com/rongchanghai/justForYou/blob/master/screenshots/all_redux.png)
@@ -480,53 +504,8 @@ const indexList = connect(mapStateToProps, mapDispatchToProps)(IndexListCase)
 简单的说一下我是怎么开发这个小Demo的，只说redux前端部分：
 1、**设计State**，这是最重要的一步，他决定了你的action和reducer怎么写。
 2、先写内容组件component，这一部分只是UI展示，不负责数据交流。
-3、根据State来写actionCreater，thunk和普通的action区分开，导出thunk。
-4、根据State来写reducer，按照state和模块将reducer分开，最后使用combineReducers合成一个总的Reducer。
-5、整合store，根据Reducer和中间件来生成store。
-6、现在根据component来写container，这一部分只负责数据、状态。
+3、根据State来写reducer，按照state和模块将reducer分开，最后使用combineReducers合成一个总的Reducer。
+4、整合store，根据Reducer和中间件来生成store。
+5、现在根据component来写container，这一部分只负责数据、状态。
 
 大体的开发流程就是这个样子的。
-
-##### 根据自己的想法并参考一些大神的博客等写了这个Demo和文档，如果对你有一些帮助，就请star一下吧 😊
-这个文档还会继续完善……
-
-
-# 记录
-2017.9.17 -- 页面的粒子线条效果
-* 利用 canvas 进行绘制
-* 圆圈的 x、y坐标，水平和垂直方向速度，需要随机生成
-* 在原点距离小于500的两圆之间进行连线
-* 飞出边界的圆圈，直接删除重新绘制
-* 利用requestAnimationFrame和clearRect，进行逐帧绘制
-
-React-Router
-* 使用 Link 路由Component之后，需要在render函数中加载 this.props.children 
-
-2017.9.19--node server
-* 使用node.js完成基本服务器中间件的搭建，client到server的链路已调通
-* 【待】session登录检测中间件待完成
-* 【待】数据暂时通过，server读写文件进行存储，后面引入MongoDB
-
-2017.9.20--Create页面
-* input的value值，如果设置成与state挂钩，那么直接在页面元素中是无法输入的；因为指定了value是受控组件，需要配合onChange事件，来重新渲染组件
-* create页面通过publish上传数据给server，目前client发送数据没有问题，但是server收数据出现问题。req.body为空 => 原因：fetch的headers属性拼写错误，导致server收到的数据出现异常
-
-2017.9.24--引入MongoDB
-* server端的数据不再存储在file里面，现在引入MongoDB，用来管理数据
-
-2017.10.11--Music页面
-* 开写Music组件
-* react批量引入图片方法
-* 专辑封面轮转效果
-* React修改dom的css方式
-* react 动画 ReactCSSTransitionGroup
-
-2017.10.16--Music页面
-* 完成专辑展示轮播图
-* 制作播放器页面
-* 播放器动画效果添加
-* 学习transform、translate、filter、animation、translation等属性
-
-2017.10.20--indexList slider
-* 技术难点：1. 判断设备类型 2. 绑定touchStart、touchMove、touchEnd事件 3. 在绑定事件处理函数中，处理下拉距离对slider的影响
-* 将slider进行封装，使用了ES6的class语法
