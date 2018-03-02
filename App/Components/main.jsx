@@ -154,8 +154,9 @@ class PureApp extends React.Component {
                     </div> */}                                 
                 </Link>      
                     <span className="tab-item" onClick={() => {
+                        let curMusic = _this.props.fuck.musicPlayerReducer.curMusic
                         let data = _this.props.fuck.musicPlayerReducer
-                        if (data) {
+                        if (curMusic) {
                             let path = {
                                 pathname: "/musicPlayer",
                                 state: {

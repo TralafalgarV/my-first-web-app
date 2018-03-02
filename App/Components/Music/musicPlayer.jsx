@@ -158,7 +158,7 @@ class Player extends React.Component {
     render() {
         let _this = this
         // 获取当前歌曲封面的url
-        let albumUrl = this.state.curMusic.albumUrl
+        let albumUrl = this.props.location.state.curMusic.albumUrl
         return (
             <div>
                 <div className="music-player-container is-playing">
@@ -168,7 +168,7 @@ class Player extends React.Component {
                         </div>
                         {
                             // 从主页进入，且操作状态为 start，需要保留播放状态
-                            _this.props.location.state.returnFlag === true || _this.props.option === "Start" ? 
+                            _this.props.option === "Start" ? 
                             <div className="vinyl album-playing" ref={(node) => {this.vinylNode = node}} style={{backgroundImage : "url(" + VinylPath + "),url(" + albumUrl + ")"}}></div> : 
                             <div className="vinyl" ref={(node) => {this.vinylNode = node}} style={{backgroundImage : "url(" + VinylPath + "),url(" + albumUrl + ")"}}></div>
                         }
@@ -184,7 +184,7 @@ class Player extends React.Component {
                                 <div className="control-back" onClick={() => this.ctlHandle(MUSICCTL.BACK)}></div>
                                 {
                                     // 从主页进入，且操作状态为 start，需要保留播放状态
-                                    _this.props.location.state.returnFlag === true || _this.props.option === "Start" ? 
+                                    _this.props.option === "Start" ? 
                                     <div className="control-play control-pause" onClick={() => this.ctlHandle(MUSICCTL.PLAY)} ref={(node) => this.playNode = node}></div> :
                                     <div className="control-play" onClick={() => this.ctlHandle(MUSICCTL.PLAY)} ref={(node) => this.playNode = node}></div>                                    
                                 }
@@ -204,12 +204,13 @@ class Player extends React.Component {
 // mapStateToProps：简单来说，就是把状态绑定到组件的属性当中。
 // 我们定义的state对象有哪些属性，在我们组件的props都可以查阅和获取
 function mapStateToProps(state) {
+    console.log("Music Player store state: ", state)
     return {
-        curMusicUrl: state.curMusicUrl,
-        curMusic: state.curMusic,
-        musicList: state.musicList,
-        index: state.index,
-        option: state.option
+        curMusicUrl: state.musicPlayerReducer.curMusicUrl,
+        curMusic: state.musicPlayerReducer.curMusic,
+        musicList: state.musicPlayerReducer.musicList,
+        index: state.musicPlayerReducer.index,
+        option: state.musicPlayerReducer.option
     }
 }
 

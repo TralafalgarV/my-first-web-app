@@ -70,7 +70,7 @@ const GetAuthority = function() {
     if (!userinfo) {
         console.log("UserInfo is null, return defined")
     } else {
-        console.log("UserInfo: ", authority)
+        // console.log("UserInfo: ", authority)
     }
     return authority        
 }
