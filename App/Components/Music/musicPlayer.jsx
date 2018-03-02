@@ -48,6 +48,10 @@ class Player extends React.Component {
         this.ctlHandle = this.ctlHandle.bind(this)
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log("componentWillReceiveProps", nextProps)
+    }
+
     componentWillMount() {
         console.log("Music will mount")
         this.setState({
@@ -55,11 +59,11 @@ class Player extends React.Component {
             index: this.props.location.state.index
         }, function() {
             // 将当前的音乐通过dispatch更新到store
-            // 如果从music点击进入，需要进行init
-            if (!this.props.location.state.returnFlag) {
-                this.updateOption("init")                
+            // 从首页跳转到当前页面，需要根据option状态更新 option 状态
+            if (this.props.location.state.returnFlag === true && this.props.option === "Start") {
+                this.updateOption("Start")                
             } else {
-                this.updateOption("Start")                   
+                this.updateOption("init")                   
             }
         })
 
@@ -126,10 +130,9 @@ class Player extends React.Component {
         this.setState({
             curMusic: musicList[curIndex],
             index: curIndex
-        }, function() {  // setState是异步操作，导致 curMusic 没有及时更新
-            // console.log(this.state.curMusic, this.state.index)
-            // 修改source.src之后，需要重新加载audio元素
-            // this.audio.load()  // 这个很重要
+        }, function() { 
+             // setState是异步操作，导致 curMusic 没有及时更新
+            console.log("Update Option State", cmd)
             this.updateOption(cmd)
         })
     }
@@ -158,7 +161,7 @@ class Player extends React.Component {
     render() {
         let _this = this
         // 获取当前歌曲封面的url
-        let albumUrl = this.props.location.state.curMusic.albumUrl
+        let albumUrl = this.state.curMusic.albumUrl
         return (
             <div>
                 <div className="music-player-container is-playing">
