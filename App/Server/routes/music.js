@@ -55,6 +55,7 @@ const addMusic = function(index, res) {
     if (musicList) {
         console.log("add Music: ", index, musicList[index]) 
         let curMusic = musicList[index]
+
         // 通过 musicId 获取 musicUrl
         let promise1 = new Promise(function(resolve, reject) {
             request.get("http://localhost:4000/music/url?id="+`${curMusic.musicId}`, function(error, response, body) {
@@ -71,7 +72,8 @@ const addMusic = function(index, res) {
             request.get("http://localhost:4000/song/detail?ids="+`${curMusic.musicId}`, function(error, response, body) {
                 let data = JSON.parse(body)
                 if (data.code == 200) {
-                    curMusic.albumUrl = data.songs[0].al.picUrl
+                    // 将 http 改成 https
+                    curMusic.albumUrl = data.songs[0].al.picUrl.replace(/^http\:/, "https:")
                     curMusic.albumName = data.songs[0].al.name
                     resolve()
                 }        
