@@ -38,9 +38,7 @@ function log(target, name, descriptor) {
 class Player extends React.Component {
     constructor(props) {
         super(props) 
-
-        console.log("11111111", this.props.location.state)
-
+        
         this.state = {
             curMusic: this.props.location.state.curMusic,
             index: this.props.location.state.index           

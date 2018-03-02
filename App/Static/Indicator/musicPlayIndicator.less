@@ -1,0 +1,101 @@
+@barWidth: 15%;
+@highestDuration: 900ms;
+@size: 26px;
+@timingFunction: linear;
+.keyframes {
+    0% {
+        height: 100%;
+    }
+    50% {
+        height: 25%;
+    }
+    75% {
+        height: 75%;
+    }
+    100% {
+        height: 15%;
+    }
+}
+
+.keyframes2 {
+    0% {
+        height: 15%;
+    }
+    50% {
+        height: 75%;
+    }
+    75% {
+        height: 25%;
+    }
+    100% {
+        height: 100%;
+    }
+}
+
+@-webkit-keyframes barEQ {
+    .keyframes;
+}
+
+@keyframes barEQ {
+    .keyframes;
+}
+
+@-webkit-keyframes barEQ2 {
+    .keyframes2;
+}
+
+@keyframes barEQ2 {
+    .keyframes2;
+}
+
+.music-Indicator {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    .music-playing {
+        position: relative;
+        display: block;
+        width: @size;
+        height: @size;
+        margin: 0 auto;
+    }
+    .bar {
+        position: absolute;
+        height: 100%;
+        width: 15%;
+        bottom: 0;
+        float: left;
+        padding: 0;
+        background: #232632;
+        &.bar1 {
+            left: 0;
+            -webkit-animation: barEQ @highestDuration alternate infinite @timingFunction;
+            animation: barEQ @highestDuration alternate infinite @timingFunction;
+        }
+        &.bar2 {
+            left: @barWidth + ((100 - (@barWidth * 4))/3);
+            -webkit-animation: barEQ2 @highestDuration alternate infinite @timingFunction;
+            animation: barEQ2 @highestDuration alternate infinite @timingFunction;
+            -webkit-animation-delay: -@highestDuration;
+            animation-delay: -@highestDuration;
+        }
+        &.bar3 {
+            left: @barWidth * 2 + (((100 - (@barWidth * 4))/3) * 2);
+            -webkit-animation: barEQ @highestDuration alternate infinite @timingFunction;
+            animation: barEQ @highestDuration alternate infinite @timingFunction;
+            -webkit-animation-duration: @highestDuration * .75;
+            animation-duration: @highestDuration * .75;
+            -webkit-animation-delay: -@highestDuration * .5;
+            animation-delay: -@highestDuration * .5;
+        }
+        &.bar4 {
+            left: 85%;
+            -webkit-animation: barEQ2 @highestDuration alternate infinite @timingFunction;
+            animation: barEQ2 @highestDuration alternate infinite @timingFunction;
+            -webkit-animation-duration: @highestDuration * .9;
+            animation-duration: @highestDuration * .9;
+            -webkit-animation-delay: -@highestDuration * .3;
+            animation-delay: -@highestDuration * .3;
+        }
+    }
+}

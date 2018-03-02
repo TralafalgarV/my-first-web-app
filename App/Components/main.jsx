@@ -6,6 +6,7 @@ import { Link, hashHistory } from 'react-router'
 import { is } from 'immutable'
 // import ReactPerfTool from 'react-perf-tool' // 性能检测模块
 // import Perf from 'react-addons-perf'        // 性能检测模块
+import PlayIndicator from '../Components/Indicator'
 import '../Static/CSS/articleDetail.less'
 // import 'react-perf-tool/lib/styles.css'
 // [优化] 对象字面量会导致 render 触发重新渲染
@@ -166,7 +167,7 @@ class PureApp extends React.Component {
                             hashHistory.push(path)
                             console.log("click", data)                            
                         }
-                    }}>CurMusic</span>        
+                    }}><PlayIndicator option={_this.props.fuck.musicPlayerReducer.option}/></span>        
             </nav>
         )
     }
