@@ -1,7 +1,8 @@
 @barWidth: 15%;
-@highestDuration: 900ms;
+@highestDuration: 1000ms;
 @size: 26px;
 @timingFunction: linear;
+
 .keyframes {
     0% {
         height: 100%;
@@ -67,6 +68,7 @@
         float: left;
         padding: 0;
         background: #232632;
+
         &.bar1 {
             left: 0;
             -webkit-animation: barEQ @highestDuration alternate infinite @timingFunction;

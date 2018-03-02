@@ -169,7 +169,8 @@ class Music extends React.Component {
                 state: {
                     curMusic: ele,
                     musicList: _this.state.musicList,
-                    index: index
+                    index: index,
+                    returnFlag: false,
                 }
             }
             return (

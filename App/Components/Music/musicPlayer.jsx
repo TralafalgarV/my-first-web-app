@@ -55,7 +55,12 @@ class Player extends React.Component {
             index: this.props.location.state.index
         }, function() {
             // 将当前的音乐通过dispatch更新到store
-            this.updateOption("init")
+            // 如果从music点击进入，需要进行init
+            if (!this.props.location.state.returnFlag) {
+                this.updateOption("init")                
+            } else {
+                this.updateOption("Start")                   
+            }
         })
 
         DancelMask()
@@ -161,7 +166,12 @@ class Player extends React.Component {
                         <div className="album-art">
                             <img src={albumUrl} alt=""/>
                         </div>
-                        <div className="vinyl" ref={(node) => {this.vinylNode = node}} style={{backgroundImage : "url(" + VinylPath + "),url(" + albumUrl + ")"}}></div>
+                        {
+                            // 从主页进入，且操作状态为 start，需要保留播放状态
+                            _this.props.location.state.returnFlag === true || _this.props.option === "Start" ? 
+                            <div className="vinyl album-playing" ref={(node) => {this.vinylNode = node}} style={{backgroundImage : "url(" + VinylPath + "),url(" + albumUrl + ")"}}></div> : 
+                            <div className="vinyl" ref={(node) => {this.vinylNode = node}} style={{backgroundImage : "url(" + VinylPath + "),url(" + albumUrl + ")"}}></div>
+                        }
                     </div>                
                     <div className="music-player">
                         <div className="player-content-container">
@@ -172,7 +182,12 @@ class Player extends React.Component {
                             </div>
                             <div className="music-player-controls">
                                 <div className="control-back" onClick={() => this.ctlHandle(MUSICCTL.BACK)}></div>
-                                <div className="control-play" onClick={() => this.ctlHandle(MUSICCTL.PLAY)} ref={(node) => this.playNode = node}></div>
+                                {
+                                    // 从主页进入，且操作状态为 start，需要保留播放状态
+                                    _this.props.location.state.returnFlag === true || _this.props.option === "Start" ? 
+                                    <div className="control-play control-pause" onClick={() => this.ctlHandle(MUSICCTL.PLAY)} ref={(node) => this.playNode = node}></div> :
+                                    <div className="control-play" onClick={() => this.ctlHandle(MUSICCTL.PLAY)} ref={(node) => this.playNode = node}></div>                                    
+                                }
                                 <div className="control-forwards" onClick={() => this.ctlHandle(MUSICCTL.FORWARD)}></div>
                                 {/* <audio ref={(node) => {this.audio = node}}>
                                     <source src={"http://music.163.com/song/media/outer/url?id=" +`${this.state.curMusic.musicId}`+".mp3"} type="audio/mpeg" />
@@ -193,7 +208,8 @@ function mapStateToProps(state) {
         curMusicUrl: state.curMusicUrl,
         curMusic: state.curMusic,
         musicList: state.musicList,
-        index: state.index
+        index: state.index,
+        option: state.option
     }
 }
 

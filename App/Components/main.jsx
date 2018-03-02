@@ -161,7 +161,8 @@ class PureApp extends React.Component {
                                 state: {
                                     curMusic: data.curMusic,
                                     musicList: data.musicList,
-                                    index: data.index
+                                    index: data.index,
+                                    returnFlag: true,
                                 }
                             }                    
                             hashHistory.push(path)
