@@ -72,6 +72,9 @@ npm run dev
 ```
 
 ## 页面展示
+
+    由于图片大小与帧数的取舍，导致部分gif图片有些卡顿
+
 **1. 加载页面**
 
 ![加载](https://github.com/TralafalgarV/MyWebApp/blob/master/READMEIMG/loading.gif)
