@@ -72,16 +72,20 @@ npm run dev
 ```
 
 ## 页面展示
-**加载页面**
+**1. 加载页面**
+
 ![加载](https://github.com/TralafalgarV/MyWebApp/blob/master/READMEIMG/loading.gif)
 
-**撰写页面**
+**2. 撰写页面**
+
 ![撰写](https://github.com/TralafalgarV/MyWebApp/blob/master/READMEIMG/zhuanxie.gif)
 
-**音乐界面**
+**3. 音乐界面**
+
 ![Music](https://github.com/TralafalgarV/MyWebApp/blob/master/READMEIMG/Music.gif)
 
-**Me + 登录界面
+**4. Me + 登录界面**
+
 ![Me+Login](https://github.com/TralafalgarV/MyWebApp/blob/master/READMEIMG/melogin.gif)
 
 # 总结
