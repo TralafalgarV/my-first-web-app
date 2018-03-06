@@ -1,17 +1,18 @@
 # MyWebApp
-### 求star
-交流QQ:578895238
+
 ### 技术栈 : React + React-Router + Redux + webpack + babel + Node + express + mongodb 等
 
 #### 前端UI:React + Redux  
-#### 后端:Node+mongodb
-#### 交互: fetch+ajax
-#### 打包工具: webpack（按需加载）
+#### 后端:Node + mongodb
+#### 交互: fetch + ajax
+#### 打包工具: webpack
 #### 转译工具: babel
-#### 数据流控制:  redux
+#### 数据流控制: redux
 #### 服务器： 阿里云 + nginx
 
-此处应该有gif图
+## 访问IP ： http://47.96.183.75
+    1. 网站正在备案阶段，目前还无法通过域名访问（https://www.coderfreedom.cn/）
+    2. 由于生成SSL数字证书需要域名，所以现在通过https访问网站，会出现证书不受信任的情况
 
 ## 下载
 ```
@@ -27,7 +28,7 @@ npm run dev
 ## 项目目录
 ```
 |-- build                       //打包文件
-|-- App                         //**主目录 
+|-- App                         //主目录 
 |   |--Component                //组件目录
 |      |--ArticleDetail         //文章详情
 |      |--Create                //发表文章
@@ -73,7 +74,7 @@ npm run dev
 
 ## 页面展示
 
-    由于图片大小与帧数的取舍，导致部分gif图片有些卡顿
+    由于图片大小与帧数的取舍，导致部分gif图会有些卡顿
 
 **1. 加载页面**
 
@@ -222,7 +223,7 @@ react提出了一种假设，相同的节点具有类似的结构，而不同的
 
 ## React-Router路由
 React Router 是一个基于 React 之上的强大路由库，它可以让你向应用中快速地添加视图和数据流，同时保持页面与 URL 间的同步。它可以被看做一个组件，不会被渲染到页面中，它反映出来的只是一种URL和页面组件的映射关系。，根据匹配的路由地址来展示相应的组件。
-Route可以向绑定的组件传递7个属性：**children**，**history**，**location**，**params**，**route**，**routeParams**，**routes**，每个属性都包涵路由的相关的信息。([详细的API说明](https://react-guide.github.io/react-router-cn/docs/API.html#router))。比较常用的有children（以路由的包涵关系为区分的组件），location（包括地址，参数，地址切换方式，key值，hash值）。react-router提供Link标签，允许用户浏览应用的主要方式。< Link> 以适当的 href 去渲染一个可访问的锚标签。这只是对a标签的封装，值得注意的是，点击链接进行的跳转并不是默认的方式，react-router阻止了a标签的默认行为并用pushState进行hash值的转变。切换页面的过程是在点击Link标签或者后退前进按钮时，会先发生url地址的转变，Router监听到地址的改变根据Route的path属性匹配到对应的组件，将state值改成对应的组件并调用setState触发render函数重新渲染dom。` <Link>` 可以知道哪个 route 的链接是激活状态的，并可以自动为该链接添加 **activeClassName** 或 **activeStyle**。
+Route可以向绑定的组件传递7个属性：**children**，**history**，**location**，**params**，**route**，**routeParams**，**routes**，每个属性都包涵路由的相关的信息。([详细的API说明](https://react-guide.github.io/react-router-cn/docs/API.html#router))。比较常用的有children（以路由的包涵关系为区分的组件），location（包括地址，参数，地址切换方式，key值，hash值）。react-router提供Link标签，允许用户浏览应用的主要方式。< Link> 以适当的 href 去渲染一个可访问的锚标签。这只是对a标签的封装，值得注意的是，点击链接进行的跳转并不是默认的方式，react-router阻止了a标签的默认行为并用pushState进行hash值的转变。切换页面的过程是在点击Link标签或者后退前进按钮时，会先发生url地址的转变，Router监听到地址的改变根据Route的path属性匹配到对应的组件，将state值改成对应的组件并调用setState触发render函数重新渲染dom。[详细流程](https://zhuanlan.zhihu.com/purerender/20381597)` <Link>` 可以知道哪个 route 的链接是激活状态的，并可以自动为该链接添加 **activeClassName** 或 **activeStyle**。
 > **注意：**React Router 目前还不能管理滚动条的位置，并且不会自动滚动到 hash 对应的元素上。如果需要管理滚动条位置，可以使用 scroll-behavior 这个库。
 
 
@@ -517,13 +518,3 @@ const App = connect(mapStateToProps)(PureApp)
 ![](http://www.ruanyifeng.com/blogimg/asset/2016/bg2016092003.jpg)  
 
 **具体的代码请参见Demo**
-
-### 项目总结
-简单的说一下我是怎么开发这个小Demo的，只说redux前端部分：
-1、**设计State**，这是最重要的一步，他决定了你的action和reducer怎么写。
-2、先写内容组件component，这一部分只是UI展示，不负责数据交流。
-3、根据State来写reducer，按照state和模块将reducer分开，最后使用combineReducers合成一个总的Reducer。
-4、整合store，根据Reducer和中间件来生成store。
-5、现在根据component来写container，这一部分只负责数据、状态。
-
-大体的开发流程就是这个样子的。
