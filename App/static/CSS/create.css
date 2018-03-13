@@ -506,7 +506,13 @@ samp {
     border-left: 2px solid #009A61;
     background: #F6F6F6;
     color: #555;
-    font-size: 1em
+    font-size: 1em;
+    margin-left: 0.7rem;    
+}
+
+.fmt blockquote > p {
+    margin-left: 0.5rem;
+    font-size: 0.8em;
 }
 
 .fmt pre,
@@ -535,4 +541,8 @@ pre code {
     color: inherit;
     white-space: pre-wrap;
     border-radius: 4px;
+}
+
+#wmd-preview {
+    padding-bottom: 2rem;
 }

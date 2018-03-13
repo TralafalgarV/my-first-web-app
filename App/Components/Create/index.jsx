@@ -182,7 +182,7 @@ class Create extends React.Component {
 
         // // 上传图片
         let formData = new FormData()
-        formData.append('token',"articleId")        
+        formData.append('token', "articleId")        
         formData.append("imgData", img)
         ArticleModel.fetchImg(formData, function(res) {
             if (!res) {
