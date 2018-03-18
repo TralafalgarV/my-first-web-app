@@ -125,7 +125,7 @@ class IndexList extends React.Component {
                 _this.sliderBack(0)
                 // 调用indexList组件的fetchData()方法更新文章数据
                 indexListComponent.fetchData()
-                // console.log("setTimeout", _this)           
+                console.log("setTimeout")           
             }, 1500)
         })     
     }

@@ -26,9 +26,9 @@ module.exports = {
     ],
     devServer: {
         port: 8800,
-        contentBase: './build',
-        inline: true,
-        stats: {
+        contentBase: './build',  // 本地服务器在哪个目录搭建页面
+        inline: true,            // 用来支持dev-server自动刷新的配置
+        stats: {                 // 这个配置属性用来控制编译的时候shell上的输出内容
             colors: true,
             cached: false
         },

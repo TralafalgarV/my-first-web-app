@@ -217,7 +217,7 @@ class Login extends React.Component {
             // 判断是否登录成功
             if (data.resState == 'success') {
                 console.log(data.content)
-                // 记录server返回数据，username用于create页面
+                // 记录server返回数据，username 用于 create 页面
                 UserModel.storeLogin(JSON.stringify({
                     content: data.content,
                     username: data.username,

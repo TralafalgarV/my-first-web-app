@@ -1,32 +1,24 @@
 import React, { Component } from 'react'
 import showdown from 'showdown'
 
-class Markdown extends React.Component{
-    constructor(props){
-        super(props)
+let converter = new showdown.Converter()
 
-        // 初始化showdown实例
-        this.converter = new showdown.Converter()
-    }
+const Markdown = ({content}) => {
+    // 初始化showdown实例
+    
+    console.log("[Markdown] ", converter)
+    // 更新 article 内容
+    var html = converter.makeHtml(content)
+    console.log(html)
+    // document.getElementById("wmd-preview").innerHTML = html
 
-    componentDidMount() {
-    }
 
-    // 接收更新后的 props 
-    componentWillReceiveProps(nextProps) {
-        console.log("componentWillReceiveProps: ", nextProps)
-        // 更新 article 内容
-        var html = this.converter.makeHtml(nextProps.content)
-        document.getElementById("wmd-preview").innerHTML = html
-    }
-
-    render(){
-        return(
-            <div className="fmt" id="wmd-preview">
-                <div></div>
-            </div>
-        )
-    }
+    // React默认会进行HTML的转义，避免XSS攻击，如果要不转义，可以这么写
+    return(
+        <div className="fmt" id="wmd-preview">
+            <div dangerouslySetInnerHTML={{__html: html}}></div>
+        </div>
+    )
 }
 
 module.exports = Markdown

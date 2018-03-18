@@ -37,6 +37,7 @@ class Me extends React.Component {
             return
         }
         // req: {usrname: ****, ....}
+        // 通过 username 获取到对应用户的文章列表
         let req = {
             usrname: usrInfo.username
         }

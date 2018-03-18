@@ -4,7 +4,6 @@ const API = 'https://47.96.183.75/'
 const USER_LOGIN = 'userLogin'
 // 引入 whatwg-fetch 模块，解决fetch兼容性问题
 import 'whatwg-fetch'
-import { win32 } from 'path';
 
 /**
  * fetch请求数据Model
@@ -33,7 +32,7 @@ function _request(_method, _api, _params, _onSuccess, _onError) {
     }
 
     if (_method.toLowerCase() == 'get') {
-        _api += Tools._getSearchFromObject(_params)
+        _api += Tools._getSearchFromObject(_params)  // 转成 ?key=value&key=value& 形式
     }
 
     fetch(_api, _options)
@@ -62,6 +61,9 @@ function _request(_method, _api, _params, _onSuccess, _onError) {
 let Tools = {
     // 检查响应数据
     checkStates : function (response) {
+        // response:当接收到一个代表错误的 HTTP 状态码时，从 fetch()返回的 Promise 不会被标记为 reject， 即使该 HTTP 响应的状态码是 404 或 500。
+        // 相反，它会将 Promise 状态标记为 resolve （但是会将 resolve 的返回值的 ok 属性设置为 false ），  
+        // 仅当网络故障时或请求被阻止时，才会标记为 reject。
         if (response.ok) {
             return response
         } else {

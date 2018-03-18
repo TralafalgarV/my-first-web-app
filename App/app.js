@@ -38,28 +38,26 @@ App
 const rootRoute = {
     // 此时访问App时，不会显示任何子组件，this.prop.children为undefined
     component: require('./Components/main').default,
-    childRoutes: [
-        {
-            path: '/', // 根路由；对应于上面的App组件
-            indexRoute: { // 由于App页面没有内容，所以需要一个根路由的子组件
-                getComponent(nextState, cb) {
-                    require.ensure([], (require) => {
-                        cb(null, require('./Components/IndexList'))
-                    })
-                }
-            },
-            childRoutes: [
-                IndexList,
-                Create,
-                Music,
-                Me,
-                ArticleDetail,
-                Login,
-                MusicPlayer,
-                MusicSearch
-            ]
-        }
-    ]
+    childRoutes: [{
+        path: '/', // 根路由；对应于上面的App组件
+        indexRoute: { // 由于App页面没有内容，所以需要一个根路由的子组件
+            getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                    cb(null, require('./Components/IndexList'))
+                })
+            }
+        },
+        childRoutes: [
+            IndexList,
+            Create,
+            Music,
+            Me,
+            ArticleDetail,
+            Login,
+            MusicPlayer,
+            MusicSearch
+        ]
+    }]
 }
 
 // Router组件本身只是一个容器，真正的路由要通过Route组件定义

@@ -11,7 +11,7 @@ function musicPlayerReducer(state = {}, action) {
                 curMusic: action.curMusic,
                 musicList: action.musicList,
                 index: action.index
-            });            
+            })
         default:
             return state;
     }

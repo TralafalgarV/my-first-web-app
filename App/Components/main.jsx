@@ -169,7 +169,7 @@ class PureApp extends React.Component {
                             hashHistory.push(path)
                             console.log("click", data)                            
                         }
-                    }}><PlayIndicator option={_this.props.fuck.musicPlayerReducer.option}/></span>        
+                    }}><PlayIndicator option={_this.props.fuck.musicPlayerReducer.option || ""}/></span>        
             </nav>
         )
     }
