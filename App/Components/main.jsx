@@ -37,33 +37,33 @@ class PureApp extends React.Component {
     }
 
     // Called to determine whether the change in props and state should trigger a re-render.
-    // shouldComponentUpdate(nextProps={}, nextState={}) {
-    //     console.log("[App] shouldComponentUpdate...", nextProps)
+    shouldComponentUpdate(nextProps={}, nextState={}) {
+        console.log("[App] shouldComponentUpdate...", nextProps)
 
-    //     const thisProps = this.props || {}
-    //     const thisState = this.state || {}
+        const thisProps = this.props || {}
+        const thisState = this.state || {}
 
-    //     if (Object.keys(thisProps).length !== Object.keys(nextProps).length ||
-    //         Object.keys(thisState).length !== Object.keys(nextState).length) {
-    //         return true
-    //     }
+        if (Object.keys(thisProps).length !== Object.keys(nextProps).length ||
+            Object.keys(thisState).length !== Object.keys(nextState).length) {
+            return true
+        }
 
-    //     for (const key in nextProps) {
-    //         if (!is(thisProps[key], nextProps[key])) {
-    //             console.log("[App] shouldComponentUpdate: nextProps update")                
-    //             return true 
-    //         }
-    //     }
+        for (const key in nextProps) {
+            if (!is(thisProps[key], nextProps[key])) {
+                console.log("[App] shouldComponentUpdate: nextProps update", nextProps[key])                
+                return true 
+            }
+        }
 
-    //     for (const key in nextState) {
-    //         if (!is(thisState[key], nextState[key])) {
-    //             console.log("[App] shouldComponentUpdate: nextState update")                
-    //             return true 
-    //         }
-    //     }
-    //     console.log("[App] shouldComponentUpdate: false")
-    //     return false
-    // }
+        for (const key in nextState) {
+            if (!is(thisState[key], nextState[key])) {
+                console.log("[App] shouldComponentUpdate: nextState update", nextState[key])                
+                return true 
+            }
+        }
+        console.log("[App] shouldComponentUpdate: false")
+        return false
+    }
 
     // Called immediately after a compoment is mounted. Setting state here will trigger re-rendering.
     componentDidMount() {
@@ -123,7 +123,7 @@ class PureApp extends React.Component {
                 <div className="tab-item">
                     <img id="logo" src={require("../Static/logo/1.svg")} alt="Logo" onClick={() => {
                         document.querySelector(".gitUrl").click()
-                    }}/>
+                    }} alt="博客Logo"/>
                     <a href="https://github.com/TralafalgarV/MyWebApp" target="_blank" className="gitUrl" style={{height:"0", width:"0", zIndex: "-1", position: "absolute", left:"0"}}></a>
                 </div>
                 <Link className="tab-item" activeClassName="active" to="/indexlist">

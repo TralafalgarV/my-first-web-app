@@ -47,7 +47,7 @@ class Music extends React.Component {
         return (
             images.map(function(item, index) {
                 return (
-                    <div className="gallery-pic" key={index}><img src={item} alt="" /></div>                                    
+                    <div className="gallery-pic" key={index}><img src={item} alt="专辑封面"/></div>                                    
                 )
             })
         )

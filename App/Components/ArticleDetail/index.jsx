@@ -140,7 +140,7 @@ class ArticleDetail extends Component {
             return (
                 <li className="row no-gutter" key={index}>
                     <div className="col-15" style={{padding:'0.3rem 0', width:"2.5rem"}}>
-                        <img className="comment-avatar" src={AVATARPATH} alt="无"/>
+                        <img className="comment-avatar" src={AVATARPATH} alt="用户头像"/>
                     </div>
                     <div className="col-85 comment-list">
                         <div>

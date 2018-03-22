@@ -167,7 +167,7 @@ class Player extends React.Component {
                 <div className="music-player-container is-playing">
                     <div className="album">
                         <div className="album-art">
-                            <img src={albumUrl} alt=""/>
+                            <img src={albumUrl} alt="音乐封面"/>
                         </div>
                         {
                             // 从主页进入，且操作状态为 start，需要保留播放状态

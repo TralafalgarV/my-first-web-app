@@ -10,7 +10,7 @@
 #### 数据流控制: redux
 #### 服务器： 阿里云 + nginx
 
-## 访问IP ： http://47.96.183.75
+## 访问IP ： https://www.coderfreedom.cn
     1. 网站正在备案阶段，目前还无法通过域名访问（https://www.coderfreedom.cn/）
     2. 由于生成SSL数字证书需要域名，所以现在通过https访问网站，会出现证书不受信任的情况
 

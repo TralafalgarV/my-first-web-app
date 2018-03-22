@@ -225,7 +225,7 @@ class Create extends React.Component {
                                 e.target.src = require("../../Static/create-icon/img-click.png")
                             }} onMouseLeave={(e) => {
                                 e.target.src = require("../../Static/create-icon/img.png")
-                            }}/>
+                            }} alt="音乐封面"/>
                             {/* 原来按钮的样式 */}
                             <input className="file" name="file" type="file" style={{height:"0", width:"0", zIndex: "-1", position: "absolute", left:"0"}} onChange={(e) => {
                                 this.uploadImg(e) // 在这个地方上传img，并转成markdown语句显示出来

@@ -225,7 +225,7 @@ class IndexList extends React.Component {
                             <div className=""><h4>{item.title}</h4></div>
                             <div className="" style={{marginTop:'5px', position: "relative"}}>
                                 <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
-                                    <img src={AVATARPATH} style={{marginRight:'0.3rem', height:'1rem', display:'inline-block'}}  alt="图片"/>
+                                    <img src={AVATARPATH} style={{marginRight:'0.3rem', height:'1rem', display:'inline-block'}}  alt="用户头像"/>
                                 </div>
                                 <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
                                     <div style={{display:'inline-block', fontSize:'0.8rem', fontWeight:600, marginRight:'0.3rem'}}>{item.author}</div>
