@@ -222,7 +222,7 @@ class IndexList extends React.Component {
                 <li className="" key={index}>
                     <Link to={'/indexList/'+item._id} style={{display:'block'}}>                    
                         <div className="list">
-                            <div className=""><h4>{item.title}</h4></div>
+                            <header className=""><h4>{item.title}</h4></header>
                             <div className="" style={{marginTop:'5px', position: "relative"}}>
                                 <div style={{display:'inline-block', verticalAlign:'top', height:'1.2rem'}}>
                                     <img src={AVATARPATH} style={{marginRight:'0.3rem', height:'1rem', display:'inline-block'}}  alt="用户头像"/>
@@ -232,7 +232,7 @@ class IndexList extends React.Component {
                                     <div style={{display:'inline-block', fontSize:'0.6rem', marginRight:"3px"}}><span className="icon icon-clock"></span>{DateDiff(item.createTime)}</div>
                                 </div>
                             </div>
-                            <div className=""><p style={Styles.pStyle}>{_this.wordControl(str)}</p></div>
+                            <section className=""><p style={Styles.pStyle}>{_this.wordControl(str)}</p></section>
                         </div>
                     </Link>
                     {
