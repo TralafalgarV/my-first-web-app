@@ -11,6 +11,7 @@ module.exports = {
         chunkFilename: 'js/[name].[chunkhash:5].js'
     },
     resolve: {
+        modules: [path.resolve(__dirname, 'node_modules')],
         extensions: [
             '*',
             '.js',
@@ -22,7 +23,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({title: 'webpack', template: './App/index.html', filename: 'index.html'}),
-        new openBrowserWebpackPlugin({url: 'http://localhost:8800'})
+        new openBrowserWebpackPlugin({url: 'https://localhost:8800'})
     ],
     devServer: {
         port: 8800,
@@ -32,14 +33,23 @@ module.exports = {
             colors: true,
             cached: false
         },
-        host: "0.0.0.0"
+        host: "0.0.0.0",
+        https: true
     },
     devtool: 'eval-source-map',
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/, //正则，匹配到的文件后缀名
-                use: ['babel-loader']
+                use: [{
+                    loader: 'babel-loader',
+                    query: {
+                      // 将 babel 编译过的模块缓存在 webpack_cache 目录下，下次优先复用
+                      cacheDirectory: './webpack_cache/',
+                    },
+                }],
+                // 减少 babel 编译范围，忘记设置会让 webpack 编译慢上好几倍
+                include: path.resolve(__dirname, 'App')              
             },
             //加载css代码
             {
