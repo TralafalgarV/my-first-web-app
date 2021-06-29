@@ -1,5 +1,4 @@
-# MyWebApp
-利用下班时间自学前端完成的一个小移动端demo。非常感谢它顺利帮我从嵌入式转型到前端。虽然从三年后视角看这个项目是那么的糟糕，但是从里面学到的基础知识，一直伴随我成长。
+利用下班时间自学前端完成的一个小demo。非常感谢它顺利帮我从嵌入式转型到前端。虽然从三年后视角看这个项目是那么的糟糕，但是从里面学到的基础知识，一直伴随我成长。
 
 ### 技术栈 : React + React-Router + Redux + webpack + babel + Node + express + mongodb 等
 
@@ -11,8 +10,8 @@
 #### 数据流控制: redux
 #### 服务器： 阿里云 + nginx
 
-## 访问IP ： https://www.coderfreedom.cn
-    1. 网站正在备案阶段，目前还无法通过域名访问（https://www.coderfreedom.cn/）
+## 访问IP
+    1. 网站正在备案阶段，目前还无法通过域名访问（https://www.coderfreedom.cn/）。目前已经不再续费了！
     2. 由于生成SSL数字证书需要域名，所以现在通过https访问网站，会出现证书不受信任的情况
 
 ## 下载
