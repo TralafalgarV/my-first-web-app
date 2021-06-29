@@ -1,4 +1,5 @@
 # MyWebApp
+利用下班时间自学前端完成的一个小移动端demo。非常感谢它顺利帮我从嵌入式转型到前端。虽然从三年后视角看这个项目是那么的糟糕，但是从里面学到的基础知识，一直伴随我成长。
 
 ### 技术栈 : React + React-Router + Redux + webpack + babel + Node + express + mongodb 等
 
